@@ -1,0 +1,40 @@
+# Справочник лимитов MiniMax Token Plan (подставьте свои цифры с биллинга).
+# Скрипты в examples/ этот файл не читают — только для вас.
+
+speech:
+  sync:
+    hd_models: # speech-2.8-hd, speech-2.6-hd, speech-02-hd
+      requests_per_generation: 600
+      max_characters_per_generation: 1000
+    turbo_models: # speech-2.8-turbo, speech-2.6-turbo, speech-02-turbo
+      requests_per_generation: 300
+      max_characters_per_generation: 1000
+  async:
+    hd_models:
+      requests_per_generation: 450
+      max_characters_per_generation: 1000
+    turbo_models:
+      requests_per_generation: 225
+      max_characters_per_generation: 1000
+
+video:
+  MiniMax-Hailuo-2.3-Fast:
+    "768P_6s": 3000
+  MiniMax-Hailuo-2.3:
+    "768P_6s": 4500
+  MiniMax-Hailuo-02:
+    "768P_6s": 4500
+    "512P_6s": 1500
+    "512P_10s": 2250
+
+music:
+  Music-2.5+: 3000  # requests per 5-min music (как в описании плана)
+  Music-2.5: 3000
+  Music-2.0: 450
+
+lyrics:
+  requests_per_song: 75
+
+image:
+  image-01_and_image-01-live:
+    requests_per_image: 75
