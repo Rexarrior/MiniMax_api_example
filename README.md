@@ -42,12 +42,14 @@ set -a && source .env && set +a && python3 examples/01_text_anthropic.py
 
 Скрипт [`scripts/run_token_plan_models.sh`](scripts/run_token_plan_models.sh) по очереди вызывает текст, все 6 speech-моделей (sync + async), варианты видео из плана (Hailuo 2.3, 02 в разных разрешениях, 2.3-Fast I2V), музыку (`music-2.5+`, `music-2.5`, `music-2.0`), lyrics и оба image-примера. Результаты — в `out/`.
 
+**Предупреждение о квоте.** При первом запуске скрипт не выполняет прогон: печатает предупреждение и выходит с кодом 1. Полный прогон может израсходовать порядка **25 000–30 000** обращений к API по вашей квоте — имеет смысл гонять примеры по частям. Чтобы явно согласиться и продолжить, задайте **`WARNING_READED=1`** в окружении (например, в командной строке) или добавьте ту же строку в `.env`.
+
 Для **MiniMax-Hailuo-02** разрешение **512P** в API допустимо только вместе с **`first_frame_image`** (image-to-video); в раннере для 512P используется `05_video_i2v.sh`, а не text-to-video.
 
 ```bash
-bash scripts/run_token_plan_models.sh
+WARNING_READED=1 bash scripts/run_token_plan_models.sh
 # быстрее (без долгих видео и без 6× async TTS):
-SKIP_VIDEO=1 SKIP_ASYNC_SPEECH=1 bash scripts/run_token_plan_models.sh
+WARNING_READED=1 SKIP_VIDEO=1 SKIP_ASYNC_SPEECH=1 bash scripts/run_token_plan_models.sh
 ```
 
 У скриптов `07`–`10` при `MINIMAX_RAW_JSON=1` на stdout уходит одна строка JSON (удобно для пайпов); раннер выставляет её сам.
