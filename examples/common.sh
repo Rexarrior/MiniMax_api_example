@@ -16,6 +16,11 @@ fi
 
 export MINIMAX_API_BASE="${MINIMAX_API_BASE:-https://api.minimax.io}"
 
+EMIT_SAFE_JSON="${ROOT}/examples_python/emit_safe_json.py"
+emit_safe_json_stderr() {
+  MINIMAX_RAW_JSON=0 python3 "$EMIT_SAFE_JSON" >&2
+}
+
 curl_minimax_json() {
   local method="$1"
   local path="$2"

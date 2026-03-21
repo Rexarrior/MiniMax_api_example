@@ -29,7 +29,7 @@ print(json.dumps({
 
 CREATE_RESP=$(curl_minimax_json POST "/v1/t2a_async_v2" "$BODY")
 if ! python3 -c "import json,sys; d=json.load(sys.stdin); sys.exit(0 if d.get('base_resp',{}).get('status_code')==0 else 1)" <<<"$CREATE_RESP"; then
-  echo "$CREATE_RESP" | python3 -m json.tool >&2
+  echo "$CREATE_RESP" | emit_safe_json_stderr
   exit 1
 fi
 
@@ -43,11 +43,18 @@ for _ in $(seq 1 120); do
     FILE_ID=$(python3 -c "import json,sys; print(json.load(sys.stdin).get('file_id',''))" <<<"$Q")
     echo "status=success file_id=$FILE_ID"
     R=$(curl_minimax_json GET "/v1/files/retrieve?file_id=${FILE_ID}")
-    python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('file',{}).get('download_url',''))" <<<"$R"
+    URL=$(python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('file',{}).get('download_url',''))" <<<"$R")
+    SAFE=$(printf '%s' "$MODEL" | python3 -c "import re,sys; print(re.sub(r'[^0-9a-zA-Z._-]+','_',sys.stdin.read().strip()))")
+    OUT_DIR="$DIR/../out"
+    mkdir -p "$OUT_DIR"
+    OUT_FILE="${OUT_FILE:-$OUT_DIR/t2a_async_${SAFE}.mp3}"
+    curl -fsSL -A "minimax_explore/1" -o "$OUT_FILE" "$URL"
+    echo "Wrote $OUT_FILE" >&2
+    echo "$URL"
     exit 0
   fi
   if [[ "$ST" == "failed" || "$ST" == "expired" ]]; then
-    echo "$Q" | python3 -m json.tool >&2
+    echo "$Q" | emit_safe_json_stderr
     exit 1
   fi
   sleep 2

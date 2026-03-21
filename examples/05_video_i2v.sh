@@ -24,8 +24,13 @@ print(json.dumps({
 
 RESP=$(curl_minimax_json POST "/v1/video_generation" "$BODY")
 if ! python3 -c "import json,sys; d=json.load(sys.stdin); sys.exit(0 if d.get('base_resp',{}).get('status_code')==0 else 1)" <<<"$RESP"; then
-  echo "$RESP" | python3 -m json.tool >&2
+  echo "$RESP" | emit_safe_json_stderr
   exit 1
 fi
 
-python3 -c "import json,sys; d=json.load(sys.stdin); print(d['task_id'])" <<<"$RESP"
+TID=$(python3 -c "import json,sys; d=json.load(sys.stdin); print(d['task_id'])" <<<"$RESP")
+OUT_ROOT="$(cd "$DIR/.." && pwd)"
+mkdir -p "$OUT_ROOT/out"
+echo "$TID" > "$OUT_ROOT/out/last_video_task_id.txt"
+echo "Wrote $OUT_ROOT/out/last_video_task_id.txt" >&2
+echo "$TID"

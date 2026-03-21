@@ -35,7 +35,7 @@ print(json.dumps({
 RESP=$(curl_minimax_json POST "/v1/t2a_v2" "$BODY")
 CODE=$(echo "$RESP" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('base_resp',{}).get('status_code',''))")
 if [[ "$CODE" != "0" ]]; then
-  echo "$RESP" | python3 -m json.tool >&2
+  echo "$RESP" | emit_safe_json_stderr
   exit 1
 fi
 
@@ -44,5 +44,5 @@ import json, sys, binascii
 d = json.load(sys.stdin)
 hex_audio = d['data']['audio']
 open(sys.argv[1], 'wb').write(binascii.unhexlify(hex_audio))
-print('Wrote', sys.argv[1])
+print('Wrote', sys.argv[1], file=sys.stderr)
 " "$OUT_FILE"

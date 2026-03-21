@@ -37,7 +37,7 @@ mkdir -p out
 run() { echo ""; echo "=== $* ==="; }
 
 run "01 text (MiniMax-M2.7)"
-python3 examples/01_text_anthropic.py
+python3 examples_python/01_text_anthropic.py
 echo
 
 SPEECH_SYNC_MODELS=(
@@ -101,67 +101,33 @@ export MINIMAX_RAW_JSON=1
 
 for m in music-2.5+ music-2.5 music-2.0; do
   run "07 music: $m"
-  MODEL="$m" bash examples/07_music_generation.sh | ROOT_DIR="$ROOT" MODEL_TAG="$m" python3 -c '
-import binascii, json, os, pathlib, re, sys
+  MODEL="$m" bash examples/07_music_generation.sh | python3 -c '
+import json, sys
 d = json.load(sys.stdin)
-root = pathlib.Path(os.environ["ROOT_DIR"]) / "out"
-root.mkdir(parents=True, exist_ok=True)
 print("ok status", d.get("base_resp", {}).get("status_code"), "trace", d.get("trace_id", ""))
-aud = d.get("data", {}).get("audio")
-if isinstance(aud, str) and aud.strip():
-  safe = re.sub(r"[^0-9a-zA-Z._-]+", "_", os.environ["MODEL_TAG"])
-  path = root / f"music_{safe}.mp3"
-  path.write_bytes(binascii.unhexlify(aud))
-  print("wrote", path)
-else:
-  print("(no hex audio in response; mp3 not saved)")
 '
 done
 
 run "08 lyrics"
-bash examples/08_lyrics_generation.sh | ROOT_DIR="$ROOT" python3 -c '
-import json, os, pathlib, re, sys
+bash examples/08_lyrics_generation.sh | python3 -c '
+import json, sys
 d = json.load(sys.stdin)
-root = pathlib.Path(os.environ["ROOT_DIR"]) / "out"
-root.mkdir(parents=True, exist_ok=True)
-title = d.get("song_title") or "untitled"
-body = d.get("lyrics") or ""
-print("title:", title)
-print("lyrics_len:", len(body))
-slug = re.sub(r"[^0-9a-zA-Z._-]+", "_", title)[:100] or "lyrics"
-path = root / f"lyrics_{slug}.txt"
-path.write_text(title + "\n\n" + body, encoding="utf-8")
-print("wrote", path)
+print("title:", d.get("song_title", ""))
+print("lyrics_len:", len(d.get("lyrics", "")))
 '
 
 run "09 image T2I image-01"
-bash examples/09_image_t2i.sh | ROOT_DIR="$ROOT" python3 -c '
-import json, os, pathlib, sys, urllib.request
+bash examples/09_image_t2i.sh | python3 -c '
+import json, sys
 d = json.load(sys.stdin)
-root = pathlib.Path(os.environ["ROOT_DIR"]) / "out"
-urls = d.get("data", {}).get("image_urls") or []
-print("urls:", urls)
-for i, u in enumerate(urls):
-  req = urllib.request.Request(u, headers={"User-Agent": "minimax_explore/1"})
-  dest = root / f"image_t2i_{i}.jpeg"
-  with urllib.request.urlopen(req, timeout=120) as r:
-    dest.write_bytes(r.read())
-  print("wrote", dest)
+print("urls:", d.get("data", {}).get("image_urls", []))
 '
 
 run "10 image I2I image-01-live"
-bash examples/10_image_i2i.sh | ROOT_DIR="$ROOT" python3 -c '
-import json, os, pathlib, sys, urllib.request
+bash examples/10_image_i2i.sh | python3 -c '
+import json, sys
 d = json.load(sys.stdin)
-root = pathlib.Path(os.environ["ROOT_DIR"]) / "out"
-urls = d.get("data", {}).get("image_urls") or []
-print("urls:", urls)
-for i, u in enumerate(urls):
-  req = urllib.request.Request(u, headers={"User-Agent": "minimax_explore/1"})
-  dest = root / f"image_i2i_{i}.jpeg"
-  with urllib.request.urlopen(req, timeout=120) as r:
-    dest.write_bytes(r.read())
-  print("wrote", dest)
+print("urls:", d.get("data", {}).get("image_urls", []))
 '
 
 echo ""
