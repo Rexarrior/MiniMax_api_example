@@ -1,7 +1,12 @@
 .env
 __pycache__/
 *.pyc
-out/
-*.mp3
-*.mp4
-*.wav
+
+# Generated tank game assets (run app_examples/generate_tank_game_assets.py)
+app_examples/tanks/assets/*
+!app_examples/tanks/assets/.gitkeep
+
+# Local Mini-Agent websearch secrets / workspace
+app_examples/mini_agent_websearch/config/config.yaml
+app_examples/mini_agent_websearch/config/mcp.json
+app_examples/mini_agent_websearch/workspace/

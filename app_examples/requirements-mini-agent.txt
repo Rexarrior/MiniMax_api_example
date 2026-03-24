@@ -1,0 +1,3 @@
+# Mini-Agent + MCP stack (optional; keep separate from repo root requirements.txt)
+mini-agent @ git+https://github.com/MiniMax-AI/Mini-Agent.git
+python-telegram-bot>=21.6

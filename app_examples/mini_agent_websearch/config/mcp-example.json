@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "minimax_search": {
+      "description": "MiniMax Search MCP — web search (Serper) and browse (Jina + MiniMax)",
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/MiniMax-AI/minimax_search",
+        "minimax-search"
+      ],
+      "disabled": false
+    }
+  }
+}

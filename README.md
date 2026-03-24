@@ -42,6 +42,7 @@
 | [`examples_python/05_video_i2v.py`](examples_python/05_video_i2v.py) | Image-to-video → `task_id` |
 | [`examples_python/06_video_poll.py`](examples_python/06_video_poll.py) | Опрос видео и скачивание в `out/` |
 | [`examples_python/07_music_generation.py`](examples_python/07_music_generation.py) | `MINIMAX_RAW_JSON=1` — одна строка JSON |
+| [`examples_python/07_music_from_lyrics_file.py`](examples_python/07_music_from_lyrics_file.py) | Длинный текст: несколько `POST /v1/music_generation`, опционально `ffmpeg` → один mp3 |
 | [`examples_python/08_lyrics_generation.py`](examples_python/08_lyrics_generation.py) | Генерация текста песни |
 | [`examples_python/09_image_t2i.py`](examples_python/09_image_t2i.py) | Text-to-image |
 | [`examples_python/10_image_i2i.py`](examples_python/10_image_i2i.py) | Image-to-image |
@@ -57,6 +58,41 @@ python3 examples_python/02_speech_t2a_sync.py
 (`chmod +x examples/*.sh` при желании вызывать `./examples/...`.)
 
 Для видео: `python3 examples_python/04_video_t2v.py`, затем `TASK_ID=... python3 examples_python/06_video_poll.py`.
+
+**Длинные тексты под музыку.** В [доке MiniMax](https://platform.minimax.io/docs/api-reference/music-generation) у поля `lyrics` есть лимит длины (для `music-2.0` — порядка **3000** символов; у `music-2.5*` — до **3500**). Отдельного параметра «продолжить предыдущий аудиофайл» в Music Generation **нет**; «продолжение» в смысле текста относится к [`/v1/lyrics_generation`](https://platform.minimax.io/docs/api-reference/lyrics-generation) (`mode: edit`). Чтобы озвучить весь ваш текст, скрипт [`07_music_from_lyrics_file.py`](examples_python/07_music_from_lyrics_file.py) режет размеченный файл на части и вызывает API несколько раз; при наличии `ffmpeg` можно собрать `music_<model>_all.mp3`:
+
+```bash
+PYTHONPATH=examples_python python3 examples_python/07_music_from_lyrics_file.py my_liryc_tagged.txt --model music-2.0 --concat
+```
+
+## App examples: агент с веб-поиском (Mini-Agent)
+
+В каталоге [`app_examples/mini_agent_websearch/`](app_examples/mini_agent_websearch/) — пример **интерфейса к одному и тому же пайплайну**: фреймворк [Mini-Agent](https://github.com/MiniMax-AI/Mini-Agent), LLM MiniMax через Anthropic-совместимый API и MCP-сервер [minimax_search](https://github.com/MiniMax-AI/minimax_search) (поиск в интернете). Отдельно от корневого `requirements.txt` ставятся зависимости:
+
+```bash
+pip install -r app_examples/requirements-mini-agent.txt
+```
+
+Подробные шаги, переменные `.env`, CLI и Telegram-бот — в [`app_examples/mini_agent_websearch/README.md`](app_examples/mini_agent_websearch/README.md).
+
+| Компонент | Назначение |
+|-----------|------------|
+| [`websearch_agent.py`](app_examples/mini_agent_websearch/websearch_agent.py) | Загрузка конфига, MCP, один вызов `Agent.run()` |
+| [`run_websearch_bot.py`](app_examples/mini_agent_websearch/run_websearch_bot.py) | CLI: один запрос из аргументов |
+| [`telegram_agent_bot.py`](app_examples/mini_agent_websearch/telegram_agent_bot.py) | Telegram: текст пользователя → тот же `run_query` |
+| [`config/config-example.yaml`](app_examples/mini_agent_websearch/config/config-example.yaml) | Урезанный набор инструментов (только MCP), модель как в `01_text_anthropic.py` |
+| [`config/mcp-example.json`](app_examples/mini_agent_websearch/config/mcp-example.json) | Запуск `minimax_search` через `uvx` |
+
+### Откуда взято в документации и примерах
+
+- **[Mini-Agent в документации MiniMax](https://platform.minimax.io/docs/solutions/mini-agent)** — описание цикла агента (восприятие → рассуждение → действие → обратная связь), роли конфигурации `config.yaml`, включение MCP и указание `mcp.json`, установка через `uv` / `uv sync`, запуск `python -m mini_agent.cli`. Отсюда же согласована идея: провайдер `anthropic`, `api_base` для глобального endpoint MiniMax, отдельный файл с системным промптом.
+- **Репозиторий [MiniMax-AI/Mini-Agent](https://github.com/MiniMax-AI/Mini-Agent)** (исходники фреймворка):
+  - структура и поля конфига — по образцу [`mini_agent/config/config-example.yaml`](https://github.com/MiniMax-AI/Mini-Agent/blob/main/mini_agent/config/config-example.yaml) (в нашем примере отключены file/bash/note/skills, оставлен только MCP);
+  - фрагмент MCP — по [`mini_agent/config/mcp-example.json`](https://github.com/MiniMax-AI/Mini-Agent/blob/main/mini_agent/config/mcp-example.json) (сервер `minimax_search`, `uvx`, `git+https://github.com/MiniMax-AI/minimax_search`);
+  - сценарий «поднять конфиг, собрать инструменты, создать `Agent`, вызвать `run()`» — по духу примера [`examples/04_full_agent.py`](https://github.com/MiniMax-AI/Mini-Agent/blob/main/examples/04_full_agent.py) (`LLMClient`, `load_mcp_tools_async`, `cleanup_mcp_connections`).
+- **Репозиторий [MiniMax-AI/minimax_search](https://github.com/MiniMax-AI/minimax_search)** — описание инструментов `search` / `browse` и обязательных переменных окружения (`SERPER_API_KEY`, для чтения страниц — `JINA_API_KEY`, для LLM при browse — `MINIMAX_API_KEY`), как в их README.
+
+Индекс страниц доки MiniMax: [llms.txt](https://platform.minimax.io/docs/llms.txt).
 
 ## Прогон всех моделей Token Plan (без STT)
 
