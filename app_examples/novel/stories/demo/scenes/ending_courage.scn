@@ -1,0 +1,7 @@
+id: ending_courage
+title: "The End - Courage"
+
+dialogue:
+  - narrator: "THE END"
+  - narrator: "Your courage impressed the forest spirits."
+  - narrator: "They granted you safe passage."

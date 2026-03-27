@@ -1,0 +1,17 @@
+id: alternative_path
+title: "The Alternative"
+
+dialogue:
+  - character: hermit
+    text: "There is no other way. The forest decides who stays and who goes."
+    mood: serious
+  - narrator: "He gestures toward a hidden path."
+  - character: hermit
+    text: "But I will show you a shortcut. Follow the stream north."
+    mood: helpful
+
+choice:
+  - text: "Take the shortcut"
+    next: ending_shortcut
+  - text: "Thank him but find your own way"
+    next: forest_path

@@ -1,0 +1,17 @@
+id: call_out
+title: "Calling Out"
+
+dialogue:
+  - character: hermit
+    text: "Who goes there? Show yourself!"
+    mood: suspicious
+  - narrator: "A gruff voice echoes through the trees."
+  - character: hermit
+    text: "Strangers are not welcome here. But since you're lost..."
+    mood: grumbling
+
+choice:
+  - text: "Thank the old man and ask for directions"
+    next: meet_hermit
+  - text: "Ignore him and walk away"
+    next: forest_path

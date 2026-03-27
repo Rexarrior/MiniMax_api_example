@@ -1,0 +1,7 @@
+id: ending_hermit_student
+title: "The End - Hermit's Student"
+
+dialogue:
+  - narrator: "THE END"
+  - narrator: "You chose to stay and learn from the hermit."
+  - narrator: "The forest became your new home."

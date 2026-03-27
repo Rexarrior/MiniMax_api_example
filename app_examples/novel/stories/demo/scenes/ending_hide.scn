@@ -1,0 +1,7 @@
+id: ending_hide
+title: "The End - Hiding"
+
+dialogue:
+  - narrator: "THE END"
+  - narrator: "Patience and caution helped you escape."
+  - narrator: "The forest accepted your wisdom."

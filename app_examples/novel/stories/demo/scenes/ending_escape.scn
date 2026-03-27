@@ -1,0 +1,7 @@
+id: ending_escape
+title: "The End - Escape"
+
+dialogue:
+  - narrator: "THE END"
+  - narrator: "You escaped through the stream."
+  - narrator: "The forest let you go."

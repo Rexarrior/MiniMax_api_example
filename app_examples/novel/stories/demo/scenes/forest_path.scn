@@ -1,0 +1,17 @@
+id: forest_path
+title: "The Forest Path"
+
+dialogue:
+  - narrator: "You walk deeper into the forest."
+  - narrator: "The trees grow thicker and the light fades."
+  - narrator: "Suddenly, you hear strange sounds all around you."
+
+generate_image: "dark mysterious forest path with ancient trees"
+
+choice:
+  - text: "Run forward"
+    next: escape_attempt
+  - text: "Hide behind a tree"
+    next: hide_attempt
+  - text: "Stand your ground"
+    next: stand_ground

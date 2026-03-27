@@ -1,0 +1,10 @@
+id: hide_attempt
+title: "Hiding"
+
+dialogue:
+  - narrator: "You hide behind a large oak tree."
+  - narrator: "Through the leaves, you see shadowy figures passing by."
+  - narrator: "After they leave, you carefully make your way through the forest."
+  - narrator: "You eventually find the forest's exit."
+
+next: ending_hide

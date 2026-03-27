@@ -1,0 +1,16 @@
+id: find_amulet
+title: "Finding the Amulet"
+
+dialogue:
+  - narrator: "You approach the shining object."
+  - narrator: "It's a beautiful golden amulet lying on a mossy stone."
+  - narrator: "As you pick it up, you feel a strange energy flowing through you."
+  - narrator: "The amulet seems to have magical properties."
+
+choice:
+  - text: "Put on the amulet"
+    next: wear_amulet
+  - text: "Take it but don't wear it"
+    next: take_amulet
+  - text: "Leave it and continue exploring"
+    next: forest_path

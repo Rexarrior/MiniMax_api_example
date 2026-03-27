@@ -1,0 +1,11 @@
+id: stand_ground
+title: "Standing Firm"
+
+dialogue:
+  - narrator: "You stand your ground firmly."
+  - narrator: "The shadows circle around you but don't attack."
+  - narrator: "It seems the forest respects courage."
+  - narrator: "The shadows part, revealing a clear path."
+  - narrator: "You walk calmly through the forest and find the exit."
+
+next: ending_courage

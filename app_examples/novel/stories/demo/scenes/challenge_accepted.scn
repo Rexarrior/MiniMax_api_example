@@ -1,0 +1,19 @@
+id: challenge_accepted
+title: "The Challenge"
+
+dialogue:
+  - narrator: "The hermit nods approvingly."
+  - character: hermit
+    text: "Brave choice. Solve my riddle and you shall pass."
+    mood: pleased
+  - narrator: "He whispers an ancient riddle about the forest."
+  - narrator: "Using your wisdom, you solve the riddle correctly."
+  - character: hermit
+    text: "Excellent! You may pass. The exit lies beyond the ancient oak."
+    mood: impressed
+
+choice:
+  - text: "Thank him and leave"
+    next: ending_hermit_wisdom
+  - text: "Ask to stay and learn from him"
+    next: ending_hermit_student

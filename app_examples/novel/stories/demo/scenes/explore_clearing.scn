@@ -1,0 +1,15 @@
+id: explore_clearing
+title: "Exploring the Clearing"
+
+dialogue:
+  - narrator: "You carefully look around the clearing."
+  - narrator: "Among the trees, you notice a faint path barely visible."
+  - narrator: "There seems to be something shining in the distance."
+
+choice:
+  - text: "Follow the path"
+    next: forest_path
+  - text: "Investigate the shining object"
+    next: find_amulet
+  - text: "Go back to sleep"
+    next: intro

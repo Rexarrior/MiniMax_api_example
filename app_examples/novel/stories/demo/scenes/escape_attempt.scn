@@ -1,0 +1,11 @@
+id: escape_attempt
+title: "Running Away"
+
+dialogue:
+  - narrator: "You run forward through the forest."
+  - narrator: "The sounds grow louder behind you."
+  - narrator: "You stumble and fall into a hidden stream."
+  - narrator: "The cold water shocks you, but also reveals the path clearly."
+  - narrator: "Following the stream, you finally escape the forest."
+
+next: ending_escape

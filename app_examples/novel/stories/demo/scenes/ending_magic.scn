@@ -1,0 +1,7 @@
+id: ending_magic
+title: "The End - Magic"
+
+dialogue:
+  - narrator: "THE END"
+  - narrator: "You became one with the forest."
+  - narrator: "The amulet's magic changed you forever."

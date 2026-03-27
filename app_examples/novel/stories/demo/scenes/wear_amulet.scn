@@ -1,0 +1,11 @@
+id: wear_amulet
+title: "The Magical Amulet"
+
+dialogue:
+  - narrator: "You put on the amulet."
+  - narrator: "Suddenly, you can understand the whispers of the forest."
+  - narrator: "The trees seem to guide you toward your destination."
+  - narrator: "With the amulet's power, you find your way home safely."
+  - narrator: "But the forest never forgets those who wore the amulet..."
+
+next: ending_magic

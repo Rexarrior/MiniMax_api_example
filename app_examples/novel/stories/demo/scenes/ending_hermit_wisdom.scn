@@ -1,0 +1,7 @@
+id: ending_hermit_wisdom
+title: "The End - Hermit's Blessing"
+
+dialogue:
+  - narrator: "THE END"
+  - narrator: "The hermit's wisdom guided you safely home."
+  - narrator: "You carry his teachings with you."

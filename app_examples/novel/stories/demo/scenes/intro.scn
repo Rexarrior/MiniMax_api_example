@@ -1,0 +1,17 @@
+id: intro
+title: "The Beginning"
+background: "dark forest clearing"
+
+dialogue:
+  - narrator: "You wake up in a strange place. The air is thick with mist."
+  - narrator: "You seem to be in the middle of a dense forest."
+
+choice:
+  - text: "Look around carefully"
+    next: explore_clearing
+  - text: "Call out for help"
+    next: call_out
+  - text: "Start walking deeper into the forest"
+    next: forest_path
+
+generate_music: "ambient mysterious forest atmosphere"

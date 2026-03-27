@@ -1,0 +1,7 @@
+id: ending_amulet
+title: "The End - The Amulet"
+
+dialogue:
+  - narrator: "THE END"
+  - narrator: "You escaped with the magical amulet."
+  - narrator: "Its secrets remain to be discovered."

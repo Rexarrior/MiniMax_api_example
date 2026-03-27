@@ -1,0 +1,11 @@
+id: take_amulet
+title: "Taking the Amulet"
+
+dialogue:
+  - narrator: "You carefully pocket the amulet."
+  - narrator: "It feels warm against your body."
+  - narrator: "With this artifact, you venture further into the forest."
+  - narrator: "The amulet helps you navigate the dark paths."
+  - narrator: "Eventually, you find your way out of the forest."
+
+next: ending_amulet

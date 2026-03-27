@@ -1,0 +1,4 @@
+hermit:
+  name: "Old Hermit"
+  default_mood: neutral
+  description: "A mysterious old man living in the forest"
