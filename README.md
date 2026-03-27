@@ -18,7 +18,7 @@
 | Модель | Идентификатор | Описание |
 |--------|--------------|----------|
 | M2.7 / M2.7-highspeed | MiniMax-M2.7 | Text chat (highspeed — отдельная High-Speed подписка) |
-| Speech 2.8 | speech-2.8-hd, speech-2.8-turbo | TTS |
+| Speech 2.8 | speech-2.8-hd | TTS |
 | Video | MiniMax-Hailuo-2.3, MiniMax-Hailuo-2.3-Fast | T2V / I2V |
 | Music | music-2.5 | Music generation |
 | Lyrics | mode (write_full_song / edit) | Lyrics generation |
@@ -81,7 +81,7 @@ PYTHONPATH=examples_python python3 examples_python/07_music_from_lyrics_file.py 
 Скрипт [`scripts/run_token_plan_models.sh`](scripts/run_token_plan_models.sh) по очереди вызывает:
 
 - Text: MiniMax-M2.7
-- Speech 2.8: hd + turbo (sync + async)
+- Speech 2.8: hd (sync + async)
 - Video: Hailuo-2.3 T2V, Hailuo-2.3-Fast I2V
 - Music: music-2.5
 - Lyrics: /v1/lyrics_generation

@@ -40,10 +40,9 @@ run "01 text (MiniMax-M2.7)"
 python3 examples_python/01_text_anthropic.py
 echo
 
-# Token Plan: только Speech 2.8 (см. https://platform.minimax.io/docs/token-plan/intro)
+# Token Plan: Speech 2.8 (hd; turbo — только на некоторых планах, см. https://platform.minimax.io/docs/token-plan/intro)
 SPEECH_SYNC_MODELS=(
   speech-2.8-hd
-  speech-2.8-turbo
 )
 
 for m in "${SPEECH_SYNC_MODELS[@]}"; do
