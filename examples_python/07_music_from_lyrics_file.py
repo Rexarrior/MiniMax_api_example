@@ -3,7 +3,7 @@
 Generate music from a long lyrics file: split into several POST /v1/music_generation calls.
 
 Официально «продолжение текста» есть у /v1/lyrics_generation (mode=edit), не у склейки аудио.
-Длинное произведение здесь режется на части по лимиту символов в lyrics (music-2.0 ~3000).
+Длинное произведение здесь режется на части по лимиту символов в lyrics (для music-2.5 — до ~3500).
 
 Файл без тегов: добавляем [Verse] в начало и [Bridge] перед II–IV. Уже размеченный ([Verse]…)
 не изменяем (см. --force-tag-plain). Склейка треков — локально (ffmpeg), не параметр API.
@@ -108,9 +108,8 @@ def chunk_lyrics(tagged: str, max_chars: int, min_chars: int = 10) -> list[str]:
     return fixed
 
 
-def default_max_lyrics(model: str) -> int:
-    if "2.0" in model:
-        return int(os.environ.get("MAX_LYRICS_CHARS", "2950"))
+def default_max_lyrics(_model: str) -> int:
+    """Лимит поля lyrics для Music-2.5 (Token Plan); переопределение — MAX_LYRICS_CHARS."""
     return int(os.environ.get("MAX_LYRICS_CHARS", "3400"))
 
 
@@ -139,7 +138,7 @@ def main() -> None:
         default=str(root / "my_liryc.txt"),
         help="Path to lyrics (default: repo my_liryc.txt)",
     )
-    ap.add_argument("--model", default=os.environ.get("MODEL", "music-2.0"))
+    ap.add_argument("--model", default=os.environ.get("MODEL", "music-2.5"))
     ap.add_argument("--prompt", default=os.environ.get("MUSIC_PROMPT", ""))
     ap.add_argument("--max-chars", type=int, default=0, help="Override lyrics length limit per request")
     ap.add_argument("--write-tagged", action="store_true", help="Write <stem>_tagged.txt next to source")

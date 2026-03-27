@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Репозиторий: …/archive/token_plan_deprecated/examples → три уровня вверх
+ROOT="$(cd "$DIR/../../.." && pwd)"
 # shellcheck source=examples/common.sh
-source "$DIR/common.sh"
+source "$ROOT/examples/common.sh"
 
 PROMPT="${PROMPT:-A girl looking into the distance from a library window, cinematic light.}"
 SUBJECT_IMAGE="${SUBJECT_IMAGE:-https://cdn.hailuoai.com/prod/2025-08-12-17/video_cover/1754990600020238321-411603868533342214-cover.jpg}"
@@ -27,7 +29,7 @@ if ! python3 -c "import json,sys; d=json.load(sys.stdin); sys.exit(0 if d.get('b
   exit 1
 fi
 
-OUT_ROOT="$(cd "$DIR/.." && pwd)"
+OUT_ROOT="$ROOT"
 echo "$RESP" | OUT_ROOT="$OUT_ROOT" MINIMAX_RAW_JSON="${MINIMAX_RAW_JSON:-0}" PYTHONPATH="$OUT_ROOT/examples_python" python3 -c '
 import json, os, pathlib, sys, urllib.request
 import minimax_http as mh

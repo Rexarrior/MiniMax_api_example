@@ -4,7 +4,7 @@
 #
 # Переменные окружения:
 #   SKIP_VIDEO=1       — не создавать и не опрашивать видео (долго).
-#   SKIP_ASYNC_SPEECH=1 — пропустить асинхронный TTS (6× ожидание).
+#   SKIP_ASYNC_SPEECH=1 — пропустить асинхронный TTS (2× модели Speech 2.8).
 #
 set -euo pipefail
 
@@ -28,7 +28,7 @@ SKIP_ASYNC_SPEECH="${SKIP_ASYNC_SPEECH:-0}"
 
 
 if [[ "$WARNING_READED" != "1" ]]; then
- echo "WARNING: Running the full test suite can use roughly 25,000–30,000 API requests from your quota. Consider running the tests in smaller batches. Set WARNING_READED=1 in the environment to acknowledge this and proceed."
+ echo "WARNING: Running the full test suite uses many API requests against your Token Plan quota. Consider running the tests in smaller batches. Set WARNING_READED=1 in the environment to acknowledge this and proceed."
  exit 1
 fi
 
@@ -40,13 +40,10 @@ run "01 text (MiniMax-M2.7)"
 python3 examples_python/01_text_anthropic.py
 echo
 
+# Token Plan: только Speech 2.8 (см. https://platform.minimax.io/docs/token-plan/intro)
 SPEECH_SYNC_MODELS=(
   speech-2.8-hd
-  speech-2.6-hd
-  speech-02-hd
   speech-2.8-turbo
-  speech-2.6-turbo
-  speech-02-turbo
 )
 
 for m in "${SPEECH_SYNC_MODELS[@]}"; do
@@ -72,26 +69,10 @@ if [[ "$SKIP_VIDEO" != "1" ]]; then
   echo "task_id=$TID"
   TASK_ID="$TID" OUT_FILE="$ROOT/out/video_hailuo_23_${TID}.mp4" bash examples/06_video_poll.sh
 
-  run "04 T2V MiniMax-Hailuo-02 (768P 6s) → poll"
-  TID=$(MODEL=MiniMax-Hailuo-02 DURATION=6 RESOLUTION=768P bash examples/04_video_t2v.sh)
-  echo "task_id=$TID"
-  TASK_ID="$TID" OUT_FILE="$ROOT/out/video_hailuo_02_768p6s_${TID}.mp4" bash examples/06_video_poll.sh
-
   run "05 I2V MiniMax-Hailuo-2.3-Fast (768P 6s) → poll"
   TID=$(MODEL=MiniMax-Hailuo-2.3-Fast DURATION=6 RESOLUTION=768P bash examples/05_video_i2v.sh)
   echo "task_id=$TID"
   TASK_ID="$TID" OUT_FILE="$ROOT/out/video_hailuo_23fast_${TID}.mp4" bash examples/06_video_poll.sh
-
-  MiniMax-Hailuo-02 @ 512P: только I2V (нужен first_frame_image); чистый T2V с 512P API отклоняет.
-  run "05 I2V MiniMax-Hailuo-02 (512P 6s) → poll"
-  TID=$(MODEL=MiniMax-Hailuo-02 DURATION=6 RESOLUTION=512P bash examples/05_video_i2v.sh)
-  echo "task_id=$TID"
-  TASK_ID="$TID" OUT_FILE="$ROOT/out/video_hailuo_02_512p6s_${TID}.mp4" bash examples/06_video_poll.sh
-
-  run "05 I2V MiniMax-Hailuo-02 (512P 10s) → poll"
-  TID=$(MODEL=MiniMax-Hailuo-02 DURATION=10 RESOLUTION=512P bash examples/05_video_i2v.sh)
-  echo "task_id=$TID"
-  TASK_ID="$TID" OUT_FILE="$ROOT/out/video_hailuo_02_512p10s_${TID}.mp4" bash examples/06_video_poll.sh
 else
   echo ""
   echo "=== video: пропущено (SKIP_VIDEO=1) ==="
@@ -99,7 +80,8 @@ fi
 
 export MINIMAX_RAW_JSON=1
 
-for m in music-2.5+ music-2.5 music-2.0; do
+# Token Plan: Music-2.5 (см. таблицу на https://platform.minimax.io/docs/token-plan/intro)
+for m in music-2.5; do
   run "07 music: $m"
   MODEL="$m" bash examples/07_music_generation.sh | python3 -c '
 import json, sys
@@ -118,13 +100,6 @@ print("lyrics_len:", len(d.get("lyrics", "")))
 
 run "09 image T2I image-01"
 bash examples/09_image_t2i.sh | python3 -c '
-import json, sys
-d = json.load(sys.stdin)
-print("urls:", d.get("data", {}).get("image_urls", []))
-'
-
-run "10 image I2I image-01-live"
-bash examples/10_image_i2i.sh | python3 -c '
 import json, sys
 d = json.load(sys.stdin)
 print("urls:", d.get("data", {}).get("image_urls", []))
