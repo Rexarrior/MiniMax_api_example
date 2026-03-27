@@ -1,36 +1,54 @@
-# Справочник лимитов MiniMax Token Plan (подставьте свои цифры с биллинга).
-# Скрипты в examples/ этот файл не читают — только для вас.
-# Актуальные имена моделей в плане: https://platform.minimax.io/docs/token-plan/intro
+# Лимиты MiniMax Token Plan
+# https://platform.minimax.io/docs/token-plan/intro
+# Скрипты этот файл не читают — только для справки.
 
-speech:
-  sync:
-    # Token Plan: Speech 2.8 (speech-2.8-hd, speech-2.8-turbo)
-    hd_models:
-      requests_per_generation: 600
-      max_characters_per_generation: 1000
-    turbo_models:
-      requests_per_generation: 300
-      max_characters_per_generation: 1000
-  async:
-    hd_models:
-      requests_per_generation: 450
-      max_characters_per_generation: 1000
-    turbo_models:
-      requests_per_generation: 225
-      max_characters_per_generation: 1000
+# === Standard Plans ===
+standard:
+  m2_7:
+    starter: 1500    # requests / 5 hrs
+    plus: 4500
+    max: 15000
 
-video:
-  MiniMax-Hailuo-2.3-Fast:
-    "768P_6s": 3000
-  MiniMax-Hailuo-2.3:
-    "768P_6s": 4500
+  speech_2_8:
+    plus: 4000        # characters / day
+    max: 11000
 
-music:
-  Music-2.5: 3000
+  image_01:
+    plus: 50          # images / day
+    max: 120
 
-lyrics:
-  requests_per_song: 75
+  hailuo_2_3_fast_768p_6s:
+    max: 2            # per day
+  hailuo_2_3_768p_6s:
+    max: 2            # per day
 
-image:
-  image-01:
-    requests_per_image: 75
+  music_2_5:
+    max: 4            # songs / day (≤5 min each)
+
+# === High-Speed Plans ===
+highspeed:
+  m2_7_highspeed:
+    plus_hs: 4500     # requests / 5 hrs
+    max_hs: 15000
+    ultra_hs: 30000
+
+  speech_2_8:
+    plus_hs: 9000     # characters / day
+    max_hs: 19000
+    ultra_hs: 50000
+
+  image_01:
+    plus_hs: 100      # images / day
+    max_hs: 200
+    ultra_hs: 800
+
+  hailuo_2_3_fast_768p_6s:
+    max_hs: 3         # per day
+    ultra_hs: 5
+  hailuo_2_3_768p_6s:
+    max_hs: 3         # per day
+    ultra_hs: 5
+
+  music_2_5:
+    max_hs: 7         # songs / day
+    ultra_hs: 15
