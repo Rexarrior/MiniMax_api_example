@@ -21,7 +21,6 @@
 | Speech 2.8 | speech-2.8-hd | TTS |
 | Video | MiniMax-Hailuo-2.3, MiniMax-Hailuo-2.3-Fast | T2V / I2V |
 | Music | music-2.5 | Music generation |
-| Lyrics | mode (write_full_song / edit) | Lyrics generation |
 | Image | image-01 | Text-to-image |
 
 **M2.7-highspeed** — высокоскоростной инференс, доступен только на High-Speed планах. Standard-планы включают только M2.7.
@@ -38,7 +37,6 @@
 | [`examples/05_video_i2v.sh`](examples/05_video_i2v.sh) | Image-to-video (`MiniMax-Hailuo-2.3-Fast`), печатает `task_id` |
 | [`examples/06_video_poll.sh`](examples/06_video_poll.sh) | Опрос `GET /v1/query/video_generation`, при успехе — скачивание по `download_url` |
 | [`examples/07_music_generation.sh`](examples/07_music_generation.sh) | `POST /v1/music_generation` (опционально `MINIMAX_RAW_JSON=1`) |
-| [`examples/08_lyrics_generation.sh`](examples/08_lyrics_generation.sh) | `POST /v1/lyrics_generation` |
 | [`examples/09_image_t2i.sh`](examples/09_image_t2i.sh) | Text-to-image `image-01` |
 
 ## Примеры (Python)
@@ -53,7 +51,6 @@
 | [`examples_python/06_video_poll.py`](examples_python/06_video_poll.py) | Опрос видео и скачивание в `out/` |
 | [`examples_python/07_music_generation.py`](examples_python/07_music_generation.py) | `MINIMAX_RAW_JSON=1` — одна строка JSON |
 | [`examples_python/07_music_from_lyrics_file.py`](examples_python/07_music_from_lyrics_file.py) | Длинный текст: несколько `POST /v1/music_generation`, опционально `ffmpeg` → один mp3 |
-| [`examples_python/08_lyrics_generation.py`](examples_python/08_lyrics_generation.py) | Генерация текста песни |
 | [`examples_python/09_image_t2i.py`](examples_python/09_image_t2i.py) | Text-to-image |
 
 ## Быстрый запуск
@@ -84,7 +81,6 @@ PYTHONPATH=examples_python python3 examples_python/07_music_from_lyrics_file.py 
 - Speech 2.8: hd (sync + async)
 - Video: Hailuo-2.3 T2V, Hailuo-2.3-Fast I2V
 - Music: music-2.5
-- Lyrics: /v1/lyrics_generation
 - Image: image-01
 
 ```bash
@@ -95,14 +91,14 @@ WARNING_READED=1 SKIP_VIDEO=1 SKIP_ASYNC_SPEECH=1 bash scripts/run_token_plan_mo
 
 **Предупреждение о квоте.** При первом запуске скрипт не выполняет прогон: печатает предупреждение и выходит с кодом 1. Полный прогон заметно расходует дневные/оконные квоты Token Plan — имеет смысл гонять примеры по частям. Чтобы явно согласиться и продолжить, задайте **`WARNING_READED=1`** в окружении (например, в командной строке) или добавьте ту же строку в `.env`.
 
-У скриптов `07`–`09` при `MINIMAX_RAW_JSON=1` на stdout уходит одна строка JSON (удобно для пайпов); раннер выставляет её сам.
+У скриптов `07`, `09` при `MINIMAX_RAW_JSON=1` на stdout уходит одна строка JSON (удобно для пайпов); раннер выставляет её сам.
 
-Каждый пример сам пишет артефакты в `out/` (stderr: строка `Wrote …`): **02** mp3, **03** async mp3 по `download_url`, **04/05** `last_video_task_id.txt`, **06** mp4, **07** `music_<model>.mp3`, **08** `lyrics_<slug>.txt`, **09** `image_t2i_*.jpeg`. **01** (Python): `last_text_reply.txt`. Раннер только кратко суммирует stdout; дублирования записи нет.
+Каждый пример сам пишет артефакты в `out/` (stderr: строка `Wrote …`): **02** mp3, **03** async mp3 по `download_url`, **04/05** `last_video_task_id.txt`, **06** mp4, **07** `music_<model>.mp3`, **09** `image_t2i_*.jpeg`. **01** (Python): `last_text_reply.txt`. Раннер только кратко суммирует stdout; дублирования записи нет.
 
 <details>
 <summary>Архивные модели (не в Token Plan)</summary>
 
-Для моделей не из текущего плана (Speech 2.6/02, Hailuo-02, music-2.5+/2.0, image-01-live) см.:
+Для моделей не из текущего плана (Speech 2.6/02, Hailuo-02, music-2.5+/2.0, image-01-live, lyrics_generation) см.:
 [`archive/token_plan_deprecated/scripts/run_legacy_token_plan_extras.sh`](archive/token_plan_deprecated/scripts/run_legacy_token_plan_extras.sh)
 </details>
 

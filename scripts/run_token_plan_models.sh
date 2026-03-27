@@ -4,7 +4,7 @@
 #
 # Переменные окружения:
 #   SKIP_VIDEO=1       — не создавать и не опрашивать видео (долго).
-#   SKIP_ASYNC_SPEECH=1 — пропустить асинхронный TTS (2× модели Speech 2.8).
+#   SKIP_ASYNC_SPEECH=1 — пропустить асинхронный TTS.
 #
 set -euo pipefail
 
@@ -89,15 +89,7 @@ print("ok status", d.get("base_resp", {}).get("status_code"), "trace", d.get("tr
 '
 done
 
-run "08 lyrics"
-bash examples/08_lyrics_generation.sh | python3 -c '
-import json, sys
-d = json.load(sys.stdin)
-print("title:", d.get("song_title", ""))
-print("lyrics_len:", len(d.get("lyrics", "")))
-'
-
-run "09 image T2I image-01"
+run "08 image T2I image-01"
 bash examples/09_image_t2i.sh | python3 -c '
 import json, sys
 d = json.load(sys.stdin)

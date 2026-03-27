@@ -11,9 +11,10 @@
 
 | Что в архиве | Зачем |
 |--------------|--------|
+| [`examples/08_lyrics_generation.sh`](examples/08_lyrics_generation.sh), [`examples_python/08_lyrics_generation.py`](examples_python/08_lyrics_generation.py) | `POST /v1/lyrics_generation` — не входит в Token Plan. |
 | [`examples/10_image_i2i.sh`](examples/10_image_i2i.sh), [`examples_python/10_image_i2i.py`](examples_python/10_image_i2i.py) | Image-to-image с `image-01-live`. |
 | [`examples/07_music_generation_music-2.5plus_instrumental.sh`](examples/07_music_generation_music-2.5plus_instrumental.sh), [`examples_python/07_music_generation_music-2.5plus.py`](examples_python/07_music_generation_music-2.5plus.py) | Старая ветка `music-2.5+` + `INSTRUMENTAL` / `is_instrumental` (в корневых `examples/07_*` остался только **Music-2.5** с текстом). |
-| [`scripts/run_legacy_token_plan_extras.sh`](scripts/run_legacy_token_plan_extras.sh) | Прогон TTS (6 моделей), видео Hailuo-02, музыка `music-2.5+` / `music-2.0`, I2I — для ключа **pay-as-you-go** или когда модели снова попадут в план. |
+| [`scripts/run_legacy_token_plan_extras.sh`](scripts/run_legacy_token_plan_extras.sh) | Прогон TTS (6 моделей), видео Hailuo-02, музыка `music-2.5+` / `music-2.0`, I2I, lyrics — для ключа **pay-as-you-go** или когда модели снова попадут в план. |
 
 Для **music-2.0** лимит `lyrics` короче (~3000 символов); в активном [`07_music_from_lyrics_file.py`](../../examples_python/07_music_from_lyrics_file.py) задан дефолт под **music-2.5** — для 2.0 задайте `MAX_LYRICS_CHARS=2950` при ручном `--model music-2.0` (pay-as-you-go).
 
