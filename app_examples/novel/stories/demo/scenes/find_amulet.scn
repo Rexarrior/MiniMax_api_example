@@ -1,5 +1,6 @@
 id: find_amulet
 title: "Finding the Amulet"
+background_prompt: "mystical forest clearing with glowing golden amulet on mossy ancient stone, magical aura radiating, enchanted atmosphere"
 
 dialogue:
   - narrator: "You approach the shining object."

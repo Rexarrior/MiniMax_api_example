@@ -1,5 +1,6 @@
 id: escape_attempt
 title: "Running Away"
+background_prompt: "forest stream at night with rushing crystal clear water, moonlight reflecting on surface, fallen log crossing, moonlit escape route"
 
 dialogue:
   - narrator: "You run forward through the forest."

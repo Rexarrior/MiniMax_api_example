@@ -1,5 +1,6 @@
 id: ending_hide
 title: "The End - Hiding"
+background_prompt: "peaceful forest path at dawn, morning mist rising, safe passage through enchanted woods, serene contemplative ending"
 
 dialogue:
   - narrator: "THE END"

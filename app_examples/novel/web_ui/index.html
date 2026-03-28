@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Novel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="background-layer"></div>
+        <div id="character-layer"></div>
+        
+        <div id="title-screen">
+            <h1 id="game-title">The Mysterious Forest</h1>
+            <button id="start-btn">Start Game</button>
+        </div>
+
+        <div id="game-screen" class="hidden">
+            <div id="dialogue-container">
+                <div id="speaker-name"></div>
+                <div id="dialogue-text"></div>
+            </div>
+            
+            <div id="choices-container"></div>
+        </div>
+
+        <div id="ending-screen" class="hidden">
+            <h2>The End</h2>
+            <button id="restart-btn">Play Again</button>
+        </div>
+
+        <button id="sound-btn" class="sound-on">🔊</button>
+
+        <audio id="bg-music" loop></audio>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

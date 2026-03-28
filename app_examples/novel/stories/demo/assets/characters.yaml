@@ -2,3 +2,4 @@ hermit:
   name: "Old Hermit"
   default_mood: neutral
   description: "A mysterious old man living in the forest"
+  appearance_prompt: "wise elderly hermit with long white beard, wearing dark forest robes, mystical forest guardian, atmospheric fog, dark enchanted forest background"

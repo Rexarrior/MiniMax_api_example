@@ -1,5 +1,6 @@
 id: stand_ground
 title: "Standing Firm"
+background_prompt: "dark enchanted forest with swirling ethereal spirit shadows circling around brave figure, courageous stance, dramatic volumetric lighting, powerful atmosphere"
 
 dialogue:
   - narrator: "You stand your ground firmly."

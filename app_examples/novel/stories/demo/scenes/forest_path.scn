@@ -1,5 +1,6 @@
 id: forest_path
 title: "The Forest Path"
+background_prompt: "dark mysterious forest path with ancient trees, thick foliage blocking light, fading twilight, eerie atmosphere, ominous shadows"
 
 dialogue:
   - narrator: "You walk deeper into the forest."

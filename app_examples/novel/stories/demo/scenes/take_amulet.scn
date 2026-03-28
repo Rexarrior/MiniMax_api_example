@@ -1,5 +1,6 @@
 id: take_amulet
 title: "Taking the Amulet"
+background_prompt: "dark forest path with warm golden glow emanating from pocket, cozy comforting light, mysterious treasure, safe atmosphere"
 
 dialogue:
   - narrator: "You carefully pocket the amulet."

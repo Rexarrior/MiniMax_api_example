@@ -182,7 +182,7 @@ def save_image_urls_from_response(d: dict[str, Any], basename_prefix: str) -> li
     urls = (d.get("data") or {}).get("image_urls") or []
     out: list[Path] = []
     for i, u in enumerate(urls):
-        dest = out_dir() / f"{basename_prefix}_{i}.jpeg"
+        dest = Path(f"{basename_prefix}_{i}.jpeg")
         download_url_to_file(str(u), dest)
         out.append(dest)
     return out

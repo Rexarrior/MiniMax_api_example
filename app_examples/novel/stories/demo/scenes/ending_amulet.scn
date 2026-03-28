@@ -1,5 +1,6 @@
 id: ending_amulet
 title: "The End - The Amulet"
+background_prompt: "dark mysterious forest at twilight, golden amulet glowing in hand, mysterious treasures ahead, adventure beckons ending"
 
 dialogue:
   - narrator: "THE END"

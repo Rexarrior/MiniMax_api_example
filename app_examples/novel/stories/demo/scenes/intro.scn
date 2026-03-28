@@ -1,6 +1,7 @@
 id: intro
 title: "The Beginning"
 background: "dark forest clearing"
+background_prompt: "dark misty forest clearing at dawn, ancient trees, fog, ethereal atmosphere, digital art, cinematic"
 
 dialogue:
   - narrator: "You wake up in a strange place. The air is thick with mist."

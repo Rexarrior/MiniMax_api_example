@@ -1,5 +1,6 @@
 id: alternative_path
 title: "The Alternative"
+background_prompt: "hidden forest path following a gentle sparkling stream, north direction illuminated by soft moonlight, peaceful guide, tranquil atmosphere"
 
 dialogue:
   - character: hermit

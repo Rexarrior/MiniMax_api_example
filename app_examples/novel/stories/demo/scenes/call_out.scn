@@ -1,5 +1,6 @@
 id: call_out
 title: "Calling Out"
+background_prompt: "deep dark forest, voice echoes through ancient trees, mysterious shadows lurking, ominous atmosphere"
 
 dialogue:
   - character: hermit

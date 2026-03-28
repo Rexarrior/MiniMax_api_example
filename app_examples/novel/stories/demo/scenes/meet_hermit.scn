@@ -1,5 +1,6 @@
 id: meet_hermit
 title: "Meeting the Hermit"
+background_prompt: "forest clearing with ancient gnarled oak tree, wise old hermit standing proudly, magical particles floating, mystical forest"
 
 dialogue:
   - narrator: "An old man emerges from behind the trees."

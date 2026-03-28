@@ -1,5 +1,6 @@
 id: wear_amulet
 title: "The Magical Amulet"
+background_prompt: "magical forest bathed in ethereal golden light, mystical energy flowing through ancient trees, enchanted woodland, radiant atmosphere"
 
 dialogue:
   - narrator: "You put on the amulet."

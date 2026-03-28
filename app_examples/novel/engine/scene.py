@@ -25,6 +25,7 @@ class Scene:
     id: str
     title: str
     background: str | None = None
+    background_prompt: str | None = None
     dialogues: list[DialogueLine] = field(default_factory=list)
     choices: list[Choice] = field(default_factory=list)
     generate_image: str | None = None
@@ -56,6 +57,7 @@ def parse_scene(scene_id: str, content: str) -> Scene:
         id=scene_id,
         title=data.get("title", scene_id),
         background=data.get("background"),
+        background_prompt=data.get("background_prompt"),
         dialogues=dialogues,
         choices=choices,
         generate_image=data.get("generate_image"),

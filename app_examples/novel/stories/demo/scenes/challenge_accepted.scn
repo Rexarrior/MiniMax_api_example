@@ -1,5 +1,6 @@
 id: challenge_accepted
 title: "The Challenge"
+background_prompt: "mystical forest clearing surrounded by ancient runes glowing with blue light, sacred challenge area, magical barrier, wise atmosphere"
 
 dialogue:
   - narrator: "The hermit nods approvingly."

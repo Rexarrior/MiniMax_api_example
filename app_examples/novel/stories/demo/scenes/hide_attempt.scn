@@ -1,5 +1,6 @@
 id: hide_attempt
 title: "Hiding"
+background_prompt: "dense forest with massive ancient gnarled twisted oak tree, hidden safe spot among roots and foliage, protective shadows, secretive atmosphere"
 
 dialogue:
   - narrator: "You hide behind a large oak tree."

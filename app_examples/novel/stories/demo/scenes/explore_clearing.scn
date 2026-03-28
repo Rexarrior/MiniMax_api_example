@@ -1,5 +1,6 @@
 id: explore_clearing
 title: "Exploring the Clearing"
+background_prompt: "moonlit forest clearing with ancient trees, stars visible through canopy, mystical fog, peaceful night atmosphere"
 
 dialogue:
   - narrator: "You carefully look around the clearing."
