@@ -6,3 +6,5 @@ dialogue:
   - narrator: "THE END"
   - narrator: "You escaped through the stream."
   - narrator: "The forest let you go."
+
+music: ambient_mysterious_forest_atmosphere.mp3

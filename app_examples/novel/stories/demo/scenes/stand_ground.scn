@@ -10,3 +10,5 @@ dialogue:
   - narrator: "You walk calmly through the forest and find the exit."
 
 next: ending_courage
+
+music: ambient_mysterious_forest_atmosphere.mp3

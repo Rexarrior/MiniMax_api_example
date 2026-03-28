@@ -15,3 +15,5 @@ choice:
     next: take_amulet
   - text: "Leave it and continue exploring"
     next: forest_path
+
+music: ambient_mysterious_forest_atmosphere.mp3

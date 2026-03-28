@@ -18,3 +18,5 @@ choice:
     next: ending_hermit_wisdom
   - text: "Ask to stay and learn from him"
     next: ending_hermit_student
+
+music: ambient_mysterious_forest_atmosphere.mp3

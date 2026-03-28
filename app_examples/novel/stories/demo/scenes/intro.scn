@@ -15,4 +15,4 @@ choice:
   - text: "Start walking deeper into the forest"
     next: forest_path
 
-generate_music: "ambient mysterious forest atmosphere"
+music: ambient_mysterious_forest_atmosphere.mp3

@@ -16,3 +16,5 @@ choice:
     next: hide_attempt
   - text: "Stand your ground"
     next: stand_ground
+
+music: ambient_mysterious_forest_atmosphere.mp3

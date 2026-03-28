@@ -16,3 +16,5 @@ choice:
     next: ending_shortcut
   - text: "Thank him but find your own way"
     next: forest_path
+
+music: ambient_mysterious_forest_atmosphere.mp3

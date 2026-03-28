@@ -179,6 +179,7 @@ def run_web(story_path: Path, port: int = 8080) -> None:
             return
 
         last_character_id = None
+        last_music_url = None
 
         while scene_id:
             scene_path = story.get_scene_path(scene_id)
@@ -204,7 +205,9 @@ def run_web(story_path: Path, port: int = 8080) -> None:
                             char_images[d.speaker] = f"/api/image/images/{img_path.name}"
 
             music_url = None
-            if scene.generate_music:
+            if scene.music:
+                music_url = f"/api/image/music/{scene.music}"
+            elif scene.generate_music:
                 music_path = mm_client.generate_music(story.story_id, scene.generate_music)
                 if music_path:
                     music_url = f"/api/image/music/{music_path.name}"
@@ -258,6 +261,10 @@ def run_web(story_path: Path, port: int = 8080) -> None:
             choices = [{"index": i, "text": c.text} for i, c in enumerate(scene.choices)]
             is_ending = len(scene.choices) == 0 and not scene.next_scene
 
+            send_music_url = music_url if music_url != last_music_url else None
+            if music_url:
+                last_music_url = music_url
+
             server.update_scene(
                 scene_id=scene_id,
                 title=scene.title,
@@ -265,7 +272,7 @@ def run_web(story_path: Path, port: int = 8080) -> None:
                 choices=choices,
                 is_ending=is_ending,
                 background_url=background_url,
-                music_url=music_url,
+                music_url=send_music_url,
                 current_character_image_url=current_char_image_url,
             )
 

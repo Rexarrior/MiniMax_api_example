@@ -30,6 +30,7 @@ class Scene:
     choices: list[Choice] = field(default_factory=list)
     generate_image: str | None = None
     generate_music: str | None = None
+    music: str | None = None
     next_scene: str | None = None
 
 
@@ -62,5 +63,6 @@ def parse_scene(scene_id: str, content: str) -> Scene:
         choices=choices,
         generate_image=data.get("generate_image"),
         generate_music=data.get("generate_music"),
+        music=data.get("music"),
         next_scene=data.get("next"),
     )

@@ -17,3 +17,5 @@ choice:
     next: challenge_accepted
   - text: "Ask for another way"
     next: alternative_path
+
+music: ambient_mysterious_forest_atmosphere.mp3

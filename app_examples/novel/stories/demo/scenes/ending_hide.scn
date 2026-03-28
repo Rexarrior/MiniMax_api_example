@@ -6,3 +6,5 @@ dialogue:
   - narrator: "THE END"
   - narrator: "Patience and caution helped you escape."
   - narrator: "The forest accepted your wisdom."
+
+music: ambient_mysterious_forest_atmosphere.mp3

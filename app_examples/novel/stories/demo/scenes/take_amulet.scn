@@ -10,3 +10,5 @@ dialogue:
   - narrator: "Eventually, you find your way out of the forest."
 
 next: ending_amulet
+
+music: ambient_mysterious_forest_atmosphere.mp3

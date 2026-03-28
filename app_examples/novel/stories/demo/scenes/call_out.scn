@@ -16,3 +16,5 @@ choice:
     next: meet_hermit
   - text: "Ignore him and walk away"
     next: forest_path
+
+music: ambient_mysterious_forest_atmosphere.mp3

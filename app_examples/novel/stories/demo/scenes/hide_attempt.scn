@@ -9,3 +9,5 @@ dialogue:
   - narrator: "You eventually find the forest's exit."
 
 next: ending_hide
+
+music: ambient_mysterious_forest_atmosphere.mp3

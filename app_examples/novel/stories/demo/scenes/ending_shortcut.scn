@@ -6,3 +6,5 @@ dialogue:
   - narrator: "THE END"
   - narrator: "You followed the hermit's shortcut."
   - narrator: "The stream led you safely out of the forest."
+
+music: ambient_mysterious_forest_atmosphere.mp3

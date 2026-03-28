@@ -10,3 +10,5 @@ dialogue:
   - narrator: "But the forest never forgets those who wore the amulet..."
 
 next: ending_magic
+
+music: ambient_mysterious_forest_atmosphere.mp3

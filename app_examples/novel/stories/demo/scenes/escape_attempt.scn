@@ -10,3 +10,5 @@ dialogue:
   - narrator: "Following the stream, you finally escape the forest."
 
 next: ending_escape
+
+music: ambient_mysterious_forest_atmosphere.mp3

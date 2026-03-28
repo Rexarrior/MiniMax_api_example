@@ -8,6 +8,8 @@ class NovelGame {
         this.isWaitingForChoice = false;
         this.soundEnabled = true;
         this.currentMusicSrc = null;
+        this.isSkipping = false;
+        this.cachedDurations = new Map();
         
         this.titleScreen = document.getElementById('title-screen');
         this.gameScreen = document.getElementById('game-screen');
@@ -47,6 +49,14 @@ class NovelGame {
                 this.musicEl.pause();
             }
         });
+
+        this.gameScreen.addEventListener('click', () => {
+            if (this.dialogueIndex < this.dialogues.length) {
+                this.isSkipping = true;
+                this.voiceEl.pause();
+                this.voiceEl.currentTime = 0;
+            }
+        });
     }
 
     updateSoundButton() {
@@ -63,6 +73,23 @@ class NovelGame {
 
     startPolling() {
         setInterval(() => this.poll(), 500);
+    }
+
+    async getAudioDuration(audioUrl) {
+        if (this.cachedDurations.has(audioUrl)) {
+            return this.cachedDurations.get(audioUrl);
+        }
+        try {
+            const response = await fetch(audioUrl);
+            const arrayBuffer = await response.arrayBuffer();
+            const audioContext = new AudioContext();
+            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+            const durationMs = audioBuffer.duration * 1000;
+            this.cachedDurations.set(audioUrl, durationMs);
+            return durationMs;
+        } catch {
+            return null;
+        }
     }
 
     async fetchScene() {
@@ -98,6 +125,7 @@ class NovelGame {
             this.isEnding = data.is_ending;
             this.dialogueIndex = 0;
             this.isWaitingForChoice = false;
+            this.isSkipping = false;
             
             if (data.title) {
                 document.getElementById('game-title').textContent = data.title;
@@ -154,11 +182,25 @@ class NovelGame {
         this.dialogueEl.textContent = '';
         this.choicesEl.innerHTML = '';
         
-        if (d.voice_url && this.soundEnabled) {
+        if (d.voice_url && this.soundEnabled && !this.isSkipping) {
             this.voiceEl.src = d.voice_url;
             this.voiceEl.play().catch(() => {});
-            
-            const charDuration = d.voice_duration_ms > 0 ? d.voice_duration_ms / d.text.length : 30;
+        }
+
+        if (this.isSkipping) {
+            this.voiceEl.pause();
+            this.voiceEl.currentTime = 0;
+            this.typeText(d.text, () => {
+                this.isSkipping = false;
+                this.dialogueIndex++;
+                setTimeout(() => this.showNextDialogue(), 100);
+            });
+        } else if (d.voice_url && this.soundEnabled) {
+            let voiceDuration = d.voice_duration_ms;
+            if (!voiceDuration || voiceDuration === 0) {
+                voiceDuration = d.text.length * 50;
+            }
+            const charDuration = voiceDuration / d.text.length;
             this.typeTextSync(d.text, charDuration, () => {
                 this.dialogueIndex++;
                 setTimeout(() => this.showNextDialogue(), 300);
