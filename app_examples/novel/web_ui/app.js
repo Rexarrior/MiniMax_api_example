@@ -10,6 +10,7 @@ class NovelGame {
         this.currentMusicSrc = null;
         this.isSkipping = false;
         this.cachedDurations = new Map();
+        this.userInteracted = false;
         
         this.titleScreen = document.getElementById('title-screen');
         this.gameScreen = document.getElementById('game-screen');
@@ -77,6 +78,20 @@ class NovelGame {
             this.updateSoundButton();
             this.titleScreen.classList.add('hidden');
             this.gameScreen.classList.remove('hidden');
+            
+            if (enable) {
+                this.userInteracted = true;
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', '/api/scene', false);
+                xhr.send(null);
+                if (xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+                    if (data.music_url) {
+                        this.playMusic(data.music_url);
+                    }
+                }
+            }
+            
             this.fetchScene();
         };
         
@@ -171,17 +186,20 @@ class NovelGame {
         this.musicEl.src = musicUrl;
         this.musicEl.load();
         if (this.soundEnabled) {
-            const playWhenReady = () => {
+            const tryPlay = () => {
                 this.musicEl.play().catch((err) => {
                     console.warn('Music play failed:', err);
                 });
             };
-            if (this.musicEl.readyState >= 3) {
-                playWhenReady();
+            if (this.userInteracted) {
+                this.userInteracted = false;
+                tryPlay();
+            } else if (this.musicEl.readyState >= 3) {
+                tryPlay();
             } else {
                 const onCanPlay = () => {
                     this.musicEl.removeEventListener('canplay', onCanPlay);
-                    playWhenReady();
+                    tryPlay();
                 };
                 this.musicEl.addEventListener('canplay', onCanPlay);
             }
