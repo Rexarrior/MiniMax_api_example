@@ -1,8 +1,16 @@
 """Entry point for visual novel - supports terminal and web modes."""
 
+import logging
 import sys
 import threading
 from pathlib import Path
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    datefmt='%H:%M:%S'
+)
+logger = logging.getLogger(__name__)
 
 sys.path.insert(0, str(Path(__file__).parent / "engine"))
 
@@ -176,124 +184,150 @@ def run_web(story_path: Path, port: int = 8080) -> None:
     def game_loop():
         scene_id = story.get_start_scene()
         if not scene_id:
+            logger.error("No start scene defined")
             return
 
         last_character_id = None
         last_music_url = None
+        logger.info("Game loop started")
 
         while scene_id:
-            scene_path = story.get_scene_path(scene_id)
-            if not scene_path:
+            try:
+                scene_path = story.get_scene_path(scene_id)
+                if not scene_path:
+                    logger.error(f"Scene not found: {scene_id}")
+                    break
+
+                scene_content = scene_path.read_text(encoding="utf-8")
+                scene = parse_scene(scene_id, scene_content)
+                logger.info(f"→ Scene: {scene_id}")
+
+                background_url = None
+                if scene.background_prompt:
+                    logger.info(f"  Generating background: {scene_id}")
+                    img_path = mm_client.generate_background_image(story.story_id, scene_id, scene.background_prompt)
+                    if img_path:
+                        background_url = f"/api/image/images/{img_path.name}"
+                        logger.info(f"  Background ready: {img_path.name}")
+                    else:
+                        logger.warning(f"  Background generation failed: {scene_id}")
+
+                char_images: dict[str, str] = {}
+                for d in scene.dialogues:
+                    if d.speaker != "narrator" and d.speaker not in char_images:
+                        prompt = build_character_prompt(d.speaker, scene, story)
+                        if prompt:
+                            logger.info(f"  Generating character image: {d.speaker} in {scene_id}")
+                            img_path = mm_client.generate_character_image(story.story_id, scene_id, d.speaker, prompt)
+                            if img_path:
+                                char_images[d.speaker] = f"/api/image/images/{img_path.name}"
+                                logger.info(f"  Character ready: {d.speaker} -> {img_path.name}")
+                            else:
+                                logger.warning(f"  Character generation failed: {d.speaker}")
+
+                music_url = None
+                if scene.music:
+                    music_url = f"/api/image/music/{scene.music}"
+                    logger.info(f"  Music: {scene.music}")
+                elif scene.generate_music:
+                    logger.info(f"  Generating music: {scene_id}")
+                    music_path = mm_client.generate_music(story.story_id, scene.generate_music)
+                    if music_path:
+                        music_url = f"/api/image/music/{music_path.name}"
+                        logger.info(f"  Music ready: {music_path.name}")
+
+                logger.info(f"  Processing {len(scene.dialogues)} dialogues")
+                voice_data: list[dict | None] = []
+                for d in scene.dialogues:
+                    if d.speaker == "narrator":
+                        voice_result = mm_client.generate_voice(
+                            story.story_id, "narrator", d.text,
+                            voice_id="English_Graceful_Lady", speed=1.0, pitch=0
+                        )
+                    else:
+                        char_data = story.characters.get(d.speaker, {})
+                        voice_result = mm_client.generate_voice(
+                            story.story_id, d.speaker, d.text,
+                            voice_id=char_data.get("voice_id", "English_Insightful_Speaker"),
+                            speed=char_data.get("speed", 1.0),
+                            pitch=char_data.get("pitch", 0)
+                        )
+                    if voice_result:
+                        logger.info(f"  Voice ready: {d.speaker}")
+                    voice_data.append(voice_result)
+
+                dialogues = []
+                current_char_image_url = None
+                for i, d in enumerate(scene.dialogues):
+                    vd = voice_data[i]
+                    voice_url = f"/api/audio/voices/{vd['path'].name}" if vd else None
+                    voice_duration_ms = vd.get("duration_ms", 0) if vd else 0
+                    if d.speaker == "narrator":
+                        char_img_url = char_images.get(last_character_id) if last_character_id else None
+                        dialogues.append({
+                            "speaker": "narrator",
+                            "text": d.text,
+                            "character_image_url": char_img_url,
+                            "voice_url": voice_url,
+                            "voice_duration_ms": voice_duration_ms,
+                        })
+                    else:
+                        name = story.characters.get(d.speaker, {}).get("name", d.speaker)
+                        char_img_url = char_images.get(d.speaker)
+                        dialogues.append({
+                            "speaker": name,
+                            "text": d.text,
+                            "mood": d.mood,
+                            "character_image_url": char_img_url,
+                            "voice_url": voice_url,
+                            "voice_duration_ms": voice_duration_ms,
+                        })
+                        current_char_image_url = char_img_url
+                        last_character_id = d.speaker
+
+                choices = [{"index": i, "text": c.text} for i, c in enumerate(scene.choices)]
+                is_ending = len(scene.choices) == 0 and not scene.next_scene
+
+                send_music_url = music_url if music_url != last_music_url else None
+                if music_url:
+                    last_music_url = music_url
+
+                server.update_scene(
+                    scene_id=scene_id,
+                    title=scene.title,
+                    dialogues=dialogues,
+                    choices=choices,
+                    is_ending=is_ending,
+                    background_url=background_url,
+                    music_url=send_music_url,
+                    current_character_image_url=current_char_image_url,
+                )
+                logger.info(f"  Scene pushed to server (ending={is_ending})")
+
+                if is_ending:
+                    logger.info("Game ended")
+                    break
+
+                choice_idx = None
+                choice_time = 0
+                while choice_idx is None:
+                    choice_idx, choice_time = server.get_pending_choice()
+                    if choice_idx is None:
+                        import time
+                        time.sleep(0.1)
+
+                logger.info(f"  Choice: {choice_idx}")
+                scene_id = get_next_scene(scene, choice_idx)
+
+            except Exception as e:
+                logger.exception(f"Error in scene {scene_id}: {e}")
                 break
-
-            scene_content = scene_path.read_text(encoding="utf-8")
-            scene = parse_scene(scene_id, scene_content)
-
-            background_url = None
-            if scene.background_prompt:
-                img_path = mm_client.generate_background_image(story.story_id, scene_id, scene.background_prompt)
-                if img_path:
-                    background_url = f"/api/image/images/{img_path.name}"
-
-            char_images: dict[str, str] = {}
-            for d in scene.dialogues:
-                if d.speaker != "narrator" and d.speaker not in char_images:
-                    prompt = build_character_prompt(d.speaker, scene, story)
-                    if prompt:
-                        img_path = mm_client.generate_character_image(story.story_id, scene_id, d.speaker, prompt)
-                        if img_path:
-                            char_images[d.speaker] = f"/api/image/images/{img_path.name}"
-
-            music_url = None
-            if scene.music:
-                music_url = f"/api/image/music/{scene.music}"
-            elif scene.generate_music:
-                music_path = mm_client.generate_music(story.story_id, scene.generate_music)
-                if music_path:
-                    music_url = f"/api/image/music/{music_path.name}"
-
-            voice_data: list[dict | None] = []
-            for d in scene.dialogues:
-                if d.speaker == "narrator":
-                    voice_result = mm_client.generate_voice(
-                        story.story_id, "narrator", d.text,
-                        voice_id="English_Graceful_Lady", speed=1.0, pitch=0
-                    )
-                else:
-                    char_data = story.characters.get(d.speaker, {})
-                    voice_result = mm_client.generate_voice(
-                        story.story_id, d.speaker, d.text,
-                        voice_id=char_data.get("voice_id", "English_Insightful_Speaker"),
-                        speed=char_data.get("speed", 1.0),
-                        pitch=char_data.get("pitch", 0)
-                    )
-                voice_data.append(voice_result)
-
-            dialogues = []
-            current_char_image_url = None
-            for i, d in enumerate(scene.dialogues):
-                vd = voice_data[i]
-                voice_url = f"/api/audio/voices/{vd['path'].name}" if vd else None
-                voice_duration_ms = vd.get("duration_ms", 0) if vd else 0
-                if d.speaker == "narrator":
-                    char_img_url = char_images.get(last_character_id) if last_character_id else None
-                    dialogues.append({
-                        "speaker": "narrator",
-                        "text": d.text,
-                        "character_image_url": char_img_url,
-                        "voice_url": voice_url,
-                        "voice_duration_ms": voice_duration_ms,
-                    })
-                else:
-                    name = story.characters.get(d.speaker, {}).get("name", d.speaker)
-                    char_img_url = char_images.get(d.speaker)
-                    dialogues.append({
-                        "speaker": name,
-                        "text": d.text,
-                        "mood": d.mood,
-                        "character_image_url": char_img_url,
-                        "voice_url": voice_url,
-                        "voice_duration_ms": voice_duration_ms,
-                    })
-                    current_char_image_url = char_img_url
-                    last_character_id = d.speaker
-
-            choices = [{"index": i, "text": c.text} for i, c in enumerate(scene.choices)]
-            is_ending = len(scene.choices) == 0 and not scene.next_scene
-
-            send_music_url = music_url if music_url != last_music_url else None
-            if music_url:
-                last_music_url = music_url
-
-            server.update_scene(
-                scene_id=scene_id,
-                title=scene.title,
-                dialogues=dialogues,
-                choices=choices,
-                is_ending=is_ending,
-                background_url=background_url,
-                music_url=send_music_url,
-                current_character_image_url=current_char_image_url,
-            )
-
-            if is_ending:
-                break
-
-            choice_idx = None
-            choice_time = 0
-            while choice_idx is None:
-                choice_idx, choice_time = server.get_pending_choice()
-                if choice_idx is None:
-                    import time
-                    time.sleep(0.1)
-
-            scene_id = get_next_scene(scene, choice_idx)
 
     thread = threading.Thread(target=game_loop, daemon=True)
     thread.start()
 
-    print(f"Visual Novel server running at http://localhost:{port}")
-    print("Open this URL in your browser to play.")
+    logger.info(f"Server running at http://localhost:{port}")
+    logger.info("Open this URL in your browser to play.")
     server.run()
 
 

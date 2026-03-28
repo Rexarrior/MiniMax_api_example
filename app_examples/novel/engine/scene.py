@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import logging
 import yaml
 from dataclasses import dataclass, field
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -35,7 +38,12 @@ class Scene:
 
 
 def parse_scene(scene_id: str, content: str) -> Scene:
-    data = yaml.safe_load(content) or {}
+    try:
+        data = yaml.safe_load(content) or {}
+    except yaml.YAMLError as e:
+        logger.error(f"Failed to parse YAML for scene {scene_id}: {e}")
+        data = {}
+
     dialogues = []
     for d in data.get("dialogue", []):
         if "character" in d:

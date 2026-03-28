@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import logging
 import time
 from pathlib import Path
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 try:
     from bottle import Bottle, static_file, request, response
@@ -64,6 +67,7 @@ class NovelWebServer:
 
     def _handle_scene(self) -> dict[str, Any]:
         response.content_type = "application/json"
+        logger.info(f"GET /api/scene -> scene={self._scene_id}")
         return {
             "scene_id": self._scene_id,
             "title": self._title,
@@ -93,27 +97,33 @@ class NovelWebServer:
         data = request.json or {}
         choice_idx = data.get("choice_index")
         if choice_idx is None:
+            logger.warning("POST /api/choice -> missing choice_index")
             response.status = 400
             return {"error": "Missing choice_index"}
         self._pending_choice = choice_idx
         self._pending_choice_time = time.time()
+        logger.info(f"POST /api/choice -> pending choice={choice_idx}")
         response.content_type = "application/json"
         return {"status": "ok", "choice_index": choice_idx}
 
     def _handle_image(self, filepath: str) -> static_file:
         img_path = self._get_assets_dir() / filepath
         if not img_path.exists():
+            logger.warning(f"GET /api/image/{filepath} -> 404 not found")
             response.status = 404
             response.content_type = "application/json"
             return {"error": f"Image not found: {filepath}"}
+        logger.info(f"GET /api/image/{filepath} -> 200")
         return static_file(filepath, root=str(self._get_assets_dir()))
 
     def _handle_voice(self, filepath: str) -> static_file:
         voice_path = self._get_assets_dir() / "voices" / filepath
         if not voice_path.exists():
+            logger.warning(f"GET /api/audio/voices/{filepath} -> 404 not found")
             response.status = 404
             response.content_type = "application/json"
             return {"error": f"Voice not found: {filepath}"}
+        logger.info(f"GET /api/audio/voices/{filepath} -> 200")
         return static_file(filepath, root=str(self._get_assets_dir() / "voices"))
 
     def update_scene(
@@ -136,6 +146,7 @@ class NovelWebServer:
         self._music_url = music_url
         self._current_character_image_url = current_character_image_url
         self._last_update = time.time()
+        logger.info(f"update_scene: {scene_id} (bg={bool(background_url)}, music={bool(music_url)}, dialogues={len(dialogues or [])})")
 
     def update_character_image(self, character_image_url: str | None) -> None:
         self._current_character_image_url = character_image_url
