@@ -7,6 +7,7 @@ class NovelGame {
         this.isEnding = false;
         this.isWaitingForChoice = false;
         this.soundEnabled = true;
+        this.currentMusicSrc = null;
         
         this.titleScreen = document.getElementById('title-screen');
         this.gameScreen = document.getElementById('game-screen');
@@ -106,13 +107,14 @@ class NovelGame {
                 this.bgLayer.classList.remove('loading');
             }
             
-            if (data.music_url) {
+            if (data.music_url && data.music_url !== this.currentMusicSrc) {
+                this.currentMusicSrc = data.music_url;
                 this.musicEl.src = data.music_url;
                 if (this.soundEnabled) {
                     this.musicEl.play().catch(() => {});
                 }
-            } else {
-                this.musicEl.pause();
+            } else if (data.music_url && this.soundEnabled && this.musicEl.paused) {
+                this.musicEl.play().catch(() => {});
             }
             
             if (this.isEnding) {
