@@ -29,11 +29,7 @@ class NovelGame {
 
     setupEventListeners() {
         document.getElementById('start-btn').addEventListener('click', () => {
-            this.titleScreen.classList.add('hidden');
-            this.gameScreen.classList.remove('hidden');
-            this.soundEnabled = true;
-            this.updateSoundButton();
-            this.fetchScene();
+            this.showSoundPrompt();
         });
         
         document.getElementById('restart-btn').addEventListener('click', () => {
@@ -69,6 +65,23 @@ class NovelGame {
             this.soundBtn.classList.add('muted');
             this.musicEl.muted = true;
         }
+    }
+
+    showSoundPrompt() {
+        const modal = document.getElementById('sound-prompt');
+        modal.classList.remove('hidden');
+        
+        const handleSoundChoice = (enable) => {
+            modal.classList.add('hidden');
+            this.soundEnabled = enable;
+            this.updateSoundButton();
+            this.titleScreen.classList.add('hidden');
+            this.gameScreen.classList.remove('hidden');
+            this.fetchScene();
+        };
+        
+        document.getElementById('sound-yes').onclick = () => handleSoundChoice(true);
+        document.getElementById('sound-no').onclick = () => handleSoundChoice(false);
     }
 
     startPolling() {
