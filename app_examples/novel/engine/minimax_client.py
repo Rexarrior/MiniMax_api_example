@@ -112,6 +112,16 @@ class MiniMaxClient:
         except Exception:
             return None
 
+    def _get_mp3_duration(self, mp3_path: Path) -> int:
+        try:
+            from mutagen import File as MutagenFile
+            audio = MutagenFile(str(mp3_path))
+            if audio and audio.info:
+                return int(audio.info.length * 1000)
+        except Exception:
+            pass
+        return 0
+
     def generate_voice(
         self,
         story_id: str,
@@ -128,7 +138,8 @@ class MiniMaxClient:
         text_hash = hashlib.md5(text.encode()).hexdigest()[:10]
         cached = assets / f"voice_{safe_char}_{text_hash}_{speed}_{pitch}.mp3"
         if cached.exists():
-            return {"path": cached, "duration_ms": 0, "cached": True}
+            duration_ms = self._get_mp3_duration(cached)
+            return {"path": cached, "duration_ms": duration_ms, "cached": True}
         try:
             result = generate_speech(text, voice_id, cached, speed, pitch)
             if result:

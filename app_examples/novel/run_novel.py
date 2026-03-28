@@ -227,8 +227,12 @@ def run_web(story_path: Path, port: int = 8080) -> None:
 
                 music_url = None
                 if scene.music:
-                    music_url = f"/api/image/music/{scene.music}"
-                    logger.info(f"  Music: {scene.music}")
+                    music_file = story.dir / "assets" / "music" / scene.music
+                    if music_file.exists():
+                        music_url = f"/api/image/music/{scene.music}"
+                        logger.info(f"  Music: {scene.music}")
+                    else:
+                        logger.warning(f"  Music file not found: {music_file}")
                 elif scene.generate_music:
                     logger.info(f"  Generating music: {scene_id}")
                     music_path = mm_client.generate_music(story.story_id, scene.generate_music)

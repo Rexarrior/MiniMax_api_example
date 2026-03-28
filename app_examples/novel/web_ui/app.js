@@ -136,14 +136,8 @@ class NovelGame {
                 this.bgLayer.classList.remove('loading');
             }
             
-            if (data.music_url && data.music_url !== this.currentMusicSrc) {
-                this.currentMusicSrc = data.music_url;
-                this.musicEl.src = data.music_url;
-                if (this.soundEnabled) {
-                    this.musicEl.play().catch(() => {});
-                }
-            } else if (data.music_url && this.soundEnabled && this.musicEl.paused) {
-                this.musicEl.play().catch(() => {});
+            if (data.music_url) {
+                this.playMusic(data.music_url);
             }
             
             if (this.isEnding) {
@@ -152,6 +146,31 @@ class NovelGame {
                 this.showNextDialogue();
             } else if (this.choices.length > 0) {
                 this.showChoices();
+            }
+        }
+    }
+
+    playMusic(musicUrl) {
+        if (musicUrl === this.currentMusicSrc && !this.musicEl.paused) {
+            return;
+        }
+        this.currentMusicSrc = musicUrl;
+        this.musicEl.src = musicUrl;
+        this.musicEl.load();
+        if (this.soundEnabled) {
+            const playWhenReady = () => {
+                this.musicEl.play().catch((err) => {
+                    console.warn('Music play failed:', err);
+                });
+            };
+            if (this.musicEl.readyState >= 3) {
+                playWhenReady();
+            } else {
+                const onCanPlay = () => {
+                    this.musicEl.removeEventListener('canplay', onCanPlay);
+                    playWhenReady();
+                };
+                this.musicEl.addEventListener('canplay', onCanPlay);
             }
         }
     }
@@ -182,11 +201,6 @@ class NovelGame {
         this.dialogueEl.textContent = '';
         this.choicesEl.innerHTML = '';
         
-        if (d.voice_url && this.soundEnabled && !this.isSkipping) {
-            this.voiceEl.src = d.voice_url;
-            this.voiceEl.play().catch(() => {});
-        }
-
         if (this.isSkipping) {
             this.voiceEl.pause();
             this.voiceEl.currentTime = 0;
@@ -196,20 +210,39 @@ class NovelGame {
                 setTimeout(() => this.showNextDialogue(), 100);
             });
         } else if (d.voice_url && this.soundEnabled) {
-            let voiceDuration = d.voice_duration_ms;
-            if (!voiceDuration || voiceDuration === 0) {
-                voiceDuration = d.text.length * 50;
-            }
-            const charDuration = voiceDuration / d.text.length;
-            this.typeTextSync(d.text, charDuration, () => {
-                this.dialogueIndex++;
-                setTimeout(() => this.showNextDialogue(), 300);
-            });
+            this.playVoiceWithSync(d);
         } else {
             this.typeText(d.text, () => {
                 this.dialogueIndex++;
                 setTimeout(() => this.showNextDialogue(), 500);
             });
+        }
+    }
+
+    async playVoiceWithSync(dialogue) {
+        const voiceDuration = dialogue.voice_duration_ms || dialogue.text.length * 50;
+        const charDuration = voiceDuration / dialogue.text.length;
+        
+        const onReady = () => {
+            this.voiceEl.play().catch((err) => {
+                console.warn('Voice play failed:', err);
+            });
+            this.typeTextSync(dialogue.text, charDuration, () => {
+                this.dialogueIndex++;
+                setTimeout(() => this.showNextDialogue(), 300);
+            });
+        };
+        
+        this.voiceEl.src = dialogue.voice_url;
+        
+        if (this.voiceEl.readyState >= 4) {
+            onReady();
+        } else {
+            const onCanPlayThrough = () => {
+                this.voiceEl.removeEventListener('canplaythrough', onCanPlayThrough);
+                onReady();
+            };
+            this.voiceEl.addEventListener('canplaythrough', onCanPlayThrough);
         }
     }
 
