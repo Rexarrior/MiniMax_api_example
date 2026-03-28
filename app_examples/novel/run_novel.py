@@ -125,6 +125,23 @@ def generate_all_assets(story_path: Path) -> None:
             print(f"  Generating music for {scene_id}...")
             mm_client.generate_music(story.story_id, scene.generate_music)
 
+        for d in scene.dialogues:
+            if d.speaker == "narrator":
+                print(f"  Generating voice for narrator in {scene_id}...")
+                mm_client.generate_voice(
+                    story.story_id, "narrator", d.text,
+                    voice_id="English_Graceful_Lady", speed=1.0, pitch=0
+                )
+            else:
+                char_data = story.characters.get(d.speaker, {})
+                print(f"  Generating voice for {d.speaker} in {scene_id}...")
+                mm_client.generate_voice(
+                    story.story_id, d.speaker, d.text,
+                    voice_id=char_data.get("voice_id", "English_Insightful_Speaker"),
+                    speed=char_data.get("speed", 1.0),
+                    pitch=char_data.get("pitch", 0)
+                )
+
         for c in scene.choices:
             if c.next_scene and c.next_scene not in scenes_visited:
                 scene_queue.append(c.next_scene)
@@ -192,16 +209,49 @@ def run_web(story_path: Path, port: int = 8080) -> None:
                 if music_path:
                     music_url = f"/api/image/music/{music_path.name}"
 
-            dialogues = []
-            current_char_image_url = None
+            voice_data: list[dict | None] = []
             for d in scene.dialogues:
                 if d.speaker == "narrator":
+                    voice_result = mm_client.generate_voice(
+                        story.story_id, "narrator", d.text,
+                        voice_id="English_Graceful_Lady", speed=1.0, pitch=0
+                    )
+                else:
+                    char_data = story.characters.get(d.speaker, {})
+                    voice_result = mm_client.generate_voice(
+                        story.story_id, d.speaker, d.text,
+                        voice_id=char_data.get("voice_id", "English_Insightful_Speaker"),
+                        speed=char_data.get("speed", 1.0),
+                        pitch=char_data.get("pitch", 0)
+                    )
+                voice_data.append(voice_result)
+
+            dialogues = []
+            current_char_image_url = None
+            for i, d in enumerate(scene.dialogues):
+                vd = voice_data[i]
+                voice_url = f"/api/audio/voices/{vd['path'].name}" if vd else None
+                voice_duration_ms = vd.get("duration_ms", 0) if vd else 0
+                if d.speaker == "narrator":
                     char_img_url = char_images.get(last_character_id) if last_character_id else None
-                    dialogues.append({"speaker": "narrator", "text": d.text, "character_image_url": char_img_url})
+                    dialogues.append({
+                        "speaker": "narrator",
+                        "text": d.text,
+                        "character_image_url": char_img_url,
+                        "voice_url": voice_url,
+                        "voice_duration_ms": voice_duration_ms,
+                    })
                 else:
                     name = story.characters.get(d.speaker, {}).get("name", d.speaker)
                     char_img_url = char_images.get(d.speaker)
-                    dialogues.append({"speaker": name, "text": d.text, "mood": d.mood, "character_image_url": char_img_url})
+                    dialogues.append({
+                        "speaker": name,
+                        "text": d.text,
+                        "mood": d.mood,
+                        "character_image_url": char_img_url,
+                        "voice_url": voice_url,
+                        "voice_duration_ms": voice_duration_ms,
+                    })
                     current_char_image_url = char_img_url
                     last_character_id = d.speaker
 

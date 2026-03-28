@@ -192,3 +192,40 @@ def save_video_task_id(task_id: str) -> Path:
     dest = out_dir() / "last_video_task_id.txt"
     dest.write_text(str(task_id).strip(), encoding="utf-8")
     return dest
+
+
+def generate_speech(
+    text: str,
+    voice_id: str,
+    out_file: Path,
+    speed: float = 1.0,
+    pitch: int = 0,
+    model: str = "speech-2.8-hd",
+) -> dict | None:
+    body = {
+        "model": model,
+        "text": text,
+        "stream": False,
+        "language_boost": "auto",
+        "output_format": "hex",
+        "voice_setting": {
+            "voice_id": voice_id,
+            "speed": speed,
+            "vol": 1,
+            "pitch": pitch,
+        },
+        "audio_setting": {
+            "sample_rate": 32000,
+            "bitrate": 128000,
+            "format": "mp3",
+            "channel": 1,
+        },
+    }
+    d = api_request("POST", "/v1/t2a_v2", body)
+    require_base_ok(d)
+    hex_audio = (d.get("data") or {}).get("audio")
+    if not hex_audio:
+        return None
+    write_hex_mp3(hex_audio, out_file)
+    audio_length = (d.get("extra_info") or {}).get("audio_length", 0)
+    return {"path": out_file, "duration_ms": audio_length}

@@ -18,6 +18,7 @@ class NovelGame {
         this.dialogueEl = document.getElementById('dialogue-text');
         this.choicesEl = document.getElementById('choices-container');
         this.musicEl = document.getElementById('bg-music');
+        this.voiceEl = document.getElementById('voice-audio');
         this.soundBtn = document.getElementById('sound-btn');
         
         this.setupEventListeners();
@@ -153,10 +154,21 @@ class NovelGame {
         this.dialogueEl.textContent = '';
         this.choicesEl.innerHTML = '';
         
-        this.typeText(d.text, () => {
-            this.dialogueIndex++;
-            setTimeout(() => this.showNextDialogue(), 500);
-        });
+        if (d.voice_url && this.soundEnabled) {
+            this.voiceEl.src = d.voice_url;
+            this.voiceEl.play().catch(() => {});
+            
+            const charDuration = d.voice_duration_ms > 0 ? d.voice_duration_ms / d.text.length : 30;
+            this.typeTextSync(d.text, charDuration, () => {
+                this.dialogueIndex++;
+                setTimeout(() => this.showNextDialogue(), 300);
+            });
+        } else {
+            this.typeText(d.text, () => {
+                this.dialogueIndex++;
+                setTimeout(() => this.showNextDialogue(), 500);
+            });
+        }
     }
 
     typeText(text, callback) {
@@ -168,6 +180,22 @@ class NovelGame {
                 this.dialogueEl.textContent += text.charAt(i);
                 i++;
                 setTimeout(type, speed);
+            } else {
+                callback();
+            }
+        };
+        
+        type();
+    }
+
+    typeTextSync(text, charDuration, callback) {
+        let i = 0;
+        
+        const type = () => {
+            if (i < text.length) {
+                this.dialogueEl.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, charDuration);
             } else {
                 callback();
             }

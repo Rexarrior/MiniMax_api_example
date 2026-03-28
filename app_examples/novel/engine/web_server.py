@@ -42,6 +42,7 @@ class NovelWebServer:
         self._app.route("/api/choice", method="POST")(self._handle_choice)
         self._app.route("/api/poll")(self._handle_poll)
         self._app.route("/api/image/<filepath:path>")(self._handle_image)
+        self._app.route("/api/audio/voices/<filepath:path>")(self._handle_voice)
         self._app.route("/<filename>")(self._serve_static)
 
     def _get_web_root(self) -> Path:
@@ -106,6 +107,14 @@ class NovelWebServer:
             response.content_type = "application/json"
             return {"error": f"Image not found: {filepath}"}
         return static_file(filepath, root=str(self._get_assets_dir()))
+
+    def _handle_voice(self, filepath: str) -> static_file:
+        voice_path = self._get_assets_dir() / "voices" / filepath
+        if not voice_path.exists():
+            response.status = 404
+            response.content_type = "application/json"
+            return {"error": f"Voice not found: {filepath}"}
+        return static_file(filepath, root=str(self._get_assets_dir() / "voices"))
 
     def update_scene(
         self,

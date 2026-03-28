@@ -52,7 +52,39 @@ Develop a visual novel web application with AI-generated backgrounds and charact
 - All 20 backgrounds generated and saved
 - 4 character images generated (hermit in 4 different scenes)
 - Music generated
+- Added TTS voice feature with per-character voice settings
+- Voice lines generated for all dialogue (characters + narrator)
+- Text typing syncs with voice duration
 - All changes committed to git
+
+## Voice/TTS Feature
+
+### Voice Settings (in `characters.yaml`)
+Each character can have voice settings:
+- `voice_id`: MiniMax TTS voice ID (e.g., `English_Insightful_Speaker`, `English_Graceful_Lady`)
+- `speed`: Speech speed [0.5, 2.0], default 1.0
+- `pitch`: Pitch adjustment [-12, 12], default 0
+
+**Current voice assignments:**
+- `hermit`: `English_Insightful_Speaker`, speed=0.9, pitch=-2 (wise elderly voice)
+- `narrator`: `English_Graceful_Lady`, speed=1.0, pitch=0
+
+### Available English Voice IDs
+- `English_Graceful_Lady` - graceful female voice
+- `English_Insightful_Speaker` - insightful male voice
+- `English_radiant_girl` - youthful female voice
+- `English_Persuasive_Man` - persuasive male voice
+- `English_Lucky_Robot` - robot voice
+
+### Text-Voice Sync
+- Voice duration (ms) is returned from TTS API
+- Character typing speed calculated as: `voice_duration_ms / text_length`
+- Text displays character-by-character synced with voice playback
+- Falls back to default typing speed (30ms/char) if no voice
+
+### Voice File Cache
+- Cache key includes text hash + speed + pitch: `voice_{char}_{text_hash}_{speed}_{pitch}.mp3`
+- Stored in `stories/{story_id}/assets/voices/`
 
 ## Bug Fixes
 
@@ -66,8 +98,8 @@ Develop a visual novel web application with AI-generated backgrounds and charact
 
 ### Core Engine Files
 - `app_examples/novel/engine/scene.py` - Scene dataclass and parser (added `background_prompt` field)
-- `app_examples/novel/engine/minimax_client.py` - MiniMax API client (added `generate_background_image`, `generate_character_image` methods)
-- `app_examples/novel/engine/web_server.py` - Bottle web server with polling API (added `current_character_image_url` support)
+- `app_examples/novel/engine/minimax_client.py` - MiniMax API client (added `generate_background_image`, `generate_character_image`, `generate_voice` methods)
+- `app_examples/novel/engine/web_server.py` - Bottle web server with polling API (added `current_character_image_url` support and `/api/audio/voices/` route)
 - `app_examples/novel/engine/story.py` - Story loader
 - `app_examples/novel/engine/renderer.py` - Terminal renderer
 
@@ -86,9 +118,10 @@ Develop a visual novel web application with AI-generated backgrounds and charact
 ### Generated Assets (Committed)
 - `app_examples/novel/stories/demo/assets/images/` - 20 background images (bg_*.jpeg) + 4 character images (char_*.jpeg)
 - `app_examples/novel/stories/demo/assets/music/` - Generated music files
+- `app_examples/novel/stories/demo/assets/voices/` - Generated voice lines (voice_*.mp3)
 
 ### Shared Library
-- `examples_python/minimax_http.py` - Fixed `save_image_urls_from_response` to save to correct path
+- `examples_python/minimax_http.py` - Fixed `save_image_urls_from_response` to save to correct path, added `generate_speech()` TTS helper
 
 ## Next Steps
 
@@ -105,3 +138,5 @@ Develop a visual novel web application with AI-generated backgrounds and charact
    - Add character portraits/sprites overlay mode (current implementation replaces background)
    - Add scene transitions/effects
    - Mobile responsive improvements
+   - Emotion-aware voice settings (use TTS emotion parameter based on dialogue mood)
+   - Custom voice cloning for characters

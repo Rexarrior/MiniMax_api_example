@@ -3,3 +3,6 @@ hermit:
   default_mood: neutral
   description: "A mysterious old man living in the forest"
   appearance_prompt: "wise elderly hermit with long white beard, wearing dark forest robes, mystical forest guardian, atmospheric fog, dark enchanted forest background"
+  voice_id: "English_Insightful_Speaker"
+  speed: 0.9
+  pitch: -2

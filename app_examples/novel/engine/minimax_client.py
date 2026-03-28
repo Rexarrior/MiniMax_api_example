@@ -12,6 +12,7 @@ from minimax_http import (
     download_url_to_file,
     save_image_urls_from_response,
     save_music_mp3_from_response,
+    generate_speech,
     out_dir,
 )
 
@@ -108,5 +109,30 @@ class MiniMaxClient:
             )
             paths = save_image_urls_from_response(resp, str(assets / f"char_{safe_scene}_{safe_char}_{safe_prompt}"))
             return paths[0] if paths else None
+        except Exception:
+            return None
+
+    def generate_voice(
+        self,
+        story_id: str,
+        character_id: str,
+        text: str,
+        voice_id: str = "English_Graceful_Lady",
+        speed: float = 1.0,
+        pitch: int = 0,
+    ) -> dict | None:
+        import hashlib
+        assets = self._get_assets_dir(story_id) / "voices"
+        assets.mkdir(parents=True, exist_ok=True)
+        safe_char = "".join(c if c.isalnum() else "_" for c in character_id)[:20]
+        text_hash = hashlib.md5(text.encode()).hexdigest()[:10]
+        cached = assets / f"voice_{safe_char}_{text_hash}_{speed}_{pitch}.mp3"
+        if cached.exists():
+            return {"path": cached, "duration_ms": 0, "cached": True}
+        try:
+            result = generate_speech(text, voice_id, cached, speed, pitch)
+            if result:
+                return {"path": result["path"], "duration_ms": result.get("duration_ms", 0), "cached": False}
+            return None
         except Exception:
             return None

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate all assets for a story (images and music)."""
+"""Generate all assets for a story (images, music, and voices)."""
 
 import argparse
 import sys
@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent / "examples_python"))
 sys.path.insert(0, str(Path(__file__).parent.parent / "engine"))
 
 from story import Story
+from scene import parse_scene
 from minimax_client import MiniMaxClient
 
 
@@ -26,30 +27,45 @@ def generate_story_assets(story_path: Path, force: bool = False) -> None:
     for scene_file in scenes_dir.glob("*.scn"):
         scene_id = scene_file.stem
         content = scene_file.read_text(encoding="utf-8")
+        scene = parse_scene(scene_id, content)
 
-        import yaml
-        data = yaml.safe_load(content) or {}
-
-        generate_image = data.get("generate_image")
-        generate_music = data.get("generate_music")
-
-        if generate_image:
-            img_path = mm_client.generate_image(story.story_id, generate_image)
+        if scene.background_prompt:
+            img_path = mm_client.generate_background_image(story.story_id, scene_id, scene.background_prompt)
             if img_path:
                 print(f"  [IMAGE] {scene_id}: {img_path.name}")
                 generated_count += 1
             else:
                 print(f"  [IMAGE] {scene_id}: FAILED")
 
-        if generate_music:
-            music_path = mm_client.generate_music(story.story_id, generate_music)
+        for d in scene.dialogues:
+            if d.speaker == "narrator":
+                voice_result = mm_client.generate_voice(
+                    story.story_id, "narrator", d.text,
+                    voice_id="English_Graceful_Lady", speed=1.0, pitch=0
+                )
+            else:
+                char_data = story.characters.get(d.speaker, {})
+                voice_result = mm_client.generate_voice(
+                    story.story_id, d.speaker, d.text,
+                    voice_id=char_data.get("voice_id", "English_Insightful_Speaker"),
+                    speed=char_data.get("speed", 1.0),
+                    pitch=char_data.get("pitch", 0)
+                )
+            if voice_result:
+                print(f"  [VOICE] {scene_id}/{d.speaker}: {voice_result['path'].name}")
+                generated_count += 1
+            else:
+                print(f"  [VOICE] {scene_id}/{d.speaker}: FAILED")
+
+        if scene.generate_music:
+            music_path = mm_client.generate_music(story.story_id, scene.generate_music)
             if music_path:
                 print(f"  [MUSIC] {scene_id}: {music_path.name}")
                 generated_count += 1
             else:
                 print(f"  [MUSIC] {scene_id}: FAILED")
 
-        if not generate_image and not generate_music:
+        if not scene.background_prompt and not scene.generate_music and not scene.dialogues:
             skipped_count += 1
 
     print(f"\nDone! Generated: {generated_count}, Skipped (no assets): {skipped_count}")
