@@ -86,7 +86,7 @@ def generate_all_assets(story_path: Path) -> None:
     story = Story(story_path)
     mm_client = MiniMaxClient()
 
-    def build_character_prompt(character_id: str, scene: Scene, story: Story) -> str | None:
+    def build_character_prompt(character_id: str, scene: Scene, story: Story, mood: str | None = None) -> str | None:
         char_data = story.characters.get(character_id)
         if not char_data:
             return None
@@ -96,10 +96,12 @@ def generate_all_assets(story_path: Path) -> None:
             appearance = f"character: {desc}" if desc else None
         if not appearance:
             return None
-        bg_prompt = scene.background_prompt or scene.title or ""
-        if bg_prompt:
-            return f"{appearance}, {bg_prompt}"
-        return appearance
+        parts = [appearance]
+        if scene.background_prompt:
+            parts.append(scene.background_prompt)
+        if mood:
+            parts.append(mood)
+        return ", ".join(parts)
 
     print("Generating assets...")
     scenes_visited = set()
@@ -124,10 +126,10 @@ def generate_all_assets(story_path: Path) -> None:
 
         for d in scene.dialogues:
             if d.speaker != "narrator":
-                prompt = build_character_prompt(d.speaker, scene, story)
+                prompt = build_character_prompt(d.speaker, scene, story, d.mood)
                 if prompt:
-                    print(f"  Generating character {d.speaker} for {scene_id}...")
-                    mm_client.generate_character_image(story.story_id, scene_id, d.speaker, prompt)
+                    print(f"  Generating character {d.speaker} (mood={d.mood}) for {scene_id}...")
+                    mm_client.generate_character_image(story.story_id, scene_id, d.speaker, prompt, d.mood)
 
         if scene.generate_music:
             print(f"  Generating music for {scene_id}...")
@@ -166,7 +168,7 @@ def run_web(story_path: Path, port: int = 8080) -> None:
     mm_client = MiniMaxClient()
     server = NovelWebServer(story_path, port)
 
-    def build_character_prompt(character_id: str, scene: Scene, story: Story) -> str | None:
+    def build_character_prompt(character_id: str, scene: Scene, story: Story, mood: str | None = None) -> str | None:
         char_data = story.characters.get(character_id)
         if not char_data:
             return None
@@ -176,10 +178,12 @@ def run_web(story_path: Path, port: int = 8080) -> None:
             appearance = f"character: {desc}" if desc else None
         if not appearance:
             return None
-        bg_prompt = scene.background_prompt or scene.title or ""
-        if bg_prompt:
-            return f"{appearance}, {bg_prompt}"
-        return appearance
+        parts = [appearance]
+        if scene.background_prompt:
+            parts.append(scene.background_prompt)
+        if mood:
+            parts.append(mood)
+        return ", ".join(parts)
 
     def game_loop():
         scene_id = story.get_start_scene()
@@ -214,16 +218,18 @@ def run_web(story_path: Path, port: int = 8080) -> None:
 
                 char_images: dict[str, str] = {}
                 for d in scene.dialogues:
-                    if d.speaker != "narrator" and d.speaker not in char_images:
-                        prompt = build_character_prompt(d.speaker, scene, story)
-                        if prompt:
-                            logger.info(f"  Generating character image: {d.speaker} in {scene_id}")
-                            img_path = mm_client.generate_character_image(story.story_id, scene_id, d.speaker, prompt)
-                            if img_path:
-                                char_images[d.speaker] = f"/api/image/images/{img_path.name}"
-                                logger.info(f"  Character ready: {d.speaker} -> {img_path.name}")
-                            else:
-                                logger.warning(f"  Character generation failed: {d.speaker}")
+                    if d.speaker != "narrator":
+                        img_key = f"{d.speaker}_{d.mood or ''}"
+                        if img_key not in char_images:
+                            prompt = build_character_prompt(d.speaker, scene, story, d.mood)
+                            if prompt:
+                                logger.info(f"  Generating character image: {d.speaker} (mood={d.mood}) in {scene_id}")
+                                img_path = mm_client.generate_character_image(story.story_id, scene_id, d.speaker, prompt, d.mood)
+                                if img_path:
+                                    char_images[img_key] = f"/api/image/images/{img_path.name}"
+                                    logger.info(f"  Character ready: {img_key} -> {img_path.name}")
+                                else:
+                                    logger.warning(f"  Character generation failed: {d.speaker}")
 
                 music_url = None
                 if scene.music:
@@ -277,7 +283,8 @@ def run_web(story_path: Path, port: int = 8080) -> None:
                         })
                     else:
                         name = story.characters.get(d.speaker, {}).get("name", d.speaker)
-                        char_img_url = char_images.get(d.speaker)
+                        img_key = f"{d.speaker}_{d.mood or ''}"
+                        char_img_url = char_images.get(img_key)
                         dialogues.append({
                             "speaker": name,
                             "text": d.text,

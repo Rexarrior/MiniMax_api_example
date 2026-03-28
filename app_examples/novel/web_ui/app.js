@@ -206,6 +206,18 @@ class NovelGame {
         }
     }
 
+    setCharacterImage(imageUrl) {
+        if (this.charLayer.style.backgroundImage === `url('${imageUrl}')`) {
+            this.charLayer.classList.add('visible');
+            return;
+        }
+        this.charLayer.classList.remove('visible');
+        setTimeout(() => {
+            this.charLayer.style.backgroundImage = `url('${imageUrl}')`;
+            this.charLayer.classList.add('visible');
+        }, 50);
+    }
+
     showNextDialogue() {
         if (this.isWaitingForChoice) return;
         
@@ -223,8 +235,7 @@ class NovelGame {
         this.speakerEl.className = d.speaker === 'narrator' ? 'narrator' : '';
         
         if (d.character_image_url) {
-            this.charLayer.style.backgroundImage = `url('${d.character_image_url}')`;
-            this.charLayer.classList.add('visible');
+            this.setCharacterImage(d.character_image_url);
         } else {
             this.charLayer.classList.remove('visible');
         }

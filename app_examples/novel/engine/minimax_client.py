@@ -92,13 +92,21 @@ class MiniMaxClient:
         except Exception:
             return None
 
-    def generate_character_image(self, story_id: str, scene_id: str, character_id: str, prompt: str) -> Path | None:
+    def generate_character_image(
+        self,
+        story_id: str,
+        scene_id: str,
+        character_id: str,
+        prompt: str,
+        mood: str | None = None,
+    ) -> Path | None:
         assets = self._get_assets_dir(story_id) / "images"
         assets.mkdir(parents=True, exist_ok=True)
-        safe_prompt = "".join(c if c.isalnum() else "_" for c in prompt)[:50]
+        safe_prompt = "".join(c if c.isalnum() else "_" for c in prompt)[:40]
         safe_scene = "".join(c if c.isalnum() else "_" for c in scene_id)[:30]
-        safe_char = "".join(c if c.isalnum() else "_" for c in character_id)[:30]
-        cached = assets / f"char_{safe_scene}_{safe_char}_{safe_prompt}_0.jpeg"
+        safe_char = "".join(c if c.isalnum() else "_" for c in character_id)[:20]
+        safe_mood = "".join(c if c.isalnum() else "_" for c in (mood or ""))[:20]
+        cached = assets / f"char_{safe_scene}_{safe_char}_{safe_mood}_{safe_prompt}_0.jpeg"
         if cached.exists():
             return cached
         try:
@@ -107,7 +115,7 @@ class MiniMaxClient:
                 "/v1/image_generation",
                 {"model": "image-01", "prompt": prompt},
             )
-            paths = save_image_urls_from_response(resp, str(assets / f"char_{safe_scene}_{safe_char}_{safe_prompt}"))
+            paths = save_image_urls_from_response(resp, str(assets / f"char_{safe_scene}_{safe_char}_{safe_mood}_{safe_prompt}"))
             return paths[0] if paths else None
         except Exception:
             return None
