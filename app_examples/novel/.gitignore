@@ -1,0 +1,21 @@
+# Build outputs
+web_ui/dist/
+web_ui/node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.ruff_cache/
+
+# User-specific
+run_novel.py
+opencode.json
+
+# Output files
+*.mp4
+*.wav
+*.mp3
+*.png
+*.jpg
+jpeg
+out/
