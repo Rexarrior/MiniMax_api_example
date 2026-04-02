@@ -1,0 +1,30 @@
+services:
+  backend:
+    build: ./backend
+    volumes:
+      - ./stories:/app/stories:ro
+      - ../../examples_python:/app/examples_python:ro
+    environment:
+      - STORIES_DIR=/app/stories
+    networks:
+      - novel-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build: ./web_ui
+    volumes:
+      - ./stories:/usr/share/nginx/html/stories:ro
+    ports:
+      - "8060:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - novel-net
+
+networks:
+  novel-net:
