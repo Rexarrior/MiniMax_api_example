@@ -11,17 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { useGameStore } from '@/stores/gameStore'
-import { useAudioStore } from '@/stores/audioStore'
-
-const router = useRouter()
-const gameStore = useGameStore()
-const audioStore = useAudioStore()
-
 function handleRestart() {
-  gameStore.reset()
-  audioStore.stopMusic()
-  router.push('/')
+  window.location.href = '/?session_id=' + Math.random().toString(36).substring(2, 15)
 }
 </script>

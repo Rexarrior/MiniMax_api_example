@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 import uvicorn
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
@@ -120,7 +120,16 @@ class GameState:
             }
 
 
-game_state = GameState()
+sessions: dict[str, GameState] = {}
+
+DEFAULT_SESSION_ID = "default"
+
+
+def get_session(session_id: str | None = None) -> GameState:
+    sid = session_id or DEFAULT_SESSION_ID
+    if sid not in sessions:
+        sessions[sid] = GameState()
+    return sessions[sid]
 
 
 def get_stories() -> list[dict[str, Any]]:
@@ -149,7 +158,7 @@ def get_stories() -> list[dict[str, Any]]:
     return stories
 
 
-def game_loop(story_path: Path):
+def game_loop(story_path: Path, session_id: str = DEFAULT_SESSION_ID):
     from engine.story import Story
     from engine.scene import parse_scene
     from engine.choices import get_next_scene
@@ -157,6 +166,7 @@ def game_loop(story_path: Path):
 
     story = Story(story_path)
     mm_client = MiniMaxClient(stories_dir=STORIES_DIR)
+    gs = get_session(session_id)
 
     def build_character_prompt(
         character_id: str, scene, story: Story, mood: str | None = None
@@ -180,7 +190,7 @@ def game_loop(story_path: Path):
     scene_id = story.get_start_scene()
     if not scene_id:
         logger.error("No start scene defined")
-        game_state.update_scene(
+        gs.update_scene(
             scene_id="",
             title="Error",
             dialogues=[{"speaker": "system", "text": "No start scene defined"}],
@@ -249,18 +259,6 @@ def game_loop(story_path: Path):
                 if music_file.exists():
                     music_url = f"/stories/{story.story_id}/assets/music/{scene.music}"
                     logger.info(f"  Music: {scene.music}")
-                else:
-                    logger.warning(f"  Music file not found: {music_file}")
-            elif scene.generate_music:
-                logger.info(f"  Generating music: {scene_id}")
-                music_path = mm_client.generate_music(
-                    story.story_id, scene.generate_music
-                )
-                if music_path:
-                    music_url = (
-                        f"/stories/{story.story_id}/assets/music/{music_path.name}"
-                    )
-                    logger.info(f"  Music ready: {music_path.name}")
 
             logger.info(f"  Processing {len(scene.dialogues)} dialogues")
             voice_data: list[dict | None] = []
@@ -343,7 +341,7 @@ def game_loop(story_path: Path):
             if music_url:
                 last_music_url = music_url
 
-            game_state.update_scene(
+            gs.update_scene(
                 scene_id=scene_id,
                 title=scene.title,
                 dialogues=dialogues,
@@ -362,7 +360,7 @@ def game_loop(story_path: Path):
             choice_idx = None
             choice_time = 0
             while choice_idx is None:
-                choice_idx, choice_time = game_state.get_pending_choice()
+                choice_idx, choice_time = gs.get_pending_choice()
                 if choice_idx is None:
                     time.sleep(0.1)
 
@@ -384,7 +382,11 @@ class StartGameRequest(BaseModel):
 
 
 @app.post("/api/game/start")
-def start_game(req: StartGameRequest):
+def start_game(
+    req: StartGameRequest,
+    x_session_id: str | None = Header(default=None, alias="X-Session-ID"),
+    session_id: str | None = None,
+):
     story_path = STORIES_DIR / req.story_id
     if not story_path.exists():
         raise HTTPException(status_code=404, detail=f"Story '{req.story_id}' not found")
@@ -393,25 +395,35 @@ def start_game(req: StartGameRequest):
             status_code=400, detail=f"Story '{req.story_id}' has no start.txt"
         )
 
-    game_state.reset()
-    game_state.story_id = req.story_id
-    game_state.story_path = story_path
+    sid = session_id or x_session_id or DEFAULT_SESSION_ID
+    gs = get_session(sid)
+    gs.reset()
+    gs.story_id = req.story_id
+    gs.story_path = story_path
 
-    thread = threading.Thread(target=game_loop, args=(story_path,), daemon=True)
+    thread = threading.Thread(target=game_loop, args=(story_path, sid), daemon=True)
     thread.start()
-    game_state._game_thread = thread
+    gs._game_thread = thread
 
-    return {"status": "ok", "story_id": req.story_id}
+    return {"status": "ok", "story_id": req.story_id, "session_id": sid}
 
 
 @app.get("/api/scene")
-def get_scene():
-    return game_state.to_dict()
+def get_scene(
+    x_session_id: str | None = Header(default=None, alias="X-Session-ID"),
+    session_id: str | None = None,
+):
+    sid = session_id or x_session_id or DEFAULT_SESSION_ID
+    return get_session(sid).to_dict()
 
 
 @app.get("/api/poll")
-def poll():
-    return game_state.to_dict()
+def poll(
+    x_session_id: str | None = Header(default=None, alias="X-Session-ID"),
+    session_id: str | None = None,
+):
+    sid = session_id or x_session_id or DEFAULT_SESSION_ID
+    return get_session(sid).to_dict()
 
 
 class ChoiceRequest(BaseModel):
@@ -419,10 +431,16 @@ class ChoiceRequest(BaseModel):
 
 
 @app.post("/api/choice")
-def make_choice(req: ChoiceRequest):
-    if game_state.story_id is None:
+def make_choice(
+    req: ChoiceRequest,
+    x_session_id: str | None = Header(default=None, alias="X-Session-ID"),
+    session_id: str | None = None,
+):
+    sid = session_id or x_session_id or DEFAULT_SESSION_ID
+    gs = get_session(sid)
+    if gs.story_id is None:
         raise HTTPException(status_code=400, detail="No game in progress")
-    game_state.set_pending_choice(req.choice_index)
+    gs.set_pending_choice(req.choice_index)
     return {"status": "ok", "choice_index": req.choice_index}
 
 
