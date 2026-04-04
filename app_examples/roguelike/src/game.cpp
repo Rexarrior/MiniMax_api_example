@@ -32,7 +32,11 @@ void Game::init_level(int floor) {
     map_renderer_.set_biome(biome);
 
     const auto& rooms = dungeon_->rooms();
-    if (rooms.empty()) return;
+    std::cerr << "[Game] Floor " << floor << ": generated " << rooms.size() << " rooms, biome=" << static_cast<int>(biome) << std::endl;
+    if (rooms.empty()) {
+        std::cerr << "[Game] ERROR: No rooms generated!" << std::endl;
+        return;
+    }
 
     auto start_room = rooms.front();
     auto end_room = rooms.back();
@@ -103,6 +107,7 @@ void Game::update() {
     }
 
     if (state_ != GameState::Playing) return;
+    if (!champion_ || !dungeon_) return;
 
     auto dir = input_.get_movement_input();
 

@@ -21,7 +21,7 @@ void Dungeon::generate_bsp(Biome biome) {
 
     auto& rng = RNG::instance();
 
-    for (int attempt = 0; attempt < 200 && static_cast<int>(rooms_.size()) < MAX_ROOMS; ++attempt) {
+    for (int attempt = 0; attempt < 500 && static_cast<int>(rooms_.size()) < MAX_ROOMS; ++attempt) {
         int w = rng.range(MIN_ROOM_SIZE, MAX_ROOM_SIZE);
         int h = rng.range(MIN_ROOM_SIZE, MAX_ROOM_SIZE);
         int x = rng.range(1, MAP_WIDTH - w - 1);
