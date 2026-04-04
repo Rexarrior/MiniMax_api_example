@@ -23,12 +23,6 @@ void MapRenderer::render(const Dungeon& dungeon, Camera2D camera) {
 
     auto& assets = AssetManager::instance();
 
-    float tile_screen_size = TILE_SIZE * camera.zoom;
-    float origin_screen_x = camera.offset.x - camera.target.x * camera.zoom;
-    float origin_screen_y = camera.offset.y - camera.target.y * camera.zoom;
-
-    BeginMode2D(camera);
-
     for (int y = start_y; y < end_y; ++y) {
         for (int x = start_x; x < end_x; ++x) {
             TileType type = dungeon.tile_at(x, y);
@@ -71,8 +65,6 @@ void MapRenderer::render(const Dungeon& dungeon, Camera2D camera) {
             }
         }
     }
-
-    EndMode2D();
 }
 
 }

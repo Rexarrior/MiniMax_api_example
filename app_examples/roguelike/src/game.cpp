@@ -171,18 +171,18 @@ void Game::draw_entity_texture(const std::string& name, Position pos, Camera2D c
     Texture2D tex = assets.get_texture(name);
     if (!tex.id) return;
 
-    Vector2 wp = {static_cast<float>(pos.x * TILE_SIZE),
-                  static_cast<float>(pos.y * TILE_SIZE)};
-    Vector2 sp = GetWorldToScreen2D(wp, cam);
+    float fx = static_cast<float>(pos.x * TILE_SIZE);
+    float fy = static_cast<float>(pos.y * TILE_SIZE);
 
+    // Sprite sheets are 2x2 grid, extract one quadrant
     int frame_w = tex.width / 2;
     int frame_h = tex.height / 2;
-    int fx = std::min(frame_col, 1) * frame_w;
-    int fy = std::min(frame_row, 1) * frame_h;
+    int qx = std::min(frame_col, 1) * frame_w;
+    int qy = std::min(frame_row, 1) * frame_h;
 
-    Rectangle src = {static_cast<float>(fx), static_cast<float>(fy),
+    Rectangle src = {static_cast<float>(qx), static_cast<float>(qy),
                     static_cast<float>(frame_w), static_cast<float>(frame_h)};
-    Rectangle dst = {sp.x, sp.y,
+    Rectangle dst = {fx, fy,
                     static_cast<float>(TILE_SIZE), static_cast<float>(TILE_SIZE)};
     DrawTexturePro(tex, src, dst, {0, 0}, 0, tint);
 }
@@ -207,14 +207,15 @@ void Game::render() {
     }
 
     if (state_ == GameState::GameOver || state_ == GameState::Victory) {
+        BeginMode2D(camera_.camera());
         map_renderer_.render(*dungeon_, camera_.camera());
-        auto cam = camera_.camera();
-        draw_entity_texture("champion", champion_->pos(), cam, WHITE);
+        draw_entity_texture("champion", champion_->pos(), camera_.camera(), WHITE);
         for (const auto& enemy : enemies_) {
             if (!enemy.alive()) continue;
             if (!fov_.is_visible(enemy.pos().x, enemy.pos().y)) continue;
-            draw_entity_texture(enemy.sprite_name(), enemy.pos(), cam, WHITE);
+            draw_entity_texture(enemy.sprite_name(), enemy.pos(), camera_.camera(), WHITE);
         }
+        EndMode2D();
         menu_.render_game_over(state_ == GameState::Victory, floor_,
                                champion_ ? champion_->level() : 1);
         EndDrawing();
@@ -222,38 +223,40 @@ void Game::render() {
     }
 
     if (state_ == GameState::Paused) {
+        BeginMode2D(camera_.camera());
         map_renderer_.render(*dungeon_, camera_.camera());
+        EndMode2D();
         menu_.render_paused();
         EndDrawing();
         return;
     }
 
+    BeginMode2D(camera_.camera());
     map_renderer_.render(*dungeon_, camera_.camera());
-
-    auto cam = camera_.camera();
 
     for (const auto& item : items_) {
         if (item.picked_up) continue;
         if (!fov_.is_visible(item.pos.x, item.pos.y)) continue;
-        draw_entity_texture("potions", item.pos, cam, WHITE);
+        draw_entity_texture("potions", item.pos, camera_.camera(), WHITE);
     }
 
     if (fov_.is_visible(entry_portal_.pos.x, entry_portal_.pos.y)) {
-        draw_entity_texture("portal_entry", entry_portal_.pos, cam, WHITE);
+        draw_entity_texture("portal_entry", entry_portal_.pos, camera_.camera(), WHITE);
     }
     if (fov_.is_visible(exit_portal_.pos.x, exit_portal_.pos.y)) {
-        draw_entity_texture("portal_exit", exit_portal_.pos, cam, WHITE);
+        draw_entity_texture("portal_exit", exit_portal_.pos, camera_.camera(), WHITE);
     }
 
     for (const auto& enemy : enemies_) {
         if (!enemy.alive()) continue;
         if (!fov_.is_visible(enemy.pos().x, enemy.pos().y)) continue;
-        draw_entity_texture(enemy.sprite_name(), enemy.pos(), cam, WHITE);
+        draw_entity_texture(enemy.sprite_name(), enemy.pos(), camera_.camera(), WHITE);
     }
 
     if (champion_) {
-        draw_entity_texture("champion", champion_->pos(), cam, WHITE);
+        draw_entity_texture("champion", champion_->pos(), camera_.camera(), WHITE);
     }
+    EndMode2D();
 
     particles_.render();
     hud_.render(*champion_, floor_, static_cast<int>(enemies_.size()));
