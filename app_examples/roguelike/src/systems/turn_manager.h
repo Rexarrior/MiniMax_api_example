@@ -5,6 +5,7 @@
 #include "../entities/item.h"
 #include "../entities/portal.h"
 #include "../map/dungeon.h"
+#include "../ui/message_log.h"
 #include <vector>
 
 namespace rl {
@@ -12,15 +13,11 @@ namespace rl {
 class TurnManager {
 public:
     void process_player_turn(Direction dir, Champion& champion, std::vector<Enemy>& enemies,
-                             Dungeon& dungeon, std::vector<std::string>& messages);
+                             Dungeon& dungeon, MessageLog& log);
     void process_enemy_turn(std::vector<Enemy>& enemies, Champion& champion,
-                            Dungeon& dungeon, std::vector<std::string>& messages);
+                            Dungeon& dungeon, MessageLog& log);
 
 private:
-    bool try_move_champion(Champion& champion, Direction dir, const Dungeon& dungeon,
-                           const std::vector<Enemy>& enemies,
-                           std::vector<Enemy>& enemies_ref,
-                           std::vector<std::string>& messages);
 };
 
 }

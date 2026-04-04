@@ -7,6 +7,7 @@ namespace rl {
 
 class FOV {
 public:
+    FOV();
     void compute(const Dungeon& dungeon, int origin_x, int origin_y, int radius);
     bool is_visible(int x, int y) const;
     bool is_explored(int x, int y) const;

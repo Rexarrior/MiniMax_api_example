@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "../core/config.h"
 #include <cstring>
 
 namespace rl {

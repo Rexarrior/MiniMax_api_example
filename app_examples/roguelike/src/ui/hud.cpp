@@ -1,4 +1,5 @@
 #include "hud.h"
+#include "../core/config.h"
 #include <string>
 
 namespace rl {

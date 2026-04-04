@@ -8,7 +8,7 @@ namespace rl {
 void TurnManager::process_player_turn(Direction dir, Champion& champion,
                                        std::vector<Enemy>& enemies,
                                        Dungeon& dungeon,
-                                       std::vector<std::string>& messages) {
+                                       MessageLog& log) {
     if (dir == Direction::None) return;
 
     auto pos = champion.pos();
@@ -24,10 +24,10 @@ void TurnManager::process_player_turn(Direction dir, Champion& champion,
     for (auto& enemy : enemies) {
         if (enemy.alive() && enemy.pos() == target) {
             auto result = champion_attacks(champion, enemy);
-            messages.push_back(result.message);
+            log.add(result.message);
             if (result.killed) {
                 champion.gain_xp(enemy.xp_value());
-                messages.push_back("Gained " + std::to_string(enemy.xp_value()) + " XP");
+                log.add("Gained " + std::to_string(enemy.xp_value()) + " XP");
             }
             return;
         }
@@ -40,7 +40,7 @@ void TurnManager::process_player_turn(Direction dir, Champion& champion,
 
 void TurnManager::process_enemy_turn(std::vector<Enemy>& enemies, Champion& champion,
                                       Dungeon& dungeon,
-                                      std::vector<std::string>& messages) {
+                                      MessageLog& log) {
     AISystem ai;
     ai.update(enemies, champion, dungeon);
 
@@ -51,7 +51,7 @@ void TurnManager::process_enemy_turn(std::vector<Enemy>& enemies, Champion& cham
 
         if (std::abs(epos.x - cpos.x) + std::abs(epos.y - cpos.y) <= 1) {
             auto result = enemy_attacks(enemy, champion);
-            messages.push_back(result.message);
+            log.add(result.message);
             if (result.killed) return;
         }
     }
