@@ -34,7 +34,7 @@ export interface PollResponse {
   timestamp: number
 }
 
-export interface StartGameResponse {
-  success: boolean
-  scene: Scene
+export interface StartGameResponse extends Scene {
+  status: string
+  session_id: string
 }

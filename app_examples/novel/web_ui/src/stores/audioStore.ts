@@ -14,6 +14,9 @@ export const useAudioStore = defineStore('audio', () => {
   }
 
   function enableSound() {
+    if (!bgMusic.value) {
+      initAudio()
+    }
     soundEnabled.value = true
   }
 
@@ -37,14 +40,14 @@ export const useAudioStore = defineStore('audio', () => {
   }
 
   function playVoice(url: string): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (!voiceAudio.value || !soundEnabled.value || isMuted.value) {
         resolve()
         return
       }
       voiceAudio.value.src = url
       voiceAudio.value.onended = () => resolve()
-      voiceAudio.value.onerror = reject
+      voiceAudio.value.onerror = () => resolve()
       voiceAudio.value.play().catch(() => resolve())
     })
   }
