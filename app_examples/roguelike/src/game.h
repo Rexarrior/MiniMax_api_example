@@ -33,7 +33,7 @@ private:
     void init_level(int floor);
     void update();
     void render();
-    void draw_entity_texture(const std::string& name, Position pos, Camera2D cam, Color tint);
+    void draw_entity_texture(const std::string& name, Position pos, Camera2D cam, Color tint, int frame_row = 0, int frame_col = 0);
 
     GameState state_ = GameState::Menu;
     std::unique_ptr<Dungeon> dungeon_;

@@ -25,8 +25,8 @@ void MapRenderer::render(const Dungeon& dungeon, Camera2D camera) {
     for (int y = start_y; y < end_y; ++y) {
         for (int x = start_x; x < end_x; ++x) {
             TileType type = dungeon.tile_at(x, y);
-            Vector2 world_pos = {static_cast<float>(x * TILE_SIZE), static_cast<float>(y * TILE_SIZE)};
-            Vector2 screen_pos = GetWorldToScreen2D(world_pos, camera);
+            int sx = static_cast<int>(x * TILE_SIZE);
+            int sy = static_cast<int>(y * TILE_SIZE);
 
             std::string tex_name;
             switch (type) {
@@ -52,16 +52,24 @@ void MapRenderer::render(const Dungeon& dungeon, Camera2D camera) {
             }
 
             Texture2D tex = assets.get_texture(tex_name);
+
             if (tex.id) {
                 Rectangle src = {0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
-                Rectangle dst = {screen_pos.x, screen_pos.y,
-                                static_cast<float>(TILE_SIZE), static_cast<float>(TILE_SIZE)};
+                Vector2 wp = {static_cast<float>(sx), static_cast<float>(sy)};
+                Vector2 sp = GetWorldToScreen2D(wp, camera);
+                int ix = static_cast<int>(sp.x);
+                int iy = static_cast<int>(sp.y);
+                int ts = TILE_SIZE + 1;
+                Rectangle dst = {static_cast<float>(ix), static_cast<float>(iy),
+                                static_cast<float>(ts), static_cast<float>(ts)};
                 DrawTexturePro(tex, src, dst, {0, 0}, 0, WHITE);
             } else {
                 Color c = (type == TileType::Wall) ? DARKGRAY : GRAY;
-                DrawRectangle(static_cast<int>(screen_pos.x), static_cast<int>(screen_pos.y),
-                             TILE_SIZE, TILE_SIZE, c);
+                DrawRectangle(sx, sy, TILE_SIZE, TILE_SIZE, c);
             }
+
+            Color grid_color = {50, 50, 50, 80};
+            DrawRectangleLines(sx, sy, TILE_SIZE, TILE_SIZE, grid_color);
         }
     }
 }

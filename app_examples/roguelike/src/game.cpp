@@ -2,6 +2,7 @@
 #include "assets/asset_manager.h"
 #include "core/config.h"
 #include <algorithm>
+#include <iostream>
 
 namespace rl {
 
@@ -9,8 +10,16 @@ Game::Game() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Dungeon of Champions");
     SetTargetFPS(TARGET_FPS);
 
-    std::string asset_path = "../../../out/roguelike_assets";
+    std::string asset_path = "../../../../out/roguelike_assets";
     AssetManager::instance().load_all(asset_path);
+
+    std::cerr << "[Game] Checking loaded textures:" << std::endl;
+    auto& am = AssetManager::instance();
+    std::vector<std::string> check = {"champion", "skeleton", "wall_brick", "floor_tile", "bg_menu"};
+    for (auto& n : check) {
+        auto t = am.get_texture(n);
+        std::cerr << "  " << n << ": " << (t.id ? "OK" : "NULL") << " (" << t.width << "x" << t.height << ")" << std::endl;
+    }
 
     map_renderer_.set_biome(Biome::Dungeon);
 }
@@ -152,7 +161,7 @@ void Game::update() {
     particles_.update(GetFrameTime());
 }
 
-void Game::draw_entity_texture(const std::string& name, Position pos, Camera2D cam, Color tint) {
+void Game::draw_entity_texture(const std::string& name, Position pos, Camera2D cam, Color tint, int frame_row, int frame_col) {
     auto& assets = AssetManager::instance();
     Texture2D tex = assets.get_texture(name);
     if (!tex.id) return;
@@ -161,7 +170,13 @@ void Game::draw_entity_texture(const std::string& name, Position pos, Camera2D c
                   static_cast<float>(pos.y * TILE_SIZE)};
     Vector2 sp = GetWorldToScreen2D(wp, cam);
 
-    Rectangle src = {0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
+    int frame_w = tex.width / 2;
+    int frame_h = tex.height / 2;
+    int fx = std::min(frame_col, 1) * frame_w;
+    int fy = std::min(frame_row, 1) * frame_h;
+
+    Rectangle src = {static_cast<float>(fx), static_cast<float>(fy),
+                    static_cast<float>(frame_w), static_cast<float>(frame_h)};
     Rectangle dst = {sp.x, sp.y,
                     static_cast<float>(TILE_SIZE), static_cast<float>(TILE_SIZE)};
     DrawTexturePro(tex, src, dst, {0, 0}, 0, tint);
