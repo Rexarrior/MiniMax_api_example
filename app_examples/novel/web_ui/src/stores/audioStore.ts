@@ -27,9 +27,13 @@ export const useAudioStore = defineStore('audio', () => {
   }
 
   function playMusic(url: string) {
-    if (!bgMusic.value || !soundEnabled.value || isMuted.value) return
-    bgMusic.value.src = url
-    bgMusic.value.play().catch(() => {})
+    if (!bgMusic.value) {
+      initAudio()
+    }
+    bgMusic.value!.src = url
+    if (soundEnabled.value && !isMuted.value) {
+      bgMusic.value!.play().catch(() => {})
+    }
   }
 
   function stopMusic() {
@@ -41,14 +45,17 @@ export const useAudioStore = defineStore('audio', () => {
 
   function playVoice(url: string): Promise<void> {
     return new Promise((resolve) => {
-      if (!voiceAudio.value || !soundEnabled.value || isMuted.value) {
+      if (!voiceAudio.value) {
+        initAudio()
+      }
+      if (!soundEnabled.value || isMuted.value) {
         resolve()
         return
       }
-      voiceAudio.value.src = url
-      voiceAudio.value.onended = () => resolve()
-      voiceAudio.value.onerror = () => resolve()
-      voiceAudio.value.play().catch(() => resolve())
+      voiceAudio.value!.src = url
+      voiceAudio.value!.onended = () => resolve()
+      voiceAudio.value!.onerror = () => resolve()
+      voiceAudio.value!.play().catch(() => resolve())
     })
   }
 

@@ -1,4 +1,4 @@
-import { fetchScene, submitChoice, startGame } from '@/api/novelApi'
+import { fetchScene, submitChoice, startGame, updateSessionIdFromResponse } from '@/api/novelApi'
 import type { Scene } from '@/types/novel'
 
 export function useNovelApi() {
@@ -12,6 +12,7 @@ export function useNovelApi() {
 
   async function start(storyId: string): Promise<Scene> {
     const response = await startGame(storyId)
+    updateSessionIdFromResponse(response.session_id)
     return response as unknown as Scene
   }
 

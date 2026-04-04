@@ -42,7 +42,7 @@ const currentDialogue = computed(() => {
 })
 
 const hasNextDialogue = computed(() => {
-  return gameStore.currentDialogueIndex < gameStore.dialogues.length - 1
+  return gameStore.hasNextDialogue
 })
 
 function typeText(text: string, voiceUrl?: string) {
@@ -79,7 +79,7 @@ watch(currentDialogue, (dialogue) => {
 
 onMounted(async () => {
   const scene = await novelApi.getScene()
-  if (scene.scene_id) {
+  if (scene) {
     gameStore.setScene(scene)
   }
   isLoading.value = false

@@ -3,11 +3,10 @@ import type { Scene, Story, PollResponse, StartGameResponse } from '@/types/nove
 
 let cachedSessionId: string | null = null
 
-function getCurrentUrl(): string {
-  if (typeof window !== 'undefined') {
-    return window.location.href
-  }
-  return ''
+function getSessionIdFromUrl(): string | null {
+  if (typeof window === 'undefined') return null
+  const params = new URLSearchParams(window.location.search)
+  return params.get('session_id')
 }
 
 export function getSessionId(): string {
@@ -15,17 +14,31 @@ export function getSessionId(): string {
     return cachedSessionId
   }
   
-  const url = getCurrentUrl()
-  const params = new URLSearchParams(url.split('?')[1] || '')
-  let sessionId = params.get('session_id')
-  if (!sessionId && typeof window !== 'undefined') {
-    sessionId = 'session_' + Math.random().toString(36).substring(2, 15)
-    const newUrl = new URL(url)
-    newUrl.searchParams.set('session_id', sessionId)
-    window.history.replaceState({}, '', newUrl.toString())
+  const urlSessionId = getSessionIdFromUrl()
+  if (urlSessionId) {
+    cachedSessionId = urlSessionId
+    return cachedSessionId
   }
-  cachedSessionId = sessionId || 'default'
+  
+  const newId = 'session_' + Math.random().toString(36).substring(2, 15)
+  cachedSessionId = newId
+  
+  if (typeof window !== 'undefined') {
+    const url = new URL(window.location.href)
+    url.searchParams.set('session_id', newId)
+    window.history.replaceState({}, '', url.toString())
+  }
+  
   return cachedSessionId
+}
+
+export function updateSessionIdFromResponse(sessionId: string): void {
+  cachedSessionId = sessionId
+  if (typeof window !== 'undefined') {
+    const url = new URL(window.location.href)
+    url.searchParams.set('session_id', sessionId)
+    window.history.replaceState({}, '', url.toString())
+  }
 }
 
 export function updateSessionIdHeader(sessionId: string): void {

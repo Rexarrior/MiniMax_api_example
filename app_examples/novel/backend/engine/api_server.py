@@ -88,26 +88,17 @@ def build_scene_response(
     """Build API response from a Scene object."""
     bg_url = None
     if scene.background_prompt:
-        img_path = (
-            scene_service.stories_dir
-            / story_id
-            / "assets"
-            / "images"
-            / f"bg_{scene.background_prompt[:50]}.jpg"
-        )
-        if not img_path.exists():
-            img_path = scene_service.stories_dir / story_id / "assets" / "images"
-            for f in img_path.glob(
-                f"bg_{scene.background_prompt[:30].replace(' ', '_')}*"
-            ):
-                if f.suffix in (".jpg", ".jpeg", ".png"):
-                    img_path = f
-                    break
-        if img_path.exists():
-            rel_path = img_path.relative_to(
-                scene_service.stories_dir / story_id / "assets"
-            )
-            bg_url = f"/stories/{story_id}/assets/{rel_path}"
+        img_dir = scene_service.stories_dir / story_id / "assets" / "images"
+        matches = sorted(img_dir.glob(f"bg_{scene.id}_*"))
+        for f in matches:
+            if f.suffix in (".jpg", ".jpeg", ".png"):
+                rel_path = f.relative_to(
+                    scene_service.stories_dir / story_id / "assets"
+                )
+                bg_url = f"/stories/{story_id}/assets/{rel_path}"
+                break
+            if bg_url:
+                break
 
     music_url = None
     if scene.music:
@@ -193,6 +184,10 @@ def start_game(
             status_code=404, detail=f"Scene '{start_scene_id}' not found"
         )
 
+    logger.info(
+        f"DEBUG: scene.dialogues count = {len(scene.dialogues)}, scene.choices count = {len(scene.choices)}"
+    )
+
     sid = session_id or x_session_id or DEFAULT_SESSION_ID
     gs = get_session(sid)
 
@@ -269,6 +264,9 @@ def get_scene(
 ):
     sid = session_id or x_session_id or DEFAULT_SESSION_ID
     gs = get_session(sid)
+    logger.info(
+        f"DEBUG get_scene: sid={sid}, gs.story_id={gs.story_id}, dialogues={len(gs.dialogues)}, bg_url={gs.background_url}"
+    )
     return gs.to_dict()
 
 

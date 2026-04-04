@@ -49,6 +49,9 @@ watch(() => gameStore.currentScene, (scene) => {
 function handleEnableSound() {
   audioStore.enableSound()
   showSoundPrompt.value = false
+  if (gameStore.currentScene?.music_url) {
+    audioStore.playMusic(gameStore.currentScene.music_url)
+  }
 }
 
 function handleDisableSound() {
