@@ -11,7 +11,9 @@ function getCurrentUrl(): string {
 }
 
 export function getSessionId(): string {
-  if (cachedSessionId) return cachedSessionId
+  if (cachedSessionId) {
+    return cachedSessionId
+  }
   
   const url = getCurrentUrl()
   const params = new URLSearchParams(url.split('?')[1] || '')
@@ -31,11 +33,12 @@ export function updateSessionIdHeader(sessionId: string): void {
 }
 
 function createApi() {
+  const sessionId = getSessionId()
   return axios.create({
     baseURL: '/api',
     timeout: 30000,
     headers: {
-      'X-Session-ID': getSessionId()
+      'X-Session-ID': sessionId
     }
   })
 }
@@ -62,6 +65,7 @@ export async function pollScene(lastTimestamp: number): Promise<PollResponse> {
   return response.data
 }
 
-export async function submitChoice(choiceIndex: number): Promise<void> {
-  await createApi().post('/choice', { choice_index: choiceIndex })
+export async function submitChoice(choiceIndex: number): Promise<Scene> {
+  const response = await createApi().post<Scene>('/choice', { choice_index: choiceIndex })
+  return response.data
 }

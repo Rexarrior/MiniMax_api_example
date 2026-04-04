@@ -1,4 +1,4 @@
-import { fetchScene, pollScene, submitChoice, startGame } from '@/api/novelApi'
+import { fetchScene, submitChoice, startGame } from '@/api/novelApi'
 import type { Scene } from '@/types/novel'
 
 export function useNovelApi() {
@@ -6,22 +6,17 @@ export function useNovelApi() {
     return fetchScene()
   }
 
-  async function poll(lastTimestamp: number): Promise<{ scene: Scene | null; timestamp: number }> {
-    return pollScene(lastTimestamp)
-  }
-
-  async function choose(choiceIndex: number): Promise<void> {
+  async function choose(choiceIndex: number): Promise<Scene> {
     return submitChoice(choiceIndex)
   }
 
   async function start(storyId: string): Promise<Scene> {
     const response = await startGame(storyId)
-    return response.scene
+    return response as unknown as Scene
   }
 
   return {
     getScene,
-    poll,
     choose,
     start
   }
