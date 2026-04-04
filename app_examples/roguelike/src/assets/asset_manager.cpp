@@ -17,35 +17,36 @@ void AssetManager::load_all(const std::string& base_path) {
         std::string path = base_path_ + "/" + file;
         if (fs::exists(path)) {
             textures_[name] = LoadTexture(path.c_str());
+            std::cerr << "[AssetManager] Loaded: " << path << std::endl;
         } else {
             std::cerr << "[AssetManager] Missing: " << path << std::endl;
         }
     };
 
-    load_tex("champion", "sprites/champion.png");
-    load_tex("skeleton", "enemies/skeleton.png");
-    load_tex("goblin", "enemies/goblin.png");
-    load_tex("orc", "enemies/orc.png");
-    load_tex("rat", "enemies/rat.png");
-    load_tex("spider", "enemies/spider.png");
-    load_tex("slime", "enemies/slime.png");
-    load_tex("demon", "enemies/demon.png");
-    load_tex("ghost", "enemies/ghost.png");
-    load_tex("werewolf", "enemies/werewolf.png");
-    load_tex("dark_mage", "enemies/dark_mage.png");
+    load_tex("champion", "champion_gladiator.png");
+    load_tex("skeleton", "enemy_skeleton_warrior.png");
+    load_tex("goblin", "enemy_goblin_thief.png");
+    load_tex("orc", "enemy_orc_berserker.png");
+    load_tex("rat", "enemy_giant_rat.png");
+    load_tex("spider", "enemy_giant_spider.png");
+    load_tex("slime", "enemy_slime.png");
+    load_tex("demon", "enemy_fire_demon.png");
+    load_tex("ghost", "enemy_ghost.png");
+    load_tex("werewolf", "enemy_werewolf.png");
+    load_tex("dark_mage", "enemy_dark_mage.png");
 
-    load_tex("wall_stone", "tiles/wall_stone.png");
-    load_tex("wall_brick", "tiles/wall_brick.png");
-    load_tex("wall_cave", "tiles/wall_cave.png");
-    load_tex("floor_tile", "tiles/floor_tile.png");
-    load_tex("floor_dirt", "tiles/floor_dirt.png");
-    load_tex("ground_grass", "tiles/ground_grass.png");
+    load_tex("wall_stone", "texture_wall_stone.png");
+    load_tex("wall_brick", "texture_wall_brick.png");
+    load_tex("wall_cave", "texture_wall_cave.png");
+    load_tex("floor_tile", "texture_floor_tile.png");
+    load_tex("floor_dirt", "texture_floor_dirt.png");
+    load_tex("ground_grass", "texture_ground_grass.png");
 
-    load_tex("chest", "props/chest.png");
-    load_tex("potions", "props/potions.png");
-    load_tex("portal_entry", "props/portal_entry.png");
-    load_tex("portal_exit", "props/portal_exit.png");
-    load_tex("bg_menu", "backgrounds/menu.png");
+    load_tex("chest", "chests_closed_and_open.png");
+    load_tex("potions", "props_healing_herbs_and_potions.png");
+    load_tex("portal_entry", "portal_entry.png");
+    load_tex("portal_exit", "portal_exit.png");
+    load_tex("bg_menu", "background_menu.png");
 
     font_ = GetFontDefault();
 }

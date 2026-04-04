@@ -9,7 +9,7 @@ Game::Game() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Dungeon of Champions");
     SetTargetFPS(TARGET_FPS);
 
-    std::string asset_path = "out/roguelike_assets";
+    std::string asset_path = "../../../out/roguelike_assets";
     AssetManager::instance().load_all(asset_path);
 
     map_renderer_.set_biome(Biome::Dungeon);
@@ -152,17 +152,49 @@ void Game::update() {
     particles_.update(GetFrameTime());
 }
 
+void Game::draw_entity_texture(const std::string& name, Position pos, Camera2D cam, Color tint) {
+    auto& assets = AssetManager::instance();
+    Texture2D tex = assets.get_texture(name);
+    if (!tex.id) return;
+
+    Vector2 wp = {static_cast<float>(pos.x * TILE_SIZE),
+                  static_cast<float>(pos.y * TILE_SIZE)};
+    Vector2 sp = GetWorldToScreen2D(wp, cam);
+
+    Rectangle src = {0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
+    Rectangle dst = {sp.x, sp.y,
+                    static_cast<float>(TILE_SIZE), static_cast<float>(TILE_SIZE)};
+    DrawTexturePro(tex, src, dst, {0, 0}, 0, tint);
+}
+
 void Game::render() {
     BeginDrawing();
     ClearBackground(BLACK);
 
     if (state_ == GameState::Menu) {
+        auto& assets = AssetManager::instance();
+        Texture2D bg = assets.get_texture("bg_menu");
+        if (bg.id) {
+            Rectangle src = {0, 0, static_cast<float>(bg.width), static_cast<float>(bg.height)};
+            Rectangle dst = {0, 0, static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT)};
+            DrawTexturePro(bg, src, dst, {0, 0}, 0, WHITE);
+        } else {
+            DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK);
+        }
         menu_.render_main_menu();
         EndDrawing();
         return;
     }
 
     if (state_ == GameState::GameOver || state_ == GameState::Victory) {
+        map_renderer_.render(*dungeon_, camera_.camera());
+        auto cam = camera_.camera();
+        draw_entity_texture("champion", champion_->pos(), cam, WHITE);
+        for (const auto& enemy : enemies_) {
+            if (!enemy.alive()) continue;
+            if (!fov_.is_visible(enemy.pos().x, enemy.pos().y)) continue;
+            draw_entity_texture(enemy.sprite_name(), enemy.pos(), cam, WHITE);
+        }
         menu_.render_game_over(state_ == GameState::Victory, floor_,
                                champion_ ? champion_->level() : 1);
         EndDrawing();
@@ -183,41 +215,24 @@ void Game::render() {
     for (const auto& item : items_) {
         if (item.picked_up) continue;
         if (!fov_.is_visible(item.pos.x, item.pos.y)) continue;
-        Vector2 wp = {static_cast<float>(item.pos.x * TILE_SIZE),
-                      static_cast<float>(item.pos.y * TILE_SIZE)};
-        Vector2 sp = GetWorldToScreen2D(wp, cam);
-        DrawRectangle(static_cast<int>(sp.x), static_cast<int>(sp.y),
-                     TILE_SIZE, TILE_SIZE, GREEN);
+        draw_entity_texture("potions", item.pos, cam, WHITE);
     }
 
-    Vector2 ep = {static_cast<float>(entry_portal_.pos.x * TILE_SIZE),
-                  static_cast<float>(entry_portal_.pos.y * TILE_SIZE)};
-    Vector2 esp = GetWorldToScreen2D(ep, cam);
-    DrawRectangle(static_cast<int>(esp.x), static_cast<int>(esp.y),
-                 TILE_SIZE, TILE_SIZE, SKYBLUE);
-
-    Vector2 xp = {static_cast<float>(exit_portal_.pos.x * TILE_SIZE),
-                  static_cast<float>(exit_portal_.pos.y * TILE_SIZE)};
-    Vector2 xsp = GetWorldToScreen2D(xp, cam);
-    DrawRectangle(static_cast<int>(xsp.x), static_cast<int>(xsp.y),
-                 TILE_SIZE, TILE_SIZE, GOLD);
+    if (fov_.is_visible(entry_portal_.pos.x, entry_portal_.pos.y)) {
+        draw_entity_texture("portal_entry", entry_portal_.pos, cam, WHITE);
+    }
+    if (fov_.is_visible(exit_portal_.pos.x, exit_portal_.pos.y)) {
+        draw_entity_texture("portal_exit", exit_portal_.pos, cam, WHITE);
+    }
 
     for (const auto& enemy : enemies_) {
         if (!enemy.alive()) continue;
         if (!fov_.is_visible(enemy.pos().x, enemy.pos().y)) continue;
-        Vector2 wp = {static_cast<float>(enemy.pos().x * TILE_SIZE),
-                      static_cast<float>(enemy.pos().y * TILE_SIZE)};
-        Vector2 sp = GetWorldToScreen2D(wp, cam);
-        DrawRectangle(static_cast<int>(sp.x), static_cast<int>(sp.y),
-                     TILE_SIZE, TILE_SIZE, RED);
+        draw_entity_texture(enemy.sprite_name(), enemy.pos(), cam, WHITE);
     }
 
     if (champion_) {
-        Vector2 cp = {static_cast<float>(champion_->pos().x * TILE_SIZE),
-                      static_cast<float>(champion_->pos().y * TILE_SIZE)};
-        Vector2 csp = GetWorldToScreen2D(cp, cam);
-        DrawRectangle(static_cast<int>(csp.x), static_cast<int>(csp.y),
-                     TILE_SIZE, TILE_SIZE, BLUE);
+        draw_entity_texture("champion", champion_->pos(), cam, WHITE);
     }
 
     particles_.render();
