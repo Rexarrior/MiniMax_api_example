@@ -10,17 +10,22 @@ void MapRenderer::set_biome(Biome biome) {
 }
 
 void MapRenderer::render(const Dungeon& dungeon, Camera2D camera) {
-    int start_x = static_cast<int>(camera.target.x / TILE_SIZE) - VIEWPORT_TILES_X / 2 - 2;
-    int start_y = static_cast<int>(camera.target.y / TILE_SIZE) - VIEWPORT_TILES_Y / 2 - 2;
-    int end_x = start_x + VIEWPORT_TILES_X + 5;
-    int end_y = start_y + VIEWPORT_TILES_Y + 5;
+    int cam_tile_x = static_cast<int>(camera.target.x / TILE_SIZE);
+    int cam_tile_y = static_cast<int>(camera.target.y / TILE_SIZE);
 
-    start_x = std::max(0, start_x);
-    start_y = std::max(0, start_y);
-    end_x = std::min(MAP_WIDTH, end_x);
-    end_y = std::min(MAP_HEIGHT, end_y);
+    int tiles_x = static_cast<int>(SCREEN_WIDTH / (TILE_SIZE * camera.zoom)) + 3;
+    int tiles_y = static_cast<int>((SCREEN_HEIGHT - 64) / (TILE_SIZE * camera.zoom)) + 3;
+
+    int start_x = std::max(0, cam_tile_x - tiles_x / 2);
+    int start_y = std::max(0, cam_tile_y - tiles_y / 2);
+    int end_x = std::min(MAP_WIDTH, cam_tile_x + tiles_x / 2 + 1);
+    int end_y = std::min(MAP_HEIGHT, cam_tile_y + tiles_y / 2 + 1);
 
     auto& assets = AssetManager::instance();
+
+    float tile_screen_size = TILE_SIZE * camera.zoom;
+    float origin_screen_x = camera.offset.x - camera.target.x * camera.zoom;
+    float origin_screen_y = camera.offset.y - camera.target.y * camera.zoom;
 
     BeginMode2D(camera);
 
