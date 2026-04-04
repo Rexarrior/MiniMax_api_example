@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y ffmpeg gcc python3-dev libasound2-dev c
 
 WORKDIR /app
 
-RUN printf 'fastapi>=0.104.0\nuvicorn[standard]>=0.24.0\nhttpx>=0.25.0\npyyaml>=6.0\nsimpleaudio>=1.0.4\npillow>=10.0.0\nmutagen>=1.47.0\npython-multipart>=0.0.6\n' > requirements.txt && \
+RUN printf 'fastapi>=0.104.0\nuvicorn[standard]>=0.24.0\nhttpx>=0.25.0\npyyaml>=6.0\nsimpleaudio>=1.0.4\npillow>=10.0.0\nmutagen>=1.47.0\npython-multipart>=0.0.6\nsqlalchemy>=2.0.0\npsycopg2-binary>=2.9.0\n' > requirements.txt && \
     pip install --no-cache-dir -r requirements.txt
 
 RUN mkdir -p engine
@@ -12,9 +12,11 @@ RUN mkdir -p engine
 ADD engine/__init__.py engine/
 ADD engine/story.py engine/
 ADD engine/scene.py engine/
+ADD engine/scene_service.py engine/
 ADD engine/choices.py engine/
 ADD engine/renderer.py engine/
 ADD engine/minimax_client.py engine/
+ADD engine/database.py engine/
 ADD engine/api_server.py engine/
 
 ENV PYTHONPATH=/app

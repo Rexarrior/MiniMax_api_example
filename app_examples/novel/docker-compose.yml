@@ -1,4 +1,20 @@
 services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=novel
+      - POSTGRES_PASSWORD=novel
+      - POSTGRES_DB=novel
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - novel-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U novel"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   backend:
     build: ./backend
     volumes:
@@ -6,8 +22,12 @@ services:
       - ../../examples_python:/app/examples_python:ro
     environment:
       - STORIES_DIR=/app/stories
+      - DATABASE_URL=postgresql://novel:novel@db:5432/novel
     networks:
       - novel-net
+    depends_on:
+      db:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
       interval: 10s
@@ -25,6 +45,9 @@ services:
         condition: service_healthy
     networks:
       - novel-net
+
+volumes:
+  pgdata:
 
 networks:
   novel-net:
