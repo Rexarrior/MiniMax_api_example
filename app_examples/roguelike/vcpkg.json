@@ -2,6 +2,7 @@
   "name": "roguelike",
   "version": "0.1.0",
   "dependencies": [
-    "raylib"
+    "raylib",
+    "gtest"
   ]
 }

@@ -43,3 +43,49 @@ if(MSVC)
 else()
     target_compile_options(roguelike PRIVATE -Wall -Wextra -Wpedantic)
 endif()
+
+# ── Tests ──────────────────────────────────────────────────────────
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG        v1.14.0
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+
+set(TEST_SOURCES
+    tests/test_types.cpp
+    tests/test_random.cpp
+    tests/test_dungeon.cpp
+    tests/test_champion.cpp
+    tests/test_enemy.cpp
+    tests/test_item.cpp
+    tests/test_combat.cpp
+    tests/test_fov.cpp
+    src/map/dungeon.cpp
+    src/entities/champion.cpp
+    src/entities/enemy.cpp
+    src/entities/entity.cpp
+    src/entities/item.cpp
+    src/combat/combat.cpp
+    src/systems/fov.cpp
+    src/core/random.cpp
+)
+
+add_executable(roguelike_tests ${TEST_SOURCES})
+target_include_directories(roguelike_tests PRIVATE ${CMAKE_SOURCE_DIR}/tests ${CMAKE_SOURCE_DIR}/src)
+target_compile_definitions(roguelike_tests PRIVATE USE_RAYLIB_STUB)
+target_link_libraries(roguelike_tests PRIVATE gtest gtest_main)
+
+if(MSVC)
+    target_compile_options(roguelike_tests PRIVATE /W4)
+else()
+    target_compile_options(roguelike_tests PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
+include(GoogleTest)
+gtest_discover_tests(roguelike_tests)
