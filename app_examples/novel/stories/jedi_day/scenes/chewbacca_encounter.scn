@@ -1,0 +1,38 @@
+id: chewbacca_encounter
+title: "Reunion with Chewbacca"
+background_prompt: "Treehouse clearing with Chewbacca and young Tarri, dense jungle visible through gaps, warm lantern glow, dramatic shadows, intimate conversation setting, star wars universe"
+music: friendly_reunion_warm.mp3
+
+dialogue:
+  - narrator: "Chewbacca leads Kai-Tara to a quieter platform, away from curious eyes."
+    image_prompt: "Wookiee leading female Jedi to private wooden platform, other Wookiees watching"
+  - character: chewbacca
+    text: "Treechoppaw has been taken by the dark one. My nephew... he was exploring the old paths."
+    mood: worried
+    image_prompt: "Wookiee with worried distressed expression, gesturing toward jungle direction"
+  - character: kai_tara
+    text: "The Shrine of Dagorr? I sensed that location. It's a Sith ritual site."
+    mood: serious
+    image_prompt: "female Jedi with serious expression, nodding knowingly about dark location"
+  - character: chewbacca
+    text: "Raawr! (The dark one - he wears red blades, speaks of ancient power)"
+    mood: angry
+    image_prompt: "Wookiee gesturing angrily, mimicking holding double blades, fierce expression"
+  - character: kai_tara
+    text: "A Sith acolyte. Dangerous, but not a Master. We can handle this."
+    mood: confident
+    image_prompt: "female Jedi standing tall with confident expression, hand on lightsaber"
+  - character: tarri
+    text: "Please save my uncle! I'll do anything!"
+    mood: desperate
+    image_prompt: "young Wookiee with desperate pleading expression, hands clasped together"
+  - character: kai_tara
+    text: "Stay here, young one. I'll bring him back."
+    mood: determined
+    image_prompt: "Jedi placing hand on young Wookiee shoulder reassuringly, determined expression"
+
+choice:
+  - text: "Go alone to maintain stealth"
+    next: dark_omen
+  - text: "Take Boushh as backup"
+    next: Boushh_backup

@@ -1,0 +1,32 @@
+id: varek_logic
+title: "Varek's Logic"
+background_prompt: "Same Sith shrine interior, Darth Varek speaking dramatically with red backlighting, dark throne visible, holocrons orbiting, star wars universe"
+music: sinister_revelation.mp3
+
+dialogue:
+  - character: darth_varek
+    text: "You Jedi claim balance, yet you hoard power. I offer freedom!"
+    mood: passionate
+    image_prompt: "Sith gesturing dramatically, passionate preaching pose, red lighting"
+  - character: kai_tara
+    text: "Freedom through fear and pain? The dark side corrupts."
+    mood: skeptical
+    image_prompt: "female Jedi with skeptical expression, shaking head slightly"
+  - character: darth_varek
+    text: "Corruption? I see clearly now. The Senate is rotten. The Jedi are fools."
+    mood: agitated
+    image_prompt: "Sith pointing accusingly, agitated angry expression, pacing"
+  - narrator: "Kai-Tara senses something - a tremor in Varek's conviction."
+    image_prompt: "Jedi reaching out with Force sense, reading opponent's emotions"
+  - character: kai_tara
+    text: "You've seen something... or someone. Who turned you to darkness?"
+    mood: probing
+    image_prompt: "Jedi speaking gently but probing, trying to understand enemy's past"
+  - character: darth_varek
+    text: "Silence! You know nothing!"
+    mood: enraged
+    image_prompt: "Sith enraged, shouting, veins visible on face, loss of control"
+  - narrator: "His composure shatters. He lunges forward with a furious strike!"
+    image_prompt: "Sith lunging forward with furious strike, red blade swinging, lose of composure"
+
+next: lightsaber_duel

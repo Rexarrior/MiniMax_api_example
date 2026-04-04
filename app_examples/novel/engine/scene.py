@@ -15,6 +15,7 @@ class DialogueLine:
     speaker: str
     text: str
     mood: str | None = None
+    image_prompt: str | None = None
 
 
 @dataclass
@@ -35,6 +36,9 @@ class Scene:
     generate_music: str | None = None
     music: str | None = None
     next_scene: str | None = None
+    is_video: bool = False
+    video_prompt: str | None = None
+    video_duration: int = 6
 
 
 def parse_scene(scene_id: str, content: str) -> Scene:
@@ -50,13 +54,19 @@ def parse_scene(scene_id: str, content: str) -> Scene:
             speaker = d["character"]
             text = d.get("text", "")
             mood = d.get("mood")
+            image_prompt = d.get("image_prompt")
         elif "narrator" in d:
             speaker = "narrator"
             text = d.get("narrator", "") or ""
             mood = None
+            image_prompt = d.get("image_prompt")
         else:
             continue
-        dialogues.append(DialogueLine(speaker=speaker, text=text, mood=mood))
+        dialogues.append(
+            DialogueLine(
+                speaker=speaker, text=text, mood=mood, image_prompt=image_prompt
+            )
+        )
 
     choices = []
     for c in data.get("choice", []):
@@ -73,4 +83,7 @@ def parse_scene(scene_id: str, content: str) -> Scene:
         generate_music=data.get("generate_music"),
         music=data.get("music"),
         next_scene=data.get("next"),
+        is_video=data.get("is_video", False),
+        video_prompt=data.get("video_prompt"),
+        video_duration=data.get("video_duration", 6),
     )

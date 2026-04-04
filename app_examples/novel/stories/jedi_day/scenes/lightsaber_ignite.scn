@@ -1,0 +1,7 @@
+id: lightsaber_ignite
+title: "Energy Blade Ignition"
+background_prompt: "close up of energy blade ignition, glowing plasma extending with motion blur, humming energy, sparks, cinematic weapon reveal"
+music: epic_duel_orchestral.mp3
+is_video: true
+video_prompt: "Close up of glowing blue energy blade igniting, plasma beam extending with bright flash and motion blur, sparks flying, energy humming, cinematic weapon activation, sci-fi fantasy animation"
+video_duration: 6

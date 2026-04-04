@@ -13,6 +13,8 @@ from minimax_http import (
     save_image_urls_from_response,
     save_music_mp3_from_response,
     generate_speech,
+    poll_video_and_download,
+    save_video_task_id,
     out_dir,
 )
 
@@ -61,19 +63,26 @@ class MiniMaxClient:
                     "prompt": prompt,
                     "lyrics": lyrics,
                     "lyrics_optimizer": False,
-                    "audio_setting": {"sample_rate": 44100, "bitrate": 256000, "format": "mp3"},
+                    "audio_setting": {
+                        "sample_rate": 44100,
+                        "bitrate": 256000,
+                        "format": "mp3",
+                    },
                 },
             )
             hex_audio = (resp.get("data") or {}).get("audio")
             if not isinstance(hex_audio, str) or not hex_audio.strip():
                 return None
             import binascii
+
             cached.write_bytes(binascii.unhexlify(hex_audio.encode("ascii")))
             return cached
         except Exception:
             return None
 
-    def generate_background_image(self, story_id: str, scene_id: str, prompt: str) -> Path | None:
+    def generate_background_image(
+        self, story_id: str, scene_id: str, prompt: str
+    ) -> Path | None:
         assets = self._get_assets_dir(story_id) / "images"
         assets.mkdir(parents=True, exist_ok=True)
         safe_prompt = "".join(c if c.isalnum() else "_" for c in prompt)[:50]
@@ -87,7 +96,9 @@ class MiniMaxClient:
                 "/v1/image_generation",
                 {"model": "image-01", "prompt": prompt},
             )
-            paths = save_image_urls_from_response(resp, str(assets / f"bg_{safe_scene}_{safe_prompt}"))
+            paths = save_image_urls_from_response(
+                resp, str(assets / f"bg_{safe_scene}_{safe_prompt}")
+            )
             return paths[0] if paths else None
         except Exception:
             return None
@@ -106,7 +117,9 @@ class MiniMaxClient:
         safe_scene = "".join(c if c.isalnum() else "_" for c in scene_id)[:30]
         safe_char = "".join(c if c.isalnum() else "_" for c in character_id)[:20]
         safe_mood = "".join(c if c.isalnum() else "_" for c in (mood or ""))[:20]
-        cached = assets / f"char_{safe_scene}_{safe_char}_{safe_mood}_{safe_prompt}_0.jpeg"
+        cached = (
+            assets / f"char_{safe_scene}_{safe_char}_{safe_mood}_{safe_prompt}_0.jpeg"
+        )
         if cached.exists():
             return cached
         try:
@@ -115,14 +128,55 @@ class MiniMaxClient:
                 "/v1/image_generation",
                 {"model": "image-01", "prompt": prompt},
             )
-            paths = save_image_urls_from_response(resp, str(assets / f"char_{safe_scene}_{safe_char}_{safe_mood}_{safe_prompt}"))
+            paths = save_image_urls_from_response(
+                resp,
+                str(
+                    assets / f"char_{safe_scene}_{safe_char}_{safe_mood}_{safe_prompt}"
+                ),
+            )
             return paths[0] if paths else None
+        except Exception:
+            return None
+
+    def generate_video(
+        self,
+        story_id: str,
+        scene_id: str,
+        prompt: str,
+        duration: int = 6,
+    ) -> Path | None:
+        assets = self._get_assets_dir(story_id) / "videos"
+        assets.mkdir(parents=True, exist_ok=True)
+        safe_scene = "".join(c if c.isalnum() else "_" for c in scene_id)[:30]
+        safe_prompt = "".join(c if c.isalnum() else "_" for c in prompt)[:40]
+        cached = assets / f"video_{safe_scene}_{safe_prompt}.mp4"
+        if cached.exists():
+            return cached
+        try:
+            resp = api_request(
+                "POST",
+                "/v1/video_generation",
+                {
+                    "model": "MiniMax-Hailuo-2.3",
+                    "prompt": prompt,
+                    "duration": duration,
+                    "resolution": "768P",
+                    "prompt_optimizer": True,
+                },
+            )
+            task_id = resp.get("task_id")
+            if not task_id:
+                return None
+            save_video_task_id(str(task_id))
+            poll_video_and_download(str(task_id), cached)
+            return cached if cached.exists() else None
         except Exception:
             return None
 
     def _get_mp3_duration(self, mp3_path: Path) -> int:
         try:
             from mutagen import File as MutagenFile
+
             audio = MutagenFile(str(mp3_path))
             if audio and audio.info:
                 return int(audio.info.length * 1000)
@@ -140,6 +194,7 @@ class MiniMaxClient:
         pitch: int = 0,
     ) -> dict | None:
         import hashlib
+
         assets = self._get_assets_dir(story_id) / "voices"
         assets.mkdir(parents=True, exist_ok=True)
         safe_char = "".join(c if c.isalnum() else "_" for c in character_id)[:20]
@@ -151,7 +206,11 @@ class MiniMaxClient:
         try:
             result = generate_speech(text, voice_id, cached, speed, pitch)
             if result:
-                return {"path": result["path"], "duration_ms": result.get("duration_ms", 0), "cached": False}
+                return {
+                    "path": result["path"],
+                    "duration_ms": result.get("duration_ms", 0),
+                    "cached": False,
+                }
             return None
         except Exception:
             return None

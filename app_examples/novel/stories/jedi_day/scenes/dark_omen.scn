@@ -1,0 +1,26 @@
+id: dark_omen
+title: "Dark Omen"
+background_prompt: "Dense jungle path on Kashyyyk with ominous red-tinged sky, strange artifacts on ground - skull totems and dark symbols, fog rolling in, sense of dread, foreboding atmosphere, star wars universe"
+music: foreboding_jungle_danger.mp3
+
+dialogue:
+  - narrator: "Kai-Tara ventures deep into the Shadow Lands alone. The jungle grows darker."
+    image_prompt: "female Jedi walking alone on dark jungle path, ominous red sky above"
+  - narrator: "The trees twist into unnatural shapes. Red-tinged mist swirls around her boots."
+    image_prompt: "twisted gnarled trees, red mist swirling, dark forboding jungle atmosphere"
+  - character: kai_tara
+    text: "The dark side is strong here. I can feel it pressing against my mind."
+    mood: strained
+    image_prompt: "Jedi pressing hand to forehead in strain, red energy visible around her"
+  - narrator: "She steps over ancient stone markers carved with Sith runes."
+    image_prompt: "ancient stone markers with glowing red Sith symbols on jungle path"
+  - narrator: "A roar echoes through the trees. Not animal. Mechanical."
+    image_prompt: "battle droid emerging from jungle shadows, red optics glowing menacingly"
+  - narrator: "Battle droids emerge from the shadows, red optics blazing."
+    image_prompt: "multiple battle droids surrounding female Jedi, red eye lights glowing"
+
+choice:
+  - text: "Engage with lightsaber"
+    next: sith_shrine
+  - text: "Use Force to sense their weak points"
+    next: sith_shrine

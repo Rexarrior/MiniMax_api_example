@@ -1,0 +1,36 @@
+id: lightsaber_duel
+title: "Lightsaber Duel"
+background_prompt: "Epic lightsaber battle in large Sith cavern, blue and red blades clashing, sparks flying, Force energy blasts colliding, dramatic shadows, intense combat atmosphere, star wars universe, cinematic"
+music: epic_duel_orchestral.mp3
+
+dialogue:
+  - narrator: "Kai-Tara and Varek clash in a blinding display of bladework!"
+    image_prompt: "epic lightsaber duel in cavern, blue and red blades clashing, sparks flying"
+  - narrator: "Blue fire meets crimson as Form III meets Form II."
+    image_prompt: "close up of blue and red blades meeting, intense combat, sparks showering"
+  - character: darth_varek
+    text: "Your technique is flawless... but rage is stronger!"
+    mood: aggressive
+    image_prompt: "Sith pressing forward aggressively, red blade swinging wide, fierce expression"
+  - narrator: "Varek presses forward, his strikes fueled by hatred."
+    image_prompt: "Sith launching relentless attacks, red energy trailing, aggressive stance"
+  - character: kai_tara
+    text: "There is no emotion... there is only peace!"
+    mood: focused
+    image_prompt: "Jedi channeling calm focus, perfectly parrying attacks, serene expression"
+  - narrator: "She channels the Force, her movements becoming faster, more fluid."
+    image_prompt: "Jedi performing acrobatic flip, blue blade spinning, Force energy visible"
+  - narrator: "Varek hurls a Force blast. Kai-Tara deflects it into a pillar."
+    image_prompt: "Force blast deflected into stone pillar, debris exploding, cavern shaking"
+  - narrator: "The shrine begins to crack and rumble."
+    image_prompt: "cavern cracking with light streaming through gaps, rocks falling, chaos"
+  - character: darth_varek
+    text: "If I cannot have the power... neither can you!"
+    mood: desperate
+    image_prompt: "Sith with desperate insane expression, gathering dark energy for final attack"
+
+choice:
+  - text: "End him quickly with lightsaber throw"
+    next: sith_collapse
+  - text: "Use Force push to knock him into the abyss"
+    next: sith_collapse

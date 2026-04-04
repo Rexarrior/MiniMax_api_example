@@ -1,0 +1,24 @@
+id: flight_to_kashyyyk
+title: "Flight to Kashyyyk"
+background_prompt: "View from cockpit flying over giant Wroshyr trees of Kashyyyk at sunset, golden light filtering through branches, other ships flying in formation, breathtaking aerial vista, star wars universe, cinematic"
+music: heroic_adventure_flight.mp3
+
+dialogue:
+  - narrator: "The interceptor screams through hyperspace, emerging above the lush canopy of Kashyyyk."
+    image_prompt: "starfighter exiting hyperspace above lush green jungle planet, blue hyperspace trail"
+  - narrator: "The giant Wroshyr trees stretch toward the sky, their branches forming a vast network."
+    image_prompt: "aerial view of giant alien trees with connecting branches, lush jungle from above"
+  - character: kai_tara
+    text: "The jungle... it's beautiful. The Wookiees have lived here for generations."
+    mood: contemplative
+    image_prompt: "female Jedi pilot admiring view through cockpit, awe in expression, sunset lighting"
+  - narrator: "Her sensors ping. Multiple life signs at the village. And something else..."
+    image_prompt: "ship sensor display showing green life signs and one red threatening signature"
+  - narrator: "A dark energy signature coming from the Shadow Lands."
+    image_prompt: "red ominous energy reading on sensor, darkness spreading on planet surface"
+  - character: kai_tara
+    text: "There! That reading matches the disturbance I felt."
+    mood: alert
+    image_prompt: "Jedi pointing at sensor readout with focused determined expression"
+
+next: kashyyyk_village

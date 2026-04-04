@@ -1,0 +1,30 @@
+id: sith_collapse
+title: "Shrine Collapse"
+background_prompt: "Sith temple collapsing with dramatic effect, rocks falling, beams of light from cracks above, dust clouds, chaotic destruction, epic scale, star wars universe"
+music: dramatic_collapse.mp3
+
+dialogue:
+  - narrator: "With a mighty Force push, Kai-Tara sends Varek tumbling into the abyss!"
+    image_prompt: "Sith falling into dark abyss, arms flailing, shocked expression, Jedi standing"
+  - narrator: "The shrine groans as ancient supports give way. Debris rains from above."
+    image_prompt: "massive temple collapse, giant stone blocks falling, dust cloud expanding"
+  - character: kai_tara
+    text: "Chewbacca! Now!"
+    mood: shouting
+    image_prompt: "female Jedi shouting while running, reaching out with Force toward prison"
+  - narrator: "Using the last of her strength, Kai-Tara Force-pulls Chewbacca from his cell."
+    image_prompt: "Wookiee flying through air grabbed by invisible Force, Jedi straining"
+  - character: chewbacca
+    text: "Rwaaaahh! (Thank you, friend!)"
+    mood: grateful
+    image_prompt: "Wookiee hugging female Jedi gratefully, both exhausted, dust everywhere"
+  - narrator: "Together they sprint for the exit as the entire shrine implodes behind them."
+    image_prompt: "Jedi and Wookiee running from collapsing temple, explosion behind them"
+  - narrator: "Varek's screams echo briefly... then nothing."
+    image_prompt: "dark abyss where screams echo and fade, destroyed temple ruins"
+  - character: kai_tara
+    text: "The dark side temple is no more. The Wookiees are safe."
+    mood: exhausted_relieved
+    image_prompt: "female Jedi leaning on Wookiee friend, exhausted but relieved expression"
+
+next: victory_return

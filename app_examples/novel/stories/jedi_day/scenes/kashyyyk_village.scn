@@ -1,0 +1,26 @@
+id: kashyyyk_village
+title: "Wookiee Village"
+background_prompt: "Traditional Wookiee treehouse village built into giant tree trunk, organic wooden platforms and bridges, warm lantern lights, Wookiees going about daily life, jungle vegetation, cozy village atmosphere, star wars universe"
+music: village_life_ambient.mp3
+
+dialogue:
+  - narrator: "Kai-Tara lands in the village clearing. Wookiees pause their work to greet her."
+    image_prompt: "Jedi starfighter landing in Wookiee tree village, curious Wookiees gathering"
+  - narrator: "The village chief, an ancient Wookiee with silver fur, approaches."
+    image_prompt: "elderly silver-furred Wookiee walking forward with authority, wise expression"
+  - narrator: "But before she can speak, Chewbacca emerges from a nearby hut, with a young Wookiee beside him."
+    image_prompt: "fierce Wookiee emerging from wooden hut followed by small young Wookiee"
+  - character: chewbacca
+    text: "Kai-Tara! Thank the stars you're here. We need your help."
+    mood: relieved
+    image_prompt: "Wookiee with relieved grateful expression, arms spread in greeting"
+  - character: tarri
+    text: "Are you really a Jedi? Can you teach me to use the Force?"
+    mood: curious
+    image_prompt: "young small Wookiee looking up with big eyes full of wonder and hope"
+  - character: kai_tara
+    text: "I am Kai-Tara Ven. And yes, little one, I can sense the Force in you."
+    mood: warm
+    image_prompt: "female Jedi kneeling to look at young Wookiee eye level, warm friendly smile"
+
+next: chewbacca_encounter

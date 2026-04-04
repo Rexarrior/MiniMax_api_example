@@ -1,0 +1,34 @@
+id: sith_shrine
+title: "The Sith Shrine"
+background_prompt: "Ancient underground Sith temple on Kashyyyk, dark stone pillars with glowing red runes, volcanic vents releasing steam, mysterious holocrons floating, dramatic cavern lighting, ominous atmosphere, star wars universe"
+music: dark_ritual_ambience.mp3
+
+dialogue:
+  - narrator: "Kai-Tara descends into the ancient Sith shrine. The air grows cold."
+    image_prompt: "Jedi descending stone stairs into dark underground temple, red glowing runes"
+  - narrator: "Red runes pulse along the walls. In the center, a figure in black robes awaits."
+    image_prompt: "menacing dark figure on throne in cavern, red runes pulsing, holocrons floating"
+  - character: darth_varek
+    text: "A Jedi... how delightful. Another lamb to the slaughter."
+    mood: sinister
+    image_prompt: "Sith acolyte standing triumphantly, scarred face, cruel smirk, red lightsaber"
+  - character: kai_tara
+    text: "Release your prisoners, Sith. This temple belongs to the past."
+    mood: defiant
+    image_prompt: "female Jedi standing defiant with ignited blue lightsaber, brave stance"
+  - character: darth_varek
+    text: "The past? This shrine holds the secrets of Marka Ragnos himself!"
+    mood: angry
+    image_prompt: "Sith gesturing dramatically with red blade, angry expression, ancient artifacts"
+  - narrator: "He ignites his crimson lightsaber. Behind him, Chewbacca roars from a cell."
+    image_prompt: "red and blue lightsabers clashing, Wookiee roaring in prison cell behind them"
+  - character: darth_varek
+    text: "Bow to the dark side, or watch your ally die."
+    mood: cruel
+    image_prompt: "Sith pointing red blade toward prison cell, cruel threatening expression"
+
+choice:
+  - text: "Attack without hesitation"
+    next: lightsaber_duel
+  - text: "Try to reason with Varek"
+    next: varek_logic

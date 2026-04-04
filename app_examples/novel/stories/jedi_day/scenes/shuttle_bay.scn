@@ -1,0 +1,18 @@
+id: shuttle_bay
+title: "Shuttle Bay"
+background_prompt: "Military shuttle bay with Jedi starfighter and Lambda-class shuttle parked, technicians in white suits working on ships, blast doors opening revealing starfield, dramatic industrial lighting, star wars universe"
+music: engine_hum_activity.mp3
+
+dialogue:
+  - narrator: "Kai-Tara sprints into the shuttle bay, her boots echoing on the metal floor."
+    image_prompt: "female Jedi running through busy shuttle bay, technicians working on ships"
+  - narrator: "She vaults into her waiting Jedi interceptor, the cockpit sealing shut with a hiss."
+    image_prompt: "Jedi climbing into starfighter cockpit, sleek Jedi interceptor ship, techs watching"
+  - character: kai_tara
+    text: "R-22, take me to Kashyyyk coordinates. Maximum speed."
+    mood: determined
+    image_prompt: "female Jedi in pilot seat speaking into ship computer, confident determined expression"
+  - narrator: "The starfighter's engines roar to life as the hangar doors open to reveal the stars."
+    image_prompt: "Jedi starfighter launching from hangar into starfield, engines blazing, dramatic launch"
+
+next: flight_to_kashyyyk

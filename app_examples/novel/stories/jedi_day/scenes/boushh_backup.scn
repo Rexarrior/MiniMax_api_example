@@ -1,0 +1,26 @@
+id: Boushh_backup
+title: "Boushh Joins"
+background_prompt: "Cantina-style safehouse on Kashyyyk edge, Boushh in worn armor, weapons displayed, industrial lighting, shady atmosphere, star wars universe"
+music: tense_standoff_ambient.mp3
+
+dialogue:
+  - narrator: "Kai-Tara meets Boushh at a hidden cantina on the jungle's edge."
+    image_prompt: "female Jedi entering dimly lit cantina, shady characters watching from shadows"
+  - character: Boushh
+    text: "Wrooaawr! (This job is dangerous. The dark one killed three of my men.)"
+    mood: grim
+    image_prompt: "large Wookiee bounty hunter in worn armor, serious grim expression, arms crossed"
+  - character: kai_tara
+    text: "I don't have time for negotiations. How much?"
+    mood: businesslike
+    image_prompt: "female Jedi standing confidently across from bounty hunter, no-nonsense attitude"
+  - character: Boushh
+    text: "Wrarwrar! (Five thousand credits. Plus expenses.)"
+    mood: serious
+    image_prompt: "Wookiee holding up credits indicator, calculating pricing, serious face"
+  - character: kai_tara
+    text: "Done. Let's move."
+    mood: determined
+    image_prompt: "Jedi and Wookiee moving toward exit together, weapons ready, determined"
+
+next: dark_omen

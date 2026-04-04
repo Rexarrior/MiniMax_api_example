@@ -1,0 +1,32 @@
+id: masters_lair
+title: "Master's Study"
+background_prompt: "Ancient Jedi Master study filled with glowing holocrons, ancient star maps projected in air, shelves with ancient texts, warm fireplace with crackling flames, cozy scholarly atmosphere, star wars universe"
+music: scholarly_contemplation.mp3
+
+dialogue:
+  - narrator: "Kai-Tara bursts into Master Ysanna Ordo's study, finding the old Master surrounded by holographic star charts."
+    image_prompt: "young Jedi bursting into study room, elderly Master surrounded by glowing holograms"
+  - character: kai_tara
+    text: "Master! I felt a disturbance. Something dark has awakened."
+    mood: alert
+    image_prompt: "female Jedi bowing respectfully while speaking urgently, elderly Master looking concerned"
+  - character: master_ysanna
+    text: "I know, my young apprentice. I've been tracking this presence for days."
+    mood: wise
+    image_prompt: "elderly female Master with silver hair speaking calmly, wise knowing expression"
+  - narrator: "Master Ysanna gestures to a map showing a red-tinged sector near the Wookiee homeworld."
+    image_prompt: "holographic star map with red warning sector highlighted, pointing hand gesture"
+  - character: master_ysanna
+    text: "Sith remnants. An ancient shrine has been reactivated on Kashyyyk's dark side."
+    mood: serious
+    image_prompt: "elderly Jedi Master pointing to dark side of planet on hologram, serious expression"
+  - character: kai_tara
+    text: "Sith? Here? I thought they were destroyed."
+    mood: concerned
+    image_prompt: "young Jedi shocked expression, eyes wide, disbelieving question"
+  - character: master_ysanna
+    text: "Evil never truly dies, Kai-Tara. Take my interceptor. Chewbacca awaits you at the village."
+    mood: wise
+    image_prompt: "elderly Master placing hand on young Jedi shoulder reassuringly, warm smile"
+
+next: shuttle_bay

@@ -1,0 +1,28 @@
+id: yoda_style_end
+title: "Peace Restored"
+background_prompt: "Kai-Tara back in Jedi meditation chamber, peaceful pose, sunrise streaming through stained glass showing Force symbols, serene atmosphere, blue lighting, star wars universe, iconic star wars style"
+music: serene_resolution.mp3
+
+dialogue:
+  - narrator: "Back at the Jedi temple, Kai-Tara meditates once more."
+    image_prompt: "female Jedi in meditation pose, peaceful sunrise light through windows"
+  - narrator: "The disturbance has passed. The Force flows peacefully once more."
+    image_prompt: "golden Force energy flowing peacefully around meditating Jedi, serene atmosphere"
+  - character: master_ysanna
+    text: "You handled the situation well, my apprentice. You are growing stronger."
+    mood: proud
+    image_prompt: "elderly Master standing behind meditating Jedi, proud warm smile"
+  - character: kai_tara
+    text: "I did what was necessary. But Master... do you think Varek's master will come?"
+    mood: concerned
+    image_prompt: "young Jedi opening eyes with concerned question, looking up at Master"
+  - character: master_ysanna
+    text: "The dark side will always rise again. And the Jedi will always be there to face it."
+    mood: wise
+    image_prompt: "elderly Master with wise knowing expression, hands clasped, teaching pose"
+  - narrator: "As the sun sets over Kashyyyk, Kai-Tara feels a new resolve burning within her."
+    image_prompt: "female Jedi standing at window overlooking jungle sunset, determined expression"
+  - character: kai_tara
+    text: "Then I'll be ready. The Force will guide me."
+    mood: determined
+    image_prompt: "Jedi knight standing tall with ignited lightsaber, golden sunset backlight, heroic pose"

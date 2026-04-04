@@ -1,0 +1,7 @@
+id: shrine_destruction
+title: "Temple Explosion"
+background_prompt: "slow motion explosion of ancient Sith temple, debris flying outward, red and orange fireball, dust cloud expanding, epic destruction sequence, cinematic"
+music: dramatic_collapse.mp3
+is_video: true
+video_prompt: "Ancient dark temple exploding in slow motion, debris flying outward, fireball and dust cloud expanding, stone pillars collapsing, epic cinematic destruction, Star Wars Sith shrine"
+video_duration: 6

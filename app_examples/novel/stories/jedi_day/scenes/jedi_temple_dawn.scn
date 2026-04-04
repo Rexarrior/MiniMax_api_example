@@ -1,0 +1,18 @@
+id: jedi_temple_dawn
+title: "Dawn at the Temple"
+background_prompt: "Jedi temple balcony overlooking Kashyyyk jungle canopy at sunrise, golden hour light, mist rising from giant Wroshyr trees, distant waterfalls, epic cinematic landscape, star wars universe"
+music: temple_morning_ambient.mp3
+
+dialogue:
+  - narrator: "The first light of dawn breaks over the jungle moon of Kashyyyk."
+    image_prompt: "epic sunrise over jungle planet, golden light, mist rising from vast canopy"
+  - narrator: "Kai-Tara Ven stands on the balcony of the Jedi temple, her eyes closed, breathing in the energy of the Force."
+    image_prompt: "young female Jedi knight standing on temple balcony, eyes closed, peaceful meditation pose, overlooking jungle vista"
+  - character: kai_tara
+    text: "The Force flows through all living things. The jungle speaks to me."
+    mood: focused
+    image_prompt: "female Jedi knight with serene expression, arms slightly raised, sensing the Force, temple balcony backdrop"
+  - narrator: "A new day begins for the Jedi Knight. But today feels different..."
+    image_prompt: "Jedi temple corridor with ominous shadows forming, sense of approaching danger"
+
+next: meditation_room
