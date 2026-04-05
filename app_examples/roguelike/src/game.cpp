@@ -10,7 +10,7 @@ Game::Game() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Dungeon of Champions");
     SetTargetFPS(TARGET_FPS);
 
-    std::string asset_path = "../../../../out/roguelike_assets";
+    std::string asset_path = "../../assets";
     AssetManager::instance().load_all(asset_path);
 
     std::cerr << "[Game] Checking loaded textures:" << std::endl;
