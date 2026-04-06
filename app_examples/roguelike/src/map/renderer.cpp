@@ -1,0 +1,70 @@
+#include "renderer.h"
+#include "../assets/asset_manager.h"
+#include "../core/config.h"
+#include <algorithm>
+
+namespace rl {
+
+void MapRenderer::set_biome(Biome biome) {
+    biome_ = biome;
+}
+
+void MapRenderer::render(const Dungeon& dungeon, Camera2D camera) {
+    int cam_tile_x = static_cast<int>(camera.target.x / TILE_SIZE);
+    int cam_tile_y = static_cast<int>(camera.target.y / TILE_SIZE);
+
+    int tiles_x = static_cast<int>(SCREEN_WIDTH / (TILE_SIZE * camera.zoom)) + 3;
+    int tiles_y = static_cast<int>((SCREEN_HEIGHT - 64) / (TILE_SIZE * camera.zoom)) + 3;
+
+    int start_x = std::max(0, cam_tile_x - tiles_x / 2);
+    int start_y = std::max(0, cam_tile_y - tiles_y / 2);
+    int end_x = std::min(MAP_WIDTH, cam_tile_x + tiles_x / 2 + 1);
+    int end_y = std::min(MAP_HEIGHT, cam_tile_y + tiles_y / 2 + 1);
+
+    auto& assets = AssetManager::instance();
+
+    for (int y = start_y; y < end_y; ++y) {
+        for (int x = start_x; x < end_x; ++x) {
+            TileType type = dungeon.tile_at(x, y);
+            float fx = static_cast<float>(x * TILE_SIZE);
+            float fy = static_cast<float>(y * TILE_SIZE);
+
+            std::string tex_name;
+            switch (type) {
+                case TileType::Wall:
+                    if (biome_ == Biome::Cave) tex_name = "wall_cave";
+                    else if (biome_ == Biome::Forest) tex_name = "wall_stone";
+                    else tex_name = "wall_brick";
+                    break;
+                case TileType::Floor:
+                    if (biome_ == Biome::Forest) tex_name = "ground_grass";
+                    else if (biome_ == Biome::Cave) tex_name = "floor_dirt";
+                    else tex_name = "floor_tile";
+                    break;
+                case TileType::Door:
+                    tex_name = "floor_dirt";
+                    break;
+                case TileType::Wall_Torch:
+                    tex_name = "wall_brick";
+                    break;
+                case TileType::Floor_Water:
+                    tex_name = "floor_dirt";
+                    break;
+            }
+
+            Texture2D tex = assets.get_texture(tex_name);
+            float ts = static_cast<float>(TILE_SIZE);
+
+            if (tex.id) {
+                Rectangle src = {0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
+                Rectangle dst = {fx, fy, ts, ts};
+                DrawTexturePro(tex, src, dst, {0, 0}, 0, WHITE);
+            } else {
+                Color c = (type == TileType::Wall) ? DARKGRAY : GRAY;
+                DrawRectangle(static_cast<int>(fx), static_cast<int>(fy), TILE_SIZE, TILE_SIZE, c);
+            }
+        }
+    }
+}
+
+}

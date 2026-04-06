@@ -11,3 +11,6 @@ app_examples/mini_agent_websearch/config/config.yaml
 app_examples/mini_agent_websearch/config/mcp.json
 app_examples/mini_agent_websearch/workspace/
 non-commit
+
+# Roguelike build artifacts
+app_examples/roguelike/build/
