@@ -1,0 +1,34 @@
+id: underground_river
+title: "The Underground River"
+
+background_prompt: "vast underground cave with rushing river, bioluminescent crystals lighting the path, ancient stalactites"
+background: "bg_escape_attempt_forest_stream_at_night_with_rushing_crystal_clear__0.jpeg"
+
+music_prompt: "cave ambient with water sounds"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "A hidden passage leads to an underground river."
+      voice: "narr_you_walk_calmly_thro.mp3"
+  - narrator: "    voice: "narr_eventually_you_find_.mp3"
+      voice: "narr_patients_and_caution.mp3"
+  - narrator: "Crystal formations illuminate the cavern with ethereal blue light."
+      voice: "narr_the_hermit_nods_appr.mp3"
+  - narrator: "    voice: "narr_the_amulets_magic_ch.mp3"
+      voice: "narr_suddenly_you_can_und.mp3"
+  - narrator: "The river's current is strong but flows toward an exit."
+      voice: "narr_you_chose_to_stay.mp3"
+  - narrator: "    voice: "narr_its_secrets_remain_t.mp3"
+      voice: "narr_you_carry_his_teachi.mp3"
+  - narrator: "Ancient boat moors at the shore, seemingly waiting for you."
+      voice: "narr_you_eventually_find_.mp3"
+  - narrator: "    voice: "narr_using_your_wisdom_yo.mp3"
+      voice: "narr_but_the_forest_never.mp3"
+
+choice:
+  - text: "Take the boat downstream"
+    next: treasure_room
+  - text: "Follow the riverbank on foot"
+    next: forest_shrine
+  - text: "Swim against the current"
+    next: escape_attempt

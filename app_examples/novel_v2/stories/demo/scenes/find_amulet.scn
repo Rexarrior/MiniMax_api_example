@@ -1,0 +1,51 @@
+id: find_amulet
+
+title: "Finding the Amulet"
+
+
+
+background_prompt: "mystical forest clearing with glowing golden amulet on mossy ancient stone, magical aura radiating, enchanted atmosphere"
+
+background: "bg_find_amulet_mystical_forest_clearing_with_glowing_golden_amule_0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "You approach the shining object."
+
+    voice: "narr_you_approach_the_shi.mp3"
+
+  - narrator: "It's a beautiful golden amulet lying on a mossy stone."
+
+    voice: "narr_its_a_beautiful_gold.mp3"
+
+  - narrator: "As you pick it up, you feel a strange energy flowing through you."
+
+    voice: "narr_as_you_pick_it.mp3"
+
+  - narrator: "The amulet seems to have magical properties."
+
+    voice: "narr_the_amulet_seems_to.mp3"
+
+
+
+choice:
+
+  - text: "Put on the amulet"
+
+    next: wear_amulet
+
+  - text: "Take it but don't wear it"
+
+    next: take_amulet
+
+  - text: "Leave it and continue exploring"
+
+    next: forest_path

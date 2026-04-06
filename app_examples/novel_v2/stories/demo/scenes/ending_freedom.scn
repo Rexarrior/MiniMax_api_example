@@ -1,0 +1,36 @@
+id: ending_freedom
+title: "True Freedom"
+
+background_prompt: "peaceful forest meadow at sunrise, open sky, butterflies and birds, sense of peaceful liberation"
+background: "bg_ending_hide_peaceful_forest_path_at_dawn__morning_mist_rising__0.jpeg"
+
+music_prompt: "peaceful liberating ambient music"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "You chose the path of Sacrifice, giving up power for peace."
+      voice: "narr_you_chose_to_stay.mp3"
+  - narrator: "    voice: "narr_with_this_artifact_y.mp3"
+      voice: "narr_you_carry_his_teachi.mp3"
+  - narrator: "The forest releases you, its magic recognizing your pure spirit."
+      voice: "narr_you_eventually_find_.mp3"
+  - narrator: "    voice: "narr_you_wake_up_in.mp3"
+      voice: "narr_but_the_forest_never.mp3"
+  - narrator: "You walk out of the forest not as a hero or sage, but as a free soul."
+      voice: "narr_eventually_you_find_.mp3"
+  - narrator: "    voice: "narr_you_stumble_and_fall.mp3"
+      voice: "narr_the_amulets_magic_ch.mp3"
+  - narrator: "The greatest treasure was never the amulet - it was the journey itself."
+      voice: "narr_its_secrets_remain_t.mp3"
+  - narrator: "    voice: "narr_you_hide_behind_a.mp3"
+      voice: "narr_using_your_wisdom_yo.mp3"
+  - narrator: "You return to the world below, forever changed by the experience."
+      voice: "narr_the_sounds_grow_loud.mp3"
+  - narrator: "    voice: "narr_your_courage_impress.mp3"
+      voice: "narr_the_trees_grow_thick.mp3"
+  - narrator: "THE END - True freedom is the greatest treasure of all."
+      voice: "narr_you_run_forward_thro.mp3"
+  - narrator: "    voice: "narr_he_gestures_toward_a.mp3"
+      voice: "narr_a_graph_voice_echoes.mp3"
+
+is_ending: true

@@ -1,0 +1,63 @@
+id: call_out
+
+title: "Calling Out"
+
+
+
+background_prompt: "deep dark forest, voice echoes through ancient trees, mysterious shadows lurking, ominous atmosphere"
+
+background: "bg_call_out_deep_dark_forest__voice_echoes_through_ancient_tre_0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - character:
+
+      id: hermit
+
+      text: "Who goes there? Show yourself!"
+
+      mood: suspicious
+
+      image_prompt: "wise elderly hermit with long white beard"
+
+      image: "char_call_out_hermit_wise_elderly_hermit_with_long_white_beard__wearing_0.jpeg"
+
+      voice: "voice_hermit_08e618bfb0_0.9_-2.mp3"
+
+  - narrator: "A gruff voice echoes through the trees."
+
+    voice: "narr_a_graph_voice_echoes.mp3"
+
+  - character:
+
+      id: hermit
+
+      text: "Strangers are not welcome here. But since you're lost..."
+
+      mood: grumbling
+
+      image_prompt: "wise elderly hermit with long white beard"
+
+      image: "char_call_out_hermit_wise_elderly_hermit_with_long_white_beard__wearing_0.jpeg"
+
+      voice: "voice_hermit_28dad58e2f_0.9_-2.mp3"
+
+
+
+choice:
+
+  - text: "Thank the old man and ask for directions"
+
+    next: meet_hermit
+
+  - text: "Ignore him and walk away"
+
+    next: forest_path

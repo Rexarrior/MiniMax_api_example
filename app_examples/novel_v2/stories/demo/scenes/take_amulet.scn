@@ -1,0 +1,43 @@
+id: take_amulet
+
+title: "Taking the Amulet"
+
+
+
+background_prompt: "dark forest path with warm golden glow emanating from pocket, cozy comforting light, mysterious treasure, safe atmosphere"
+
+background: "bg_take_amulet_dark_forest_path_with_warm_golden_glow_emanating_f_0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "You carefully pocket the amulet."
+
+    voice: "narr_you_carefully_pocket.mp3"
+
+  - narrator: "It feels warm against your body."
+
+    voice: "narr_it_feels_warm_agains.mp3"
+
+  - narrator: "With this artifact, you venture further into the forest."
+
+    voice: "narr_with_this_artifact_y.mp3"
+
+  - narrator: "The amulet helps you navigate the dark paths."
+
+    voice: "narr_the_amulet_helps_you.mp3"
+
+  - narrator: "Eventually, you find your way out of the forest."
+
+    voice: "narr_eventually_you_find_.mp3"
+
+
+
+next: ending_amulet

@@ -1,0 +1,30 @@
+id: deeper_forest
+title: "Deeper Into the Woods"
+
+background_prompt: "dense dark forest, massive ancient trees with thick roots, dim light filtering through canopy, mysterious fog"
+background: "bg_forest_path_dark_mysterious_forest_path_with_ancient_trees__th_0.jpeg"
+
+music_prompt: "darker ambient forest atmosphere"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "You venture deeper into the forest. The trees grow older here."
+      voice: "narr_the_forest_accepted_.mp3"
+  - narrator: "    voice: "narr_after_they_leave_you.mp3"
+      voice: "narr_an_old_man_emerges.mp3"
+  - narrator: "Strange symbols appear on the bark of the ancient oaks."
+      voice: "narr_suddenly_you_hear_st.mp3"
+  - narrator: "    voice: "narr_among_the_trees_you.mp3"
+      voice: "narr_he_whispers_an_ancie.mp3"
+  - narrator: "Something ahead glimmers through the mist..."
+      voice: "narr_its_a_beautiful_gold.mp3"
+  - narrator: "    voice: "narr_they_granted_you_saf.mp3"
+      voice: "narr_the_trees_seem_to.mp3"
+
+choice:
+  - text: "Follow the glimmering light"
+    next: magic_pool
+  - text: "Examine the symbols"
+    next: ancient_ruins
+  - text: "Continue through the dark"
+    next: spirit_encounter

@@ -1,0 +1,47 @@
+temple_morning_ambient:
+  prompt: "peaceful morning temple atmosphere, gentle wind chimes, distant bird calls, serene Jedi temple, soft orchestral"
+
+calm_meditation_ambient:
+  prompt: "calm meditation ambient, soft pads, gentle breathing sounds, peaceful concentration, zen-like focus"
+
+ominous_tension_build:
+  prompt: "ominous tension build, dark strings, low droning bass, suspenseful danger approaching, dread atmosphere"
+
+scholarly_contemplation:
+  prompt: "scholarly contemplation, warm fireplace, turning pages, intellectual pursuit, mysterious knowledge"
+
+urgent_military_comm:
+  prompt: "urgent military comm traffic, alert beeps, fast paced tactical communication, crisis mode"
+
+engine_hum_activity:
+  prompt: "engine hum activity, shuttle bay atmosphere, mechanical sounds, busy work environment"
+
+heroic_adventure_flight:
+  prompt: "heroic adventure flight, epic orchestral, John Williams style, Star Wars main theme feel, soaring strings"
+
+village_life_ambient:
+  prompt: "village life ambient, Wookiee community sounds, organic wooden atmosphere, warm village gatherings"
+
+friendly_reunion_warm:
+  prompt: "friendly reunion warm, emotional reunion music, touching moment, bonds of friendship"
+
+foreboding_jungle_danger:
+  prompt: "foreboding jungle danger, dense forest sounds, ominous undertones, creature noises, sense of being watched"
+
+dark_ritual_ambience:
+  prompt: "dark ritual ambience, ancient Sith temple, glowing runes, volcanic vents hissing, sinister ceremony"
+
+sinister_revelation:
+  prompt: "sinister revelation, dark confession, dramatic tension, villain speech backing, menacing undercurrent"
+
+epic_duel_orchestral:
+  prompt: "epic duel orchestral, intense lightsaber battle music, percussion heavy, heroic climax, Star Wars action"
+
+dramatic_collapse:
+  prompt: "dramatic collapse, temple imploding, falling debris, dust clouds, epic destruction sequence"
+
+triumphant_victory_fanfare:
+  prompt: "triumphant victory fanfare, Wookiee celebration, heroic celebration, community cheering, joyful"
+
+serene_resolution:
+  prompt: "serene resolution, peaceful ending, sunset meditation, calm after storm, contemplative closure"

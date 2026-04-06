@@ -1,0 +1,87 @@
+# Temporary agent files (NEVER COMMIT)
+tmp_docs/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# Backend
+backend/.env
+backend/*.db
+
+# Node
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+.node_repl_history
+
+# Frontend build
+frontend/.vite/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+
+# Vue
+frontend/src/components/ui/volar.config.js
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment secrets
+.env
+.env.local
+.env.*.local
+secrets.json
+
+# Logs
+logs/
+*.log
+
+# Docker
+*.pid
+*.seed
+*.pid.lock

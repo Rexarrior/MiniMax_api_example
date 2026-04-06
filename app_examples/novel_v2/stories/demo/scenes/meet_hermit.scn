@@ -1,0 +1,63 @@
+id: meet_hermit
+
+title: "Meeting the Hermit"
+
+
+
+background_prompt: "forest clearing with ancient gnarled oak tree, wise old hermit standing proudly, magical particles floating, mystical forest"
+
+background: "bg_meet_hermit_forest_clearing_with_ancient_gnarled_oak_tree__wis_0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "An old man emerges from behind the trees."
+
+    voice: "narr_an_old_man_emerges.mp3"
+
+  - character:
+
+      id: hermit
+
+      text: "I am the keeper of this forest. What brings you here?"
+
+      mood: curious
+
+      image_prompt: "wise elderly hermit with long white beard"
+
+      image: "char_meet_hermit_hermit_wise_elderly_hermit_with_long_white_beard__wearing_0.jpeg"
+
+  - narrator: "His eyes seem to hold ancient wisdom."
+
+    voice: "narr_his_eyes_seem_to.mp3"
+
+  - character:
+
+      id: hermit
+
+      text: "If you seek the way out, you must prove yourself."
+
+      mood: serious
+
+      image_prompt: "wise elderly hermit with long white beard"
+
+      image: "char_meet_hermit_hermit_wise_elderly_hermit_with_long_white_beard__wearing_0.jpeg"
+
+
+
+choice:
+
+  - text: "Accept the challenge"
+
+    next: challenge_accepted
+
+  - text: "Ask for another way"
+
+    next: alternative_path

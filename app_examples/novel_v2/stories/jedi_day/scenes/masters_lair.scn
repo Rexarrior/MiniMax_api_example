@@ -1,0 +1,40 @@
+id: masters_lair
+title: Master's Study
+background_prompt: Ancient Jedi Master study filled with glowing holocrons, ancient
+  star maps projected in air, shelves with ancient texts, warm fireplace with crackling
+  flames, cozy scholarly atmosphere, star wars universe
+music: scholarly_contemplation__warm_fireplace__turning_p.mp3
+dialogue:
+- narrator: Kai-Tara bursts into Master Ysanna Ordo's study, finding the old Master
+    surrounded by holographic star charts.
+- character:
+    id: kai_tara
+    text: Master! I felt a disturbance. Something dark has awakened.
+    mood: alert
+    image: char_masters_lair_kai_tara_alert_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+- character:
+    id: master_ysanna
+    text: I know, my young apprentice. I've been tracking this presence for days.
+    mood: wise
+    image: char_masters_lair_master_ysanna_wise_elderly_female_Jedi_Master__silver_hair__0.jpeg
+- narrator: Master Ysanna gestures to a map showing a red-tinged sector near the Wookiee
+    homeworld.
+- character:
+    id: master_ysanna
+    text: Sith remnants. An ancient shrine has been reactivated on Kashyyyk's dark
+      side.
+    mood: serious
+    image: char_masters_lair_master_ysanna_serious_elderly_female_Jedi_Master__silver_hair__0.jpeg
+- character:
+    id: kai_tara
+    text: Sith? Here? I thought they were destroyed.
+    mood: concerned
+    image: char_masters_lair_kai_tara_concerned_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+- character:
+    id: master_ysanna
+    text: Evil never truly dies, Kai-Tara. Take my interceptor. Chewbacca awaits you
+      at the village.
+    mood: wise
+    image: char_masters_lair_master_ysanna_wise_elderly_female_Jedi_Master__silver_hair__0.jpeg
+next: shuttle_bay
+background: bg_masters_lair_Ancient_Jedi_Master_study_filled_with_glowing_holo_0.jpeg

@@ -1,0 +1,43 @@
+id: wear_amulet
+
+title: "The Magical Amulet"
+
+
+
+background_prompt: "magical forest bathed in ethereal golden light, mystical energy flowing through ancient trees, enchanted woodland, radiant atmosphere"
+
+background: "bg_wear_amulet_magical_forest_bathed_in_ethereal_golden_light__my_0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "You put on the amulet."
+
+    voice: "narr_you_put_on_the.mp3"
+
+  - narrator: "Suddenly, you can understand the whispers of the forest."
+
+    voice: "narr_suddenly_you_can_und.mp3"
+
+  - narrator: "The trees seem to guide you toward your destination."
+
+    voice: "narr_the_trees_seem_to.mp3"
+
+  - narrator: "With the amulet's power, you find your way home safely."
+
+    voice: "narr_with_the_amulets_pow.mp3"
+
+  - narrator: "But the forest never forgets those who wore the amulet..."
+
+    voice: "narr_but_the_forest_never.mp3"
+
+
+
+next: ending_magic

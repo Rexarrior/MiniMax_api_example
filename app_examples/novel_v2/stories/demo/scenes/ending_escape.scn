@@ -1,0 +1,35 @@
+id: ending_escape
+
+title: "The End - Escape"
+
+
+
+background_prompt: "forest stream leading to open meadow, moonlight reflecting on water, freedom and release, peaceful escape atmosphere"
+
+background: "bg_ending_escape_forest_stream_leading_to_open_meadow__moonlight_re_0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "THE END"
+
+    voice: "narr_the_end.mp3"
+
+  - narrator: "You escaped through the stream."
+
+    voice: "narr_you_escaped_through_.mp3"
+
+  - narrator: "The forest let you go."
+
+    voice: "narr_the_forest_let_you.mp3"
+
+
+
+is_ending: true

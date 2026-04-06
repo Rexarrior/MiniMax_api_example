@@ -1,0 +1,28 @@
+id: video_transition_2
+title: "Spirit Journey"
+
+background_prompt: "ethereal spirit realm, floating islands, aurora lights, mystical atmosphere"
+background: "bg_stand_ground_dark_enchanted_forest_with_swirling_ethereal_spiri_0.jpeg"
+
+# Video transition - spirit guide journey
+video: "spirit_journey.mp4"
+video_prompt: "spirit entity flying through mystical forest, glowing particles, ethereal trails, magical atmosphere"
+
+music_prompt: "ethereal ambient spiritual music"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "The ancient spirits awaken..."
+      voice: "narr_you_run_forward_thro.mp3"
+  - narrator: "    voice: "narr_a_graph_voice_echoes.mp3"
+      voice: "narr_a_graph_voice_echoes.mp3"
+  - narrator: "They sense your determination and decide to guide you."
+      voice: "narr_you_walk_deeper_into.mp3"
+  - narrator: "    voice: "narr_you_walk_deeper_into.mp3"
+      voice: "narr_following_the_stream.mp3"
+  - narrator: "Follow the path of light, traveler. Your destiny awaits."
+      voice: "narr_the_forest_became_yo.mp3"
+  - narrator: "    voice: "narr_following_the_stream.mp3"
+      voice: "narr_the_cold_water_shock.mp3"
+
+next_scene: magic_pool

@@ -1,0 +1,35 @@
+id: ending_courage
+
+title: "The End - Courage"
+
+
+
+background_prompt: "bright forest exit bathed in golden sunrise light, spirits fading into light, triumphant peaceful atmosphere, cinematic ending scene"
+
+background: "bg_ending_courage_bright_forest_exit_bathed_in_golden_sunrise_light__0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "THE END"
+
+    voice: "narr_the_end.mp3"
+
+  - narrator: "Your courage impressed the forest spirits."
+
+    voice: "narr_your_courage_impress.mp3"
+
+  - narrator: "They granted you safe passage."
+
+    voice: "narr_they_granted_you_saf.mp3"
+
+
+
+is_ending: true

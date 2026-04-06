@@ -1,0 +1,38 @@
+id: sith_shrine
+title: The Sith Shrine
+background_prompt: Ancient underground Sith temple on Kashyyyk, dark stone pillars
+  with glowing red runes, volcanic vents releasing steam, mysterious holocrons floating,
+  dramatic cavern lighting, ominous atmosphere, star wars universe
+music: dark_ritual_ambience__ancient_Sith_temple__glowing.mp3
+dialogue:
+- narrator: Kai-Tara descends into the ancient Sith shrine. The air grows cold.
+- narrator: Red runes pulse along the walls. In the center, a figure in black robes
+    awaits.
+- character:
+    id: darth_varek
+    text: A Jedi... how delightful. Another lamb to the slaughter.
+    mood: sinister
+    image: char_sith_shrine_darth_varek_sinister_menacing_dark_figure_in_black_robes_with_0.jpeg
+- character:
+    id: kai_tara
+    text: Release your prisoners, Sith. This temple belongs to the past.
+    mood: defiant
+    image: char_sith_shrine_kai_tara_defiant_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+- character:
+    id: darth_varek
+    text: The past? This shrine holds the secrets of Marka Ragnos himself!
+    mood: angry
+    image: char_sith_shrine_darth_varek_angry_menacing_dark_figure_in_black_robes_with_0.jpeg
+- narrator: He ignites his crimson lightsaber. Behind him, Chewbacca roars from a
+    cell.
+- character:
+    id: darth_varek
+    text: Bow to the dark side, or watch your ally die.
+    mood: cruel
+    image: char_sith_shrine_darth_varek_cruel_menacing_dark_figure_in_black_robes_with_0.jpeg
+choice:
+- text: Attack without hesitation
+  next: lightsaber_duel
+- text: Try to reason with Varek
+  next: varek_logic
+background: bg_sith_shrine_Ancient_underground_Sith_temple_on_Kashyyyk__dark__0.jpeg

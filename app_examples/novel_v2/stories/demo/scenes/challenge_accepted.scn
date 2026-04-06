@@ -1,0 +1,67 @@
+id: challenge_accepted
+
+title: "The Challenge"
+
+
+
+background_prompt: "mystical forest clearing surrounded by ancient runes glowing with blue light, sacred challenge area, magical barrier, wise atmosphere"
+
+background: "bg_challenge_accepted_mystical_forest_clearing_surrounded_by_ancient_run_0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "The hermit nods approvingly."
+
+    voice: "narr_the_hermit_nods_appr.mp3"
+
+  - character:
+
+      id: hermit
+
+      text: "Brave choice. Solve my riddle and you shall pass."
+
+      mood: pleased
+
+      image_prompt: "wise elderly hermit with long white beard"
+
+      image: "char_challenge_accepted_hermit_wise_elderly_hermit_with_long_white_beard__wearing_0.jpeg"
+
+  - narrator: "He whispers an ancient riddle about the forest."
+
+    voice: "narr_he_whispers_an_ancie.mp3"
+
+  - narrator: "Using your wisdom, you solve the riddle correctly."
+
+    voice: "narr_using_your_wisdom_yo.mp3"
+
+  - character:
+
+      id: hermit
+
+      text: "Excellent! You may pass. The exit lies beyond the ancient oak."
+
+      mood: impressed
+
+      image_prompt: "wise elderly hermit with long white beard"
+
+      image: "char_challenge_accepted_hermit_wise_elderly_hermit_with_long_white_beard__wearing_0.jpeg"
+
+
+
+choice:
+
+  - text: "Thank him and leave"
+
+    next: ending_hermit_wisdom
+
+  - text: "Ask to stay and learn from him"
+
+    next: ending_hermit_student

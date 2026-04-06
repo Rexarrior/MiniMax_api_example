@@ -1,0 +1,47 @@
+id: forest_path
+
+title: "The Forest Path"
+
+
+
+background_prompt: "dark mysterious forest path with ancient trees, thick foliage blocking light, fading twilight, eerie atmosphere, ominous shadows"
+
+background: "bg_forest_path_dark_mysterious_forest_path_with_ancient_trees__th_0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "You walk deeper into the forest."
+
+    voice: "narr_you_walk_deeper_into.mp3"
+
+  - narrator: "The trees grow thicker and the light fades."
+
+    voice: "narr_the_trees_grow_thick.mp3"
+
+  - narrator: "Suddenly, you hear strange sounds all around you."
+
+    voice: "narr_suddenly_you_hear_st.mp3"
+
+
+
+choice:
+
+  - text: "Run forward"
+
+    next: escape_attempt
+
+  - text: "Hide behind a tree"
+
+    next: hide_attempt
+
+  - text: "Stand your ground"
+
+    next: stand_ground

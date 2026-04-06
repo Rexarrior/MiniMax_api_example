@@ -1,0 +1,34 @@
+id: spirit_encounter
+title: "Meeting the Spirits"
+
+background_prompt: "enchanted forest clearing with floating glowing spirit orbs, ethereal light particles, magical atmosphere"
+background: "bg_stand_ground_dark_enchanted_forest_with_swirling_ethereal_spiri_0.jpeg"
+
+music_prompt: "ethereal spiritual ambient music"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "Lights begin to dance in the air around you."
+      voice: "narr_there_seems_to_be.mp3"
+  - narrator: "    voice: "narr_the_amulet_seems_to.mp3"
+      voice: "narr_you_seem_to_be.mp3"
+  - narrator: "Ancient forest spirits materialize before your eyes."
+      voice: "narr_after_they_leave_you.mp3"
+  - narrator: "    voice: "narr_through_the_leaves_y.mp3"
+      voice: "narr_among_the_trees_you.mp3"
+  - narrator: "They speak in a language older than words, yet somehow you understand."
+      voice: "narr_they_granted_you_saf.mp3"
+  - narrator: "    voice: "narr_you_became_one_with.mp3"
+      voice: "narr_his_eyes_seem_to.mp3"
+  - narrator: "The spirits sense your pure heart. They offer their guidance."
+      voice: "narr_you_put_on_the.mp3"
+  - narrator: "    voice: "narr_you_carefully_look_a.mp3"
+      voice: "narr_the_shadows_circle_a.mp3"
+
+choice:
+  - text: "Accept the spirits' guidance"
+    next: video_transition_2
+  - text: "Ask them about the forest's secret"
+    next: forest_shrine
+  - text: "Decline and continue alone"
+    next: underground_river

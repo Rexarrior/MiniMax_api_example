@@ -1,0 +1,12 @@
+id: hyperspace_jump
+title: Hyperspace Jump
+background_prompt: animated starfield becoming streaks of light as ship enters hyperspace,
+  blue tunnel effect, motion blur, Star Wars hyperspace animation style
+music: heroic_adventure_flight__epic_orchestral__John_Wil.mp3
+is_video: true
+video_prompt: Starfield transforming into hyperspace jump, blue and white streaks
+  of light rushing past, spaceship cockpit POV, cinematic sci-fi animation, Star Wars
+  hyperspace effect
+video_duration: 6
+background: bg_hyperspace_jump_animated_starfield_becoming_streaks_of_light_as_sh_0.jpeg
+dialogue: []

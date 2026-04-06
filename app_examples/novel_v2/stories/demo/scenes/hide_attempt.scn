@@ -1,0 +1,39 @@
+id: hide_attempt
+
+title: "Hiding"
+
+
+
+background_prompt: "dense forest with massive ancient gnarled twisted oak tree, hidden safe spot among roots and foliage, protective shadows, secretive atmosphere"
+
+background: "bg_hide_attempt_dense_forest_with_massive_ancient_gnarled_twisted__0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "You hide behind a large oak tree."
+
+    voice: "narr_you_hide_behind_a.mp3"
+
+  - narrator: "Through the leaves, you see shadowy figures passing by."
+
+    voice: "narr_through_the_leaves_y.mp3"
+
+  - narrator: "After they leave, you carefully make your way through the forest."
+
+    voice: "narr_after_they_leave_you.mp3"
+
+  - narrator: "You eventually find the forest's exit."
+
+    voice: "narr_you_eventually_find_.mp3"
+
+
+
+next: ending_hide

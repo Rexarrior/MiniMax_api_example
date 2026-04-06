@@ -1,0 +1,32 @@
+id: ending_legend
+title: "The Legendary Hero"
+
+background_prompt: "heroic scene at mountain peak, sunrise breaking through clouds, figure silhouetted against golden light, triumphant atmosphere"
+background: "bg_ending_courage_bright_forest_exit_bathed_in_golden_sunrise_light__0.jpeg"
+
+music_prompt: "triumphant heroic orchestral music"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "You chose the path of Courage, and it has led you to greatness."
+      voice: "narr_suddenly_you_hear_st.mp3"
+  - narrator: "    voice: "narr_it_seems_the_forest.mp3"
+      voice: "narr_he_whispers_an_ancie.mp3"
+  - narrator: "The amulet's power flows through you, transforming you into a legend."
+      voice: "narr_its_a_beautiful_gold.mp3"
+  - narrator: "    voice: "narr_you_escaped_with_the.mp3"
+      voice: "narr_the_trees_seem_to.mp3"
+  - narrator: "When you emerge from the forest, word spreads of the hero who conquered the unknown."
+      voice: "narr_the_amulet_helps_you.mp3"
+  - narrator: "    voice: "narr_you_stand_your_groun.mp3"
+      voice: "narr_the_forest_let_you.mp3"
+  - narrator: "Bards sing songs of your adventure for generations to come."
+      voice: "narr_with_this_artifact_y.mp3"
+  - narrator: "    voice: "narr_the_stream_led_you.mp3"
+      voice: "narr_you_wake_up_in.mp3"
+  - narrator: "THE END - You became a legend."
+      voice: "narr_you_stumble_and_fall.mp3"
+  - narrator: "    voice: "narr_you_followed_the_her.mp3"
+      voice: "narr_you_hide_behind_a.mp3"
+
+is_ending: true

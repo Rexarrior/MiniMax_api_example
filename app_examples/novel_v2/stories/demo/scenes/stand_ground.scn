@@ -1,0 +1,43 @@
+id: stand_ground
+
+title: "Standing Firm"
+
+
+
+background_prompt: "dark enchanted forest with swirling ethereal spirit shadows circling around brave figure, courageous stance, dramatic volumetric lighting, powerful atmosphere"
+
+background: "bg_stand_ground_dark_enchanted_forest_with_swirling_ethereal_spiri_0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "You stand your ground firmly."
+
+    voice: "narr_you_stand_your_groun.mp3"
+
+  - narrator: "The shadows circle around you but don't attack."
+
+    voice: "narr_the_shadows_circle_a.mp3"
+
+  - narrator: "It seems the forest respects courage."
+
+    voice: "narr_it_seems_the_forest.mp3"
+
+  - narrator: "The shadows part, revealing a clear path."
+
+    voice: "narr_the_shadows_part_rev.mp3"
+
+  - narrator: "You walk calmly through the forest and find the exit."
+
+    voice: "narr_you_walk_calmly_thro.mp3"
+
+
+
+next: ending_courage

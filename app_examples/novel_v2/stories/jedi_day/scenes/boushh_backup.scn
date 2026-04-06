@@ -1,0 +1,28 @@
+id: Boushh_backup
+title: Boushh Joins
+background_prompt: Cantina-style safehouse on Kashyyyk edge, Boushh in worn armor,
+  weapons displayed, industrial lighting, shady atmosphere, star wars universe
+background: bg_boushh_backup_Cantina_style_safehouse_on_Kashyyyk_edge__Boushh_i_0.jpeg
+music_prompt: tense standoff ambient
+music: ominous_tension_build__dark_strings__low_droning_b.mp3
+dialogue:
+- narrator: Kai-Tara meets Boushh at a hidden cantina on the jungle's edge.
+- character:
+    id: Boushh
+    text: Wrooaawr! (This job is dangerous. The dark one killed three of my men.)
+    mood: grim
+- character:
+    id: kai_tara
+    text: I don't have time for negotiations. How much?
+    mood: businesslike
+    image: char_boushh_backup_kai_tara_businesslike_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+- character:
+    id: Boushh
+    text: Wrarwrar! (Five thousand credits. Plus expenses.)
+    mood: serious
+- character:
+    id: kai_tara
+    text: Done. Let's move.
+    mood: determined
+    image: char_boushh_backup_kai_tara_determined_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+next: dark_omen

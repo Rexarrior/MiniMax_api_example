@@ -1,0 +1,28 @@
+id: video_transition_3
+title: "Final Confrontation"
+
+background_prompt: "dramatic mountain peak at sunset, storm clouds, lightning, epic atmosphere"
+background: "bg_ending_courage_bright_forest_exit_bathed_in_golden_sunrise_light__0.jpeg"
+
+# Video transition - climax battle
+video: "final_battle.mp4"
+video_prompt: "epic confrontation scene, energy beams clashing, dramatic lighting, heroic moment, cinematic climax"
+
+music_prompt: "epic dramatic orchestral music"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "The moment of truth has arrived..."
+      voice: "narr_the_end.mp3"
+  - narrator: "    voice: "narr_the_forest_became_yo.mp3"
+      voice: "narr_as_you_pick_it.mp3"
+  - narrator: "The forest trembles as ancient powers converge."
+      voice: "narr_there_seems_to_be.mp3"
+  - narrator: "    voice: "narr_the_cold_water_shock.mp3"
+      voice: "narr_you_seem_to_be.mp3"
+  - narrator: "Only the worthy shall pass. Prove yourself, traveler!"
+      voice: "narr_after_they_leave_you.mp3"
+  - narrator: "    voice: "narr_the_end.mp3"
+      voice: "narr_among_the_trees_you.mp3"
+
+next_scene: forest_shrine

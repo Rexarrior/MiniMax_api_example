@@ -1,0 +1,17 @@
+id: meditation_room
+title: Morning Meditation
+background_prompt: Interior Jedi meditation chamber with stained glass windows showing
+  cosmic symbols and Force energy patterns, soft golden light streaming through, minimalist
+  interior with meditation cushions, peaceful atmosphere, star wars universe
+music: calm_meditation_ambient__soft_pads__gentle_breathi.mp3
+dialogue:
+- narrator: Kai-Tara enters the meditation chamber, kneeling on the cold stone floor.
+- narrator: She ignites her blue lightsaber briefly, the blade humming with energy.
+- character:
+    id: kai_tara
+    text: There is no emotion, there is peace.
+    mood: focused
+    image: char_meditation_room_kai_tara_focused_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+- narrator: As she meditates, visions begin to flow through the Force...
+next: disturbance_detected
+background: bg_meditation_room_Interior_Jedi_meditation_chamber_with_stained_glas_0.jpeg

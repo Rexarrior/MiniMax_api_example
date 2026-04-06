@@ -1,0 +1,28 @@
+id: victory_return
+title: Return as Hero
+background_prompt: Triumphant return to Wookiee village at sunset, Wookiees cheering,
+  torches lit, Kai-Tara standing proud center frame, victorious atmosphere, star wars
+  universe, cinematic
+music: heroic_adventure_flight__epic_orchestral__John_Wil.mp3
+dialogue:
+- narrator: Kai-Tara and Chewbacca emerge from the jungle to cheering Wookiees.
+- narrator: The village chief presents her with traditional Wookiee braids of honor.
+- character:
+    id: chewbacca
+    text: Rrawr rwaw rwawr! (She saved us all! The Jedi is a true hero!)
+    mood: jubilant
+    image: char_victory_return_chewbacca_jubilant_fierce_Wookiee_warrior_with_brown_fur__w_0.jpeg
+- character:
+    id: tarri
+    text: You did it! You really did it!
+    mood: excited
+    image: char_victory_return_tarri_excited_young_Wookiee_cub_with_lighter_brown_fur_0.jpeg
+- narrator: But Kai-Tara's expression remains serious.
+- character:
+    id: kai_tara
+    text: This was only one shrine. Varek spoke of a master... a greater darkness
+      is coming.
+    mood: ominous
+    image: char_victory_return_kai_tara_ominous_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+next: yoda_style_end
+background: bg_victory_return_Triumphant_return_to_Wookiee_village_at_sunset__Wo_0.jpeg

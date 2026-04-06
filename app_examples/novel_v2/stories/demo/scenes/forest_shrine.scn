@@ -1,0 +1,36 @@
+id: forest_shrine
+title: "The Forest Shrine"
+
+background_prompt: "ancient sacred forest shrine with glowing runes, massive tree heart at center, spirit lights floating, ethereal atmosphere"
+background: "bg_ending_hermit_wisdom_mystical_forest_path_at_golden_hour__hermit_s_bles_0.jpeg"
+
+music_prompt: "sacred mystical ambient music"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "You arrive at the heart of the forest - an ancient shrine."
+      voice: "narr_the_amulet_helps_you.mp3"
+  - narrator: "    voice: "narr_his_eyes_seem_to.mp3"
+      voice: "narr_the_forest_let_you.mp3"
+  - narrator: "The great tree at its center pulses with centuries of accumulated wisdom."
+      voice: "narr_with_this_artifact_y.mp3"
+  - narrator: "    voice: "narr_you_put_on_the.mp3"
+      voice: "narr_you_wake_up_in.mp3"
+  - narrator: "The hermit appears beside you, his form now glowing with power."
+      voice: "narr_you_stumble_and_fall.mp3"
+  - narrator: "    voice: "narr_the_shadows_circle_a.mp3"
+      voice: "narr_you_hide_behind_a.mp3"
+  - character:
+      id: hermit
+      text: "You have shown respect for this sacred place. Now face your final trial."
+      mood: blessing
+      image_prompt: "wise elderly hermit with long white beard"
+      image: "char_challenge_accepted_hermit_wise_elderly_hermit_with_long_white_beard__wearing_0.jpeg"
+
+choice:
+  - text: "Accept the final trial"
+    next: video_transition_3
+  - text: "Ask for another way"
+    next: alternative_path
+  - text: "Offer thanks and leave peacefully"
+    next: ending_freedom

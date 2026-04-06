@@ -1,0 +1,34 @@
+id: lightsaber_duel
+title: Lightsaber Duel
+background_prompt: Epic lightsaber battle in large Sith cavern, blue and red blades
+  clashing, sparks flying, Force energy blasts colliding, dramatic shadows, intense
+  combat atmosphere, star wars universe, cinematic
+music: heroic_adventure_flight__epic_orchestral__John_Wil.mp3
+dialogue:
+- narrator: Kai-Tara and Varek clash in a blinding display of bladework!
+- narrator: Blue fire meets crimson as Form III meets Form II.
+- character:
+    id: darth_varek
+    text: Your technique is flawless... but rage is stronger!
+    mood: aggressive
+    image: char_lightsaber_duel_darth_varek_aggressive_menacing_dark_figure_in_black_robes_with_0.jpeg
+- narrator: Varek presses forward, his strikes fueled by hatred.
+- character:
+    id: kai_tara
+    text: There is no emotion... there is only peace!
+    mood: focused
+    image: char_lightsaber_duel_kai_tara_focused_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+- narrator: She channels the Force, her movements becoming faster, more fluid.
+- narrator: Varek hurls a Force blast. Kai-Tara deflects it into a pillar.
+- narrator: The shrine begins to crack and rumble.
+- character:
+    id: darth_varek
+    text: If I cannot have the power... neither can you!
+    mood: desperate
+    image: char_lightsaber_duel_darth_varek_desperate_menacing_dark_figure_in_black_robes_with_0.jpeg
+choice:
+- text: End him quickly with lightsaber throw
+  next: sith_collapse
+- text: Use Force push to knock him into the abyss
+  next: sith_collapse
+background: bg_lightsaber_duel_Epic_lightsaber_battle_in_large_Sith_cavern__blue__0.jpeg

@@ -1,0 +1,35 @@
+id: ending_hide
+
+title: "The End - Hiding"
+
+
+
+background_prompt: "peaceful forest path at dawn, morning mist rising, safe passage through enchanted woods, serene contemplative ending"
+
+background: "bg_ending_hide_peaceful_forest_path_at_dawn__morning_mist_rising__0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "THE END"
+
+    voice: "narr_the_end.mp3"
+
+  - narrator: "Patience and caution helped you escape."
+
+    voice: "narr_patients_and_caution.mp3"
+
+  - narrator: "The forest accepted your wisdom."
+
+    voice: "narr_the_forest_accepted_.mp3"
+
+
+
+is_ending: true

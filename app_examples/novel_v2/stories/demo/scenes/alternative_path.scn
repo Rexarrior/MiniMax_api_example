@@ -1,0 +1,59 @@
+id: alternative_path
+
+title: "The Alternative"
+
+
+
+background_prompt: "hidden forest path following a gentle sparkling stream, north direction illuminated by soft moonlight, peaceful guide, tranquil atmosphere"
+
+background: "bg_alternative_path_hidden_forest_path_following_a_gentle_sparkling_st_0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - character:
+
+      id: hermit
+
+      text: "There is no other way. The forest decides who stays and who goes."
+
+      mood: serious
+
+      image_prompt: "wise elderly hermit with long white beard"
+
+      image: "char_alternative_path_hermit_wise_elderly_hermit_with_long_white_beard__wearing_0.jpeg"
+
+  - narrator: "He gestures toward a hidden path."
+
+    voice: "narr_he_gestures_toward_a.mp3"
+
+  - character:
+
+      id: hermit
+
+      text: "But I will show you a shortcut. Follow the stream north."
+
+      mood: helpful
+
+      image_prompt: "wise elderly hermit with long white beard"
+
+      image: "char_alternative_path_hermit_wise_elderly_hermit_with_long_white_beard__wearing_0.jpeg"
+
+
+
+choice:
+
+  - text: "Take the shortcut"
+
+    next: ending_shortcut
+
+  - text: "Thank him but find your own way"
+
+    next: forest_path

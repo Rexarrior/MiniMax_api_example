@@ -1,0 +1,35 @@
+id: ending_amulet
+
+title: "The End - The Amulet"
+
+
+
+background_prompt: "dark mysterious forest at twilight, golden amulet glowing in hand, mysterious treasures ahead, adventure beckons ending"
+
+background: "bg_ending_amulet_dark_mysterious_forest_at_twilight__golden_amulet__0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "THE END"
+
+    voice: "narr_the_end.mp3"
+
+  - narrator: "You escaped with the magical amulet."
+
+    voice: "narr_you_escaped_with_the.mp3"
+
+  - narrator: "Its secrets remain to be discovered."
+
+    voice: "narr_its_secrets_remain_t.mp3"
+
+
+
+is_ending: true

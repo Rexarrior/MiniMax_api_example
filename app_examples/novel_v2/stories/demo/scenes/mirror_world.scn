@@ -1,0 +1,38 @@
+id: mirror_world
+title: "The Mirror Dimension"
+
+background_prompt: "surreal mirror world, infinite reflections, distorted perspective, prismatic light effects, ethereal and strange"
+background: "bg_alternative_path_hidden_forest_path_following_a_gentle_sparkling_st_0.jpeg"
+
+music_prompt: "surreal ambient music with echo effects"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "The reflections in the pool show not your reflection, but another world."
+      voice: "narr_the_sounds_grow_loud.mp3"
+  - narrator: "    voice: "narr_your_courage_impress.mp3"
+      voice: "narr_the_trees_grow_thick.mp3"
+  - narrator: "You reach out and the water's surface becomes a portal."
+      voice: "narr_you_run_forward_thro.mp3"
+  - narrator: "    voice: "narr_he_gestures_toward_a.mp3"
+      voice: "narr_a_graph_voice_echoes.mp3"
+  - narrator: "You step through into a dimension of pure reflection."
+      voice: "narr_you_walk_deeper_into.mp3"
+  - narrator: "    voice: "narr_with_the_amulets_pow.mp3"
+      voice: "narr_following_the_stream.mp3"
+  - narrator: "Here, everything is reversed - left becomes right, past becomes future."
+      voice: "narr_the_forest_became_yo.mp3"
+  - narrator: "    voice: "narr_it_feels_warm_agains.mp3"
+      voice: "narr_the_cold_water_shock.mp3"
+  - narrator: "An echo of yourself appears, speaking: 'Why do you seek the forest's heart?'"
+      voice: "narr_the_end.mp3"
+  - narrator: "    voice: "narr_you_approach_the_shi.mp3"
+      voice: "narr_as_you_pick_it.mp3"
+
+choice:
+  - text: "To become stronger"
+    next: ending_legend
+  - text: "To find inner peace"
+    next: ending_freedom
+  - text: "To understand the truth"
+    next: forest_shrine

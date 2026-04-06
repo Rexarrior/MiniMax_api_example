@@ -1,0 +1,47 @@
+id: explore_clearing
+
+title: "Exploring the Clearing"
+
+
+
+background_prompt: "moonlit forest clearing with ancient trees, stars visible through canopy, mystical fog, peaceful night atmosphere"
+
+background: "bg_explore_clearing_moonlit_forest_clearing_with_ancient_trees__stars__0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "You carefully look around the clearing."
+
+    voice: "narr_you_carefully_look_a.mp3"
+
+  - narrator: "Among the trees, you notice a faint path barely visible."
+
+    voice: "narr_among_the_trees_you.mp3"
+
+  - narrator: "There seems to be something shining in the distance."
+
+    voice: "narr_there_seems_to_be.mp3"
+
+
+
+choice:
+
+  - text: "Follow the path"
+
+    next: forest_path
+
+  - text: "Investigate the shining object"
+
+    next: find_amulet
+
+  - text: "Go back to sleep"
+
+    next: intro

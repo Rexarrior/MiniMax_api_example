@@ -1,0 +1,25 @@
+id: flight_to_kashyyyk
+title: Flight to Kashyyyk
+background_prompt: View from cockpit flying over giant Wroshyr trees of Kashyyyk at
+  sunset, golden light filtering through branches, other ships flying in formation,
+  breathtaking aerial vista, star wars universe, cinematic
+music: heroic_adventure_flight__epic_orchestral__John_Wil.mp3
+dialogue:
+- narrator: The interceptor screams through hyperspace, emerging above the lush canopy
+    of Kashyyyk.
+- narrator: The giant Wroshyr trees stretch toward the sky, their branches forming
+    a vast network.
+- character:
+    id: kai_tara
+    text: The jungle... it's beautiful. The Wookiees have lived here for generations.
+    mood: contemplative
+    image: char_flight_to_kashyyyk_kai_tara_contemplative_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+- narrator: Her sensors ping. Multiple life signs at the village. And something else...
+- narrator: A dark energy signature coming from the Shadow Lands.
+- character:
+    id: kai_tara
+    text: There! That reading matches the disturbance I felt.
+    mood: alert
+    image: char_flight_to_kashyyyk_kai_tara_alert_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+next: kashyyyk_village
+background: bg_flight_to_kashyyyk_View_from_cockpit_flying_over_giant_Wroshyr_trees__0.jpeg

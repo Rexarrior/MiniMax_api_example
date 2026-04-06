@@ -1,0 +1,45 @@
+id: chewbacca_encounter
+title: Reunion with Chewbacca
+background_prompt: Treehouse clearing with Chewbacca and young Tarri, dense jungle
+  visible through gaps, warm lantern glow, dramatic shadows, intimate conversation
+  setting, star wars universe
+music: friendly_reunion_warm__emotional_reunion_music__to.mp3
+dialogue:
+- narrator: Chewbacca leads Kai-Tara to a quieter platform, away from curious eyes.
+- character:
+    id: chewbacca
+    text: Treechoppaw has been taken by the dark one. My nephew... he was exploring
+      the old paths.
+    mood: worried
+    image: char_chewbacca_encounter_chewbacca_worried_fierce_Wookiee_warrior_with_brown_fur__w_0.jpeg
+- character:
+    id: kai_tara
+    text: The Shrine of Dagorr? I sensed that location. It's a Sith ritual site.
+    mood: serious
+    image: char_chewbacca_encounter_kai_tara_serious_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+- character:
+    id: chewbacca
+    text: Raawr! (The dark one - he wears red blades, speaks of ancient power)
+    mood: angry
+    image: char_chewbacca_encounter_chewbacca_angry_fierce_Wookiee_warrior_with_brown_fur__w_0.jpeg
+- character:
+    id: kai_tara
+    text: A Sith acolyte. Dangerous, but not a Master. We can handle this.
+    mood: confident
+    image: char_chewbacca_encounter_kai_tara_confident_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+- character:
+    id: tarri
+    text: Please save my uncle! I'll do anything!
+    mood: desperate
+    image: char_chewbacca_encounter_tarri_desperate_young_Wookiee_cub_with_lighter_brown_fur_0.jpeg
+- character:
+    id: kai_tara
+    text: Stay here, young one. I'll bring him back.
+    mood: determined
+    image: char_chewbacca_encounter_kai_tara_determined_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+choice:
+- text: Go alone to maintain stealth
+  next: dark_omen
+- text: Take Boushh as backup
+  next: Boushh_backup
+background: bg_chewbacca_encounter_Treehouse_clearing_with_Chewbacca_and_young_Tarri__0.jpeg

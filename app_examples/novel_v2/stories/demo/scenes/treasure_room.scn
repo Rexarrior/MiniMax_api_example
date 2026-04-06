@@ -1,0 +1,34 @@
+id: treasure_room
+title: "The Chamber of Ages"
+
+background_prompt: "magnificent ancient treasure chamber, golden artifacts, magical glowing amulet on pedestal, carved pillars"
+background: "bg_ending_amulet_dark_mysterious_forest_at_twilight__golden_amulet__0.jpeg"
+
+music_prompt: "mystical treasure chamber ambient music"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "The chamber opens before you in all its ancient glory."
+      voice: "narr_you_carefully_look_a.mp3"
+  - narrator: "    voice: "narr_you_chose_to_stay.mp3"
+      voice: "narr_the_shadows_part_rev.mp3"
+  - narrator: "Countless treasures line the walls, but one object calls to you."
+      voice: "narr_the_hermits_wisdom_g.mp3"
+  - narrator: "    voice: "narr_you_carry_his_teachi.mp3"
+      voice: "narr_it_seems_the_forest.mp3"
+  - narrator: "A golden amulet pulses with warm light, as if recognizing you."
+      voice: "narr_you_escaped_with_the.mp3"
+  - narrator: "    voice: "narr_you_eventually_find_.mp3"
+      voice: "narr_you_stand_your_groun.mp3"
+  - narrator: "This is the legendary Forest Heart, said to grant true understanding."
+      voice: "narr_the_stream_led_you.mp3"
+  - narrator: "    voice: "narr_but_the_forest_never.mp3"
+      voice: "narr_you_followed_the_her.mp3"
+
+choice:
+  - text: "Take the amulet"
+    next: take_amulet
+  - text: "Leave it for the next seeker"
+    next: ending_courage
+  - text: "Ask permission from the guardian"
+    next: forest_shrine

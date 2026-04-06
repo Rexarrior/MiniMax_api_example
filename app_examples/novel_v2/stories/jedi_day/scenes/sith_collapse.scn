@@ -1,0 +1,31 @@
+id: sith_collapse
+title: Shrine Collapse
+background_prompt: Sith temple collapsing with dramatic effect, rocks falling, beams
+  of light from cracks above, dust clouds, chaotic destruction, epic scale, star wars
+  universe
+music: dark_ritual_ambience__ancient_Sith_temple__glowing.mp3
+dialogue:
+- narrator: With a mighty Force push, Kai-Tara sends Varek tumbling into the abyss!
+- narrator: The shrine groans as ancient supports give way. Debris rains from above.
+- character:
+    id: kai_tara
+    text: Chewbacca! Now!
+    mood: shouting
+    image: char_sith_collapse_kai_tara_shouting_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+- narrator: Using the last of her strength, Kai-Tara Force-pulls Chewbacca from his
+    cell.
+- character:
+    id: chewbacca
+    text: Rwaaaahh! (Thank you, friend!)
+    mood: grateful
+    image: char_sith_collapse_chewbacca_grateful_fierce_Wookiee_warrior_with_brown_fur__w_0.jpeg
+- narrator: Together they sprint for the exit as the entire shrine implodes behind
+    them.
+- narrator: Varek's screams echo briefly... then nothing.
+- character:
+    id: kai_tara
+    text: The dark side temple is no more. The Wookiees are safe.
+    mood: exhausted_relieved
+    image: char_sith_collapse_kai_tara_exhausted_relieved_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+next: victory_return
+background: bg_sith_collapse_Sith_temple_collapsing_with_dramatic_effect__rocks_0.jpeg

@@ -1,0 +1,34 @@
+id: dragon_cave_entrance
+title: "The Dragon's Domain"
+
+background_prompt: "massive cave entrance with ancient carved dragons, glowing ember eyes in darkness, volcanic rock, heat distortion"
+background: "bg_challenge_accepted_mystical_forest_clearing_surrounded_by_ancient_run_0.jpeg"
+
+music_prompt: "dramatic cave ambient with distant rumble"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "The air grows warm as you approach the cave."
+      voice: "narr_the_amulet_helps_you.mp3"
+  - narrator: "    voice: "narr_his_eyes_seem_to.mp3"
+      voice: "narr_the_forest_let_you.mp3"
+  - narrator: "Ancient carvings depict a great dragon, guardian of ancient treasures."
+      voice: "narr_with_this_artifact_y.mp3"
+  - narrator: "    voice: "narr_you_put_on_the.mp3"
+      voice: "narr_you_wake_up_in.mp3"
+  - narrator: "Deep within, something large shifts and breathes."
+      voice: "narr_you_stumble_and_fall.mp3"
+  - narrator: "    voice: "narr_the_shadows_circle_a.mp3"
+      voice: "narr_you_hide_behind_a.mp3"
+  - narrator: "A voice rumbles from the darkness: 'WHO DARES ENTER MY DOMAIN?'"
+      voice: "narr_your_courage_impress.mp3"
+  - narrator: "    voice: "narr_you_escaped_through_.mp3"
+      voice: "narr_he_gestures_toward_a.mp3"
+
+choice:
+  - text: "Bow respectfully"
+    next: treasure_room
+  - text: "Stand your ground"
+    next: stand_ground
+  - text: "Explain your peaceful intentions"
+    next: forest_shrine

@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-black text-white font-sans;
+  }
+}
+
+@layer components {
+  .novel-button {
+    @apply px-6 py-3 bg-purple-700 hover:bg-purple-600 
+           text-white font-semibold rounded-lg 
+           transition-colors duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .novel-button-secondary {
+    @apply px-6 py-3 bg-gray-700 hover:bg-gray-600
+           text-white font-semibold rounded-lg
+           transition-colors duration-200;
+  }
+
+  .novel-card {
+    @apply bg-gray-900 bg-opacity-90 rounded-xl p-6;
+  }
+  
+  .novel-text {
+    @apply text-lg leading-relaxed;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+  
+  .bg-overlay {
+    @apply absolute inset-0 bg-black bg-opacity-50;
+  }
+}

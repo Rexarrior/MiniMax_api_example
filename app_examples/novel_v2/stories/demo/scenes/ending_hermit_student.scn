@@ -1,0 +1,35 @@
+id: ending_hermit_student
+
+title: "The End - Hermit's Student"
+
+
+
+background_prompt: "cozy forest clearing with ancient oak, hermit and student together, magical particles, warm wise atmosphere, homecoming ending"
+
+background: "bg_ending_hermit_student_cozy_forest_clearing_with_ancient_oak__hermit_and__0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "THE END"
+
+    voice: "narr_the_end.mp3"
+
+  - narrator: "You chose to stay and learn from the hermit."
+
+    voice: "narr_you_chose_to_stay.mp3"
+
+  - narrator: "The forest became your new home."
+
+    voice: "narr_the_forest_became_yo.mp3"
+
+
+
+is_ending: true

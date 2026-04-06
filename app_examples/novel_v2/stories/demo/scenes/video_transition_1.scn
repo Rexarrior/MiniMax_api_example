@@ -1,0 +1,28 @@
+id: video_transition_1
+title: "Opening Cinematic"
+
+background_prompt: "dark misty forest clearing at dawn, ancient trees, fog, ethereal atmosphere"
+background: "bg_intro_dark_misty_forest_clearing_at_dawn__ancient_trees__0.jpeg"
+
+# Video transition - plays as cinematic intro
+video: "forest_trail.mp4"
+video_prompt: "camera moving through mysterious foggy forest trail, trees passing by, ethereal light rays, cinematic mood"
+
+music_prompt: "ambient mysterious forest atmosphere"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "The wind whispers through ancient trees..."
+      voice: "narr_eventually_you_find_.mp3"
+  - narrator: "    voice: "narr_the_sounds_grow_loud.mp3"
+      voice: "narr_the_amulets_magic_ch.mp3"
+  - narrator: "A lone traveler awakens in a realm between dreams and reality."
+      voice: "narr_its_secrets_remain_t.mp3"
+  - narrator: "    voice: "narr_the_trees_grow_thick.mp3"
+      voice: "narr_using_your_wisdom_yo.mp3"
+  - narrator: "The forest holds many secrets, and danger lurks in every shadow."
+      voice: "narr_the_sounds_grow_loud.mp3"
+  - narrator: "    voice: "narr_you_run_forward_thro.mp3"
+      voice: "narr_the_trees_grow_thick.mp3"
+
+next_scene: intro

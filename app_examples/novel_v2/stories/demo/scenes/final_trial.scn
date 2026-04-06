@@ -1,0 +1,38 @@
+id: final_trial
+title: "The Final Trial"
+
+background_prompt: "ethereal floating platform in void, geometric patterns of light, stars visible through translucent floor, cosmic atmosphere"
+background: "bg_ending_magic_transcendent_magical_forest_bathed_in_ethereal_gol_0.jpeg"
+
+music_prompt: "epic trial ambient music, building tension"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "You stand in a realm beyond the physical forest."
+      voice: "narr_the_sounds_grow_loud.mp3"
+  - narrator: "    voice: "narr_you_run_forward_thro.mp3"
+      voice: "narr_the_trees_grow_thick.mp3"
+  - narrator: "Three paths of light materialize before you."
+      voice: "narr_you_run_forward_thro.mp3"
+  - narrator: "    voice: "narr_a_graph_voice_echoes.mp3"
+      voice: "narr_a_graph_voice_echoes.mp3"
+  - narrator: "The path of Courage burns red. The path of Wisdom glows blue."
+      voice: "narr_you_walk_deeper_into.mp3"
+  - narrator: "    voice: "narr_you_walk_deeper_into.mp3"
+      voice: "narr_following_the_stream.mp3"
+  - narrator: "The path of Sacrifice shines gold."
+      voice: "narr_the_forest_became_yo.mp3"
+  - narrator: "    voice: "narr_following_the_stream.mp3"
+      voice: "narr_the_cold_water_shock.mp3"
+  - narrator: "Each path tests something fundamental about who you are."
+      voice: "narr_the_end.mp3"
+  - narrator: "    voice: "narr_the_forest_became_yo.mp3"
+      voice: "narr_as_you_pick_it.mp3"
+
+choice:
+  - text: "Take the path of Courage"
+    next: ending_legend
+  - text: "Take the path of Wisdom"
+    next: ending_hermit_wisdom
+  - text: "Take the path of Sacrifice"
+    next: ending_freedom

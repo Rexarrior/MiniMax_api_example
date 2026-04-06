@@ -1,0 +1,28 @@
+id: urgent_transmission
+title: Urgent Transmission
+background_prompt: Jedi communications room with multiple holographic displays showing
+  star maps with red alert markers, warning symbols flashing, busy military atmosphere,
+  multiple officers working, star wars universe
+music: urgent_military_comm_traffic__alert_beeps__fast_pa.mp3
+dialogue:
+- narrator: At the communications terminal, urgent messages flood the screens.
+- narrator: Multiple Wookiee distress signals are coming from the lower canopy.
+- character:
+    id: kai_tara
+    text: These signals... they're coming from the Shadow Lands.
+    mood: concerned
+    image: char_urgent_transmission_kai_tara_concerned_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+- narrator: A Wookiee voice crackles through the comm.
+- character:
+    id: chewbacca
+    text: Kai-Tara! Treechoppaw! Need help! Dark ones attacking!
+    mood: urgent
+    image: char_urgent_transmission_chewbacca_urgent_fierce_Wookiee_warrior_with_brown_fur__w_0.jpeg
+- narrator: The transmission cuts to static.
+- character:
+    id: kai_tara
+    text: Chewbacca! No!
+    mood: alert
+    image: char_urgent_transmission_kai_tara_alert_human_female_Jedi_Knight__brown_hair_in__0.jpeg
+next: shuttle_bay
+background: bg_urgent_transmission_Jedi_communications_room_with_multiple_holographic_0.jpeg

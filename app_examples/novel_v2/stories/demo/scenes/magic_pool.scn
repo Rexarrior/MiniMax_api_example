@@ -1,0 +1,34 @@
+id: magic_pool
+title: "The Sacred Pool"
+
+background_prompt: "mystical forest pool with glowing water, reflecting stars despite being daytime, ancient stones around it, magical mist"
+background: "bg_find_amulet_mystical_forest_clearing_with_glowing_golden_amule_0.jpeg"
+
+music_prompt: "magical mystical ambient music"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "A pristine pool reveals itself, its waters glowing with inner light."
+      voice: "narr_you_walk_calmly_thro.mp3"
+  - narrator: "    voice: "narr_the_amulet_helps_you.mp3"
+      voice: "narr_patients_and_caution.mp3"
+  - narrator: "The reflection shows not your face, but visions of possible futures."
+      voice: "narr_the_hermit_nods_appr.mp3"
+  - narrator: "    voice: "narr_the_forest_let_you.mp3"
+      voice: "narr_suddenly_you_can_und.mp3"
+  - narrator: "You see yourself as a legendary hero, wielding ancient power."
+      voice: "narr_you_chose_to_stay.mp3"
+  - narrator: "    voice: "narr_with_this_artifact_y.mp3"
+      voice: "narr_you_carry_his_teachi.mp3"
+  - narrator: "The pool's water tastes of starlight and promises."
+      voice: "narr_you_eventually_find_.mp3"
+  - narrator: "    voice: "narr_you_wake_up_in.mp3"
+      voice: "narr_but_the_forest_never.mp3"
+
+choice:
+  - text: "Drink from the sacred waters"
+    next: video_transition_2
+  - text: "Take some water in a vial"
+    next: forest_shrine
+  - text: "Leave an offering and move on"
+    next: underground_river

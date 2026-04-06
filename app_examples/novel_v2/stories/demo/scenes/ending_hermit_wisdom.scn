@@ -1,0 +1,35 @@
+id: ending_hermit_wisdom
+
+title: "The End - Hermit's Blessing"
+
+
+
+background_prompt: "mystical forest path at golden hour, hermit's blessing glowing, wisdom carried forward, enlightened journey ending"
+
+background: "bg_ending_hermit_wisdom_mystical_forest_path_at_golden_hour__hermit_s_bles_0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "THE END"
+
+    voice: "narr_the_end.mp3"
+
+  - narrator: "The hermit's wisdom guided you safely home."
+
+    voice: "narr_the_hermits_wisdom_g.mp3"
+
+  - narrator: "You carry his teachings with you."
+
+    voice: "narr_you_carry_his_teachi.mp3"
+
+
+
+is_ending: true

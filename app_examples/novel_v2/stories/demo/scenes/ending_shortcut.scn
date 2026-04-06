@@ -1,0 +1,35 @@
+id: ending_shortcut
+
+title: "The End - Shortcut"
+
+
+
+background_prompt: "enchanted forest stream at sunset, golden light filtering through trees, magical shortcut revealed, peaceful guided ending"
+
+background: "bg_ending_shortcut_enchanted_forest_stream_at_sunset__golden_light_fi_0.jpeg"
+
+
+
+music_prompt: "ambient mysterious forest atmosphere"
+
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+
+
+dialogue:
+
+  - narrator: "THE END"
+
+    voice: "narr_the_end.mp3"
+
+  - narrator: "You followed the hermit's shortcut."
+
+    voice: "narr_you_followed_the_her.mp3"
+
+  - narrator: "The stream led you safely out of the forest."
+
+    voice: "narr_the_stream_led_you.mp3"
+
+
+
+is_ending: true

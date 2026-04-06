@@ -1,0 +1,36 @@
+id: ancient_ruins
+title: "The Ancient Ruins"
+
+background_prompt: "mysterious ancient stone ruins covered in moss, mystical glyphs glowing faintly, overgrown with vines, ethereal mist"
+background: "bg_alternative_path_hidden_forest_path_following_a_gentle_sparkling_st_0.jpeg"
+
+music_prompt: "mystical ancient ruins ambient music"
+music: "ambient_mysterious_forest_atmosphere.mp3"
+
+dialogue:
+  - narrator: "Hidden among the trees, ancient ruins emerge from the fog."
+      voice: "narr_the_forest_became_yo.mp3"
+  - narrator: "    voice: "narr_following_the_stream.mp3"
+      voice: "narr_the_cold_water_shock.mp3"
+  - narrator: "The stone walls are covered in forgotten runes."
+      voice: "narr_the_end.mp3"
+  - narrator: "    voice: "narr_the_forest_became_yo.mp3"
+      voice: "narr_as_you_pick_it.mp3"
+  - narrator: "A faded inscription reads: 'Guardians of the Forest since time immemorial.'"
+      voice: "narr_there_seems_to_be.mp3"
+  - narrator: "    voice: "narr_the_cold_water_shock.mp3"
+      voice: "narr_you_seem_to_be.mp3"
+  - character:
+      id: hermit
+      text: "You found the old sanctuary. Few ever do."
+      mood: wise
+      image_prompt: "wise elderly hermit with long white beard"
+      image: "char_alternative_path_hermit_wise_elderly_hermit_with_long_white_beard__wearing_0.jpeg"
+
+choice:
+  - text: "Ask about the guardians"
+    next: spirit_encounter
+  - text: "Search for artifacts"
+    next: treasure_room
+  - text: "Read the runes carefully"
+    next: forest_shrine
