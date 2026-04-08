@@ -11,18 +11,18 @@ Enemy::Enemy(Position pos, EnemyType type)
 
 std::string Enemy::sprite_name_for(EnemyType type) {
     switch (type) {
-        case EnemyType::Skeleton:   return "skeleton";
-        case EnemyType::Goblin:     return "goblin";
-        case EnemyType::Orc:        return "orc";
-        case EnemyType::GiantRat:   return "rat";
-        case EnemyType::GiantSpider:return "spider";
+        case EnemyType::Skeleton:   return "skeleton_warrior";
+        case EnemyType::Goblin:     return "goblin_thief";
+        case EnemyType::Orc:        return "orc_berserker";
+        case EnemyType::GiantRat:   return "giant_rat";
+        case EnemyType::GiantSpider:return "giant_spider";
         case EnemyType::Slime:      return "slime";
-        case EnemyType::FireDemon:  return "demon";
+        case EnemyType::FireDemon:  return "fire_demon";
         case EnemyType::Ghost:      return "ghost";
         case EnemyType::Werewolf:   return "werewolf";
         case EnemyType::DarkMage:   return "dark_mage";
     }
-    return "skeleton";
+    return "skeleton_warrior";
 }
 
 Stats Enemy::stats_for(EnemyType type) {

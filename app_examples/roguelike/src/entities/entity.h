@@ -6,6 +6,8 @@
 
 namespace rl {
 
+enum class ActionState { Idle, Walk, Attack, Dead };
+
 class Entity {
 public:
     Entity() = default;
@@ -26,6 +28,23 @@ public:
     int anim_frame() const { return anim_frame_; }
     void set_anim(int row, int frame) { anim_row_ = row; anim_frame_ = frame; }
 
+    ActionState action_state() const { return action_state_; }
+    void set_action_state(ActionState s) { action_state_ = s; }
+
+    std::string full_sprite_name() const {
+        return sprite_name_ + action_to_string(action_state_);
+    }
+
+    static const char* action_to_string(ActionState s) {
+        switch (s) {
+            case ActionState::Idle:   return "_idle";
+            case ActionState::Walk:   return "_walk";
+            case ActionState::Attack: return "_attack";
+            case ActionState::Dead:   return "_dead";
+        }
+        return "_idle";
+    }
+
 protected:
     Position pos_{};
     EntityType type_ = EntityType::Item;
@@ -34,6 +53,7 @@ protected:
     Stats stats_{};
     int anim_row_ = 0;
     int anim_frame_ = 0;
+    ActionState action_state_ = ActionState::Idle;
 };
 
 }

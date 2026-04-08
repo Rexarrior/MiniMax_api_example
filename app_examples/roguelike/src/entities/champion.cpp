@@ -4,7 +4,7 @@
 namespace rl {
 
 Champion::Champion(Position pos)
-    : Entity(pos, EntityType::Champion, "champion") {
+    : Entity(pos, EntityType::Champion, "gladiator") {
     stats_ = {30, 30, 5, 3, 1};
 }
 

@@ -11,7 +11,7 @@ TEST(EnemyTest, SkeletonStats) {
     EXPECT_EQ(e.stats().hp, 8);
     EXPECT_EQ(e.stats().attack, 3);
     EXPECT_EQ(e.stats().defense, 1);
-    EXPECT_EQ(e.sprite_name(), "skeleton");
+    EXPECT_EQ(e.sprite_name(), "skeleton_warrior");
 }
 
 TEST(EnemyTest, GoblinStats) {
@@ -21,7 +21,7 @@ TEST(EnemyTest, GoblinStats) {
     EXPECT_EQ(e.stats().attack, 2);
     EXPECT_EQ(e.stats().defense, 0);
     EXPECT_EQ(e.stats().speed, 2);
-    EXPECT_EQ(e.sprite_name(), "goblin");
+    EXPECT_EQ(e.sprite_name(), "goblin_thief");
 }
 
 TEST(EnemyTest, OrcStats) {
@@ -30,7 +30,7 @@ TEST(EnemyTest, OrcStats) {
     EXPECT_EQ(e.stats().hp, 18);
     EXPECT_EQ(e.stats().attack, 6);
     EXPECT_EQ(e.stats().defense, 3);
-    EXPECT_EQ(e.sprite_name(), "orc");
+    EXPECT_EQ(e.sprite_name(), "orc_berserker");
 }
 
 TEST(EnemyTest, GiantRatStats) {
@@ -38,7 +38,7 @@ TEST(EnemyTest, GiantRatStats) {
     EXPECT_EQ(e.xp_value(), 2);
     EXPECT_EQ(e.stats().hp, 4);
     EXPECT_EQ(e.stats().speed, 2);
-    EXPECT_EQ(e.sprite_name(), "rat");
+    EXPECT_EQ(e.sprite_name(), "giant_rat");
 }
 
 TEST(EnemyTest, GiantSpiderStats) {
@@ -46,7 +46,7 @@ TEST(EnemyTest, GiantSpiderStats) {
     EXPECT_EQ(e.xp_value(), 3);
     EXPECT_EQ(e.stats().hp, 5);
     EXPECT_EQ(e.stats().attack, 3);
-    EXPECT_EQ(e.sprite_name(), "spider");
+    EXPECT_EQ(e.sprite_name(), "giant_spider");
 }
 
 TEST(EnemyTest, SlimeStats) {
@@ -63,7 +63,7 @@ TEST(EnemyTest, FireDemonStats) {
     EXPECT_EQ(e.stats().hp, 25);
     EXPECT_EQ(e.stats().attack, 8);
     EXPECT_EQ(e.stats().defense, 4);
-    EXPECT_EQ(e.sprite_name(), "demon");
+    EXPECT_EQ(e.sprite_name(), "fire_demon");
 }
 
 TEST(EnemyTest, GhostStats) {
@@ -108,8 +108,8 @@ TEST(EnemyTest, StaticXpFor) {
 }
 
 TEST(EnemyTest, StaticSpriteNameFor) {
-    EXPECT_EQ(Enemy::sprite_name_for(EnemyType::FireDemon), "demon");
-    EXPECT_EQ(Enemy::sprite_name_for(EnemyType::GiantSpider), "spider");
+    EXPECT_EQ(Enemy::sprite_name_for(EnemyType::FireDemon), "fire_demon");
+    EXPECT_EQ(Enemy::sprite_name_for(EnemyType::GiantSpider), "giant_spider");
 }
 
 TEST(EnemyTest, Position) {

@@ -15,7 +15,7 @@ Game::Game() {
 
     std::cerr << "[Game] Checking loaded textures:" << std::endl;
     auto& am = AssetManager::instance();
-    std::vector<std::string> check = {"champion", "skeleton", "wall_brick", "floor_tile", "bg_menu"};
+    std::vector<std::string> check = {"gladiator_idle", "skeleton_warrior_idle", "wall_brick", "floor_tile", "bg_menu"};
     for (auto& n : check) {
         auto t = am.get_texture(n);
         std::cerr << "  " << n << ": " << (t.id ? "OK" : "NULL") << " (" << t.width << "x" << t.height << ")" << std::endl;
@@ -70,6 +70,18 @@ void Game::init_level(int floor) {
                 items_.push_back(Item::make_potion(pos));
             }
         }
+        // Spawn props (herbs and mushrooms)
+        if (RNG::instance().chance(30)) {
+            Position pos{RNG::instance().range(room.x + 1, room.x + room.w - 2),
+                         RNG::instance().range(room.y + 1, room.y + room.h - 2)};
+            if (dungeon_->is_walkable(pos.x, pos.y)) {
+                if (RNG::instance().chance(50)) {
+                    items_.push_back(Item::make_prop_healing_herbs(pos));
+                } else {
+                    items_.push_back(Item::make_prop_mushrooms(pos));
+                }
+            }
+        }
     }
 
     camera_.follow(champion_->pos().x, champion_->pos().y);
@@ -115,6 +127,7 @@ void Game::update() {
         turn_manager_.process_player_turn(dir, *champion_, enemies_, *dungeon_, message_log_);
 
         if (champion_->stats().hp <= 0) {
+            champion_->set_action_state(ActionState::Dead);
             state_ = GameState::GameOver;
             return;
         }
@@ -122,8 +135,23 @@ void Game::update() {
         turn_manager_.process_enemy_turn(enemies_, *champion_, *dungeon_, message_log_);
 
         if (champion_->stats().hp <= 0) {
+            champion_->set_action_state(ActionState::Dead);
             state_ = GameState::GameOver;
             return;
+        }
+
+        // Update champion action state based on outcome
+        if (champion_->action_state() != ActionState::Dead) {
+            champion_->set_action_state(ActionState::Idle);
+        }
+
+        // Update enemy action states - set dead ones to Dead, others to Idle
+        for (auto& enemy : enemies_) {
+            if (!enemy.alive()) {
+                enemy.set_action_state(ActionState::Dead);
+            } else if (enemy.action_state() == ActionState::Dead) {
+                enemy.set_action_state(ActionState::Idle);
+            }
         }
 
         auto pos = champion_->pos();
@@ -206,14 +234,25 @@ void Game::render() {
         return;
     }
 
+    // Debug: check if champion texture exists
+    if (champion_ && champion_->action_state() != ActionState::Dead) {
+        std::string fullName = champion_->full_sprite_name();
+        Texture2D tex = AssetManager::instance().get_texture(fullName);
+        if (!tex.id) {
+            std::cerr << "[RENDER] Missing champion texture: " << fullName << std::endl;
+        }
+    }
+
     if (state_ == GameState::GameOver || state_ == GameState::Victory) {
         BeginMode2D(camera_.camera());
         map_renderer_.render(*dungeon_, camera_.camera());
-        draw_entity_texture("champion", champion_->pos(), camera_.camera(), WHITE);
+        if (champion_) {
+            draw_entity_texture(champion_->full_sprite_name(), champion_->pos(), camera_.camera(), WHITE);
+        }
         for (const auto& enemy : enemies_) {
             if (!enemy.alive()) continue;
             if (!fov_.is_visible(enemy.pos().x, enemy.pos().y)) continue;
-            draw_entity_texture(enemy.sprite_name(), enemy.pos(), camera_.camera(), WHITE);
+            draw_entity_texture(enemy.full_sprite_name(), enemy.pos(), camera_.camera(), WHITE);
         }
         EndMode2D();
         menu_.render_game_over(state_ == GameState::Victory, floor_,
@@ -237,7 +276,11 @@ void Game::render() {
     for (const auto& item : items_) {
         if (item.picked_up) continue;
         if (!fov_.is_visible(item.pos.x, item.pos.y)) continue;
-        draw_entity_texture("potions", item.pos, camera_.camera(), WHITE);
+        if (!item.sprite_name.empty()) {
+            draw_entity_texture(item.full_sprite_name(), item.pos, camera_.camera(), WHITE);
+        } else {
+            draw_entity_texture("potions", item.pos, camera_.camera(), WHITE);
+        }
     }
 
     if (fov_.is_visible(entry_portal_.pos.x, entry_portal_.pos.y)) {
@@ -250,11 +293,11 @@ void Game::render() {
     for (const auto& enemy : enemies_) {
         if (!enemy.alive()) continue;
         if (!fov_.is_visible(enemy.pos().x, enemy.pos().y)) continue;
-        draw_entity_texture(enemy.sprite_name(), enemy.pos(), camera_.camera(), WHITE);
+        draw_entity_texture(enemy.full_sprite_name(), enemy.pos(), camera_.camera(), WHITE);
     }
 
     if (champion_) {
-        draw_entity_texture("champion", champion_->pos(), camera_.camera(), WHITE);
+        draw_entity_texture(champion_->full_sprite_name(), champion_->pos(), camera_.camera(), WHITE);
     }
     EndMode2D();
 
