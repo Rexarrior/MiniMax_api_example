@@ -121,6 +121,40 @@ void Game::update() {
     if (state_ != GameState::Playing) return;
     if (!champion_ || !dungeon_) return;
 
+    auto dir = input_.get_movement_input();
+
+    if (dir != Direction::None) {
+        turn_manager_.process_player_turn(dir, *champion_, enemies_, *dungeon_, message_log_);
+
+        if (champion_->stats().hp <= 0) {
+            champion_->set_action_state(ActionState::Dead);
+            state_ = GameState::GameOver;
+            return;
+        }
+
+        turn_manager_.process_enemy_turn(enemies_, *champion_, *dungeon_, message_log_);
+
+        if (champion_->stats().hp <= 0) {
+            champion_->set_action_state(ActionState::Dead);
+            state_ = GameState::GameOver;
+            return;
+        }
+
+        // Update champion action state based on outcome
+        if (champion_->action_state() != ActionState::Dead) {
+            champion_->set_action_state(ActionState::Idle);
+        }
+
+        // Update enemy action states - set dead ones to Dead, others to Idle
+        for (auto& enemy : enemies_) {
+            if (!enemy.alive()) {
+                enemy.set_action_state(ActionState::Dead);
+            } else if (enemy.action_state() == ActionState::Dead) {
+                enemy.set_action_state(ActionState::Idle);
+            }
+        }
+    }
+
     // Update animation timers
     champion_->update_timers(GetFrameTime());
     for (auto& enemy : enemies_) {
