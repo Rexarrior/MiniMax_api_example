@@ -6,7 +6,7 @@ constexpr int SCREEN_WIDTH = 1280;
 constexpr int SCREEN_HEIGHT = 720;
 constexpr int TARGET_FPS = 60;
 
-constexpr int TILE_SIZE = 64;
+constexpr int TILE_SIZE = 16;
 constexpr int MAP_WIDTH = 40;
 constexpr int MAP_HEIGHT = 25;
 

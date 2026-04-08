@@ -202,11 +202,9 @@ void Game::draw_entity_texture(const std::string& name, Position pos, Camera2D c
     float fx = static_cast<float>(pos.x * TILE_SIZE);
     float fy = static_cast<float>(pos.y * TILE_SIZE);
 
-    // Scale entire sprite to TILE_SIZE/4 (16x16) and center in tile
-    int sprite_size = TILE_SIZE / 4;
-    int offset = (TILE_SIZE - sprite_size) / 2;
+    // Scale entire sprite to TILE_SIZE (16x16)
     Rectangle src = {0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
-    Rectangle dst = {fx + offset, fy + offset, static_cast<float>(sprite_size), static_cast<float>(sprite_size)};
+    Rectangle dst = {fx, fy, static_cast<float>(TILE_SIZE), static_cast<float>(TILE_SIZE)};
     DrawTexturePro(tex, src, dst, {0, 0}, 0, tint);
 }
 
