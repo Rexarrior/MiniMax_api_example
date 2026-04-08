@@ -19,6 +19,7 @@ constexpr int MAX_ROOM_SIZE = 10;
 
 constexpr int FOV_RADIUS = 10;
 
-constexpr float TURN_DELAY = 0.15f;
+constexpr float TURN_DELAY = 0.3f;
+constexpr float ATTACK_ANIMATION_DURATION = 0.3f;
 
 }

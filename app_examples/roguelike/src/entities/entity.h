@@ -31,6 +31,30 @@ public:
     ActionState action_state() const { return action_state_; }
     void set_action_state(ActionState s) { action_state_ = s; }
 
+    void set_attack_timer(float duration) {
+        attack_timer_ = duration;
+        action_state_ = ActionState::Attack;
+    }
+
+    void set_moving(bool moving) {
+        is_moving_ = moving;
+        if (moving && action_state_ != ActionState::Dead) {
+            action_state_ = ActionState::Walk;
+        }
+    }
+
+    void update_timers(float dt) {
+        if (attack_timer_ > 0) {
+            attack_timer_ -= dt;
+            if (attack_timer_ <= 0) {
+                attack_timer_ = 0;
+                if (action_state_ == ActionState::Attack) {
+                    action_state_ = ActionState::Idle;
+                }
+            }
+        }
+    }
+
     std::string full_sprite_name() const {
         return sprite_name_ + action_to_string(action_state_);
     }
@@ -54,6 +78,8 @@ protected:
     int anim_row_ = 0;
     int anim_frame_ = 0;
     ActionState action_state_ = ActionState::Idle;
+    float attack_timer_ = 0.0f;
+    bool is_moving_ = false;
 };
 
 }

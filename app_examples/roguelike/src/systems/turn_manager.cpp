@@ -1,6 +1,7 @@
 #include "turn_manager.h"
 #include "../ai/ai_system.h"
 #include "../combat/combat.h"
+#include "../core/config.h"
 #include <algorithm>
 
 namespace rl {
@@ -29,12 +30,17 @@ void TurnManager::process_player_turn(Direction dir, Champion& champion,
                 champion.gain_xp(enemy.xp_value());
                 log.add("Gained " + std::to_string(enemy.xp_value()) + " XP");
             }
+            // Both attack - set attack animation for both
+            champion.set_attack_timer(ATTACK_ANIMATION_DURATION);
+            enemy.set_attack_timer(ATTACK_ANIMATION_DURATION);
             return;
         }
     }
 
     if (dungeon.is_walkable(target.x, target.y)) {
+        champion.set_moving(true);
         champion.move(dir);
+        champion.set_moving(false);
     }
 }
 
@@ -52,6 +58,9 @@ void TurnManager::process_enemy_turn(std::vector<Enemy>& enemies, Champion& cham
         if (std::abs(epos.x - cpos.x) + std::abs(epos.y - cpos.y) <= 1) {
             auto result = enemy_attacks(enemy, champion);
             log.add(result.message);
+            // Both attack - set attack animation for both
+            enemy.set_attack_timer(ATTACK_ANIMATION_DURATION);
+            champion.set_attack_timer(ATTACK_ANIMATION_DURATION);
             if (result.killed) return;
         }
     }

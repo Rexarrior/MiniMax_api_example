@@ -121,73 +121,10 @@ void Game::update() {
     if (state_ != GameState::Playing) return;
     if (!champion_ || !dungeon_) return;
 
-    auto dir = input_.get_movement_input();
-
-    if (dir != Direction::None) {
-        turn_manager_.process_player_turn(dir, *champion_, enemies_, *dungeon_, message_log_);
-
-        if (champion_->stats().hp <= 0) {
-            champion_->set_action_state(ActionState::Dead);
-            state_ = GameState::GameOver;
-            return;
-        }
-
-        turn_manager_.process_enemy_turn(enemies_, *champion_, *dungeon_, message_log_);
-
-        if (champion_->stats().hp <= 0) {
-            champion_->set_action_state(ActionState::Dead);
-            state_ = GameState::GameOver;
-            return;
-        }
-
-        // Update champion action state based on outcome
-        if (champion_->action_state() != ActionState::Dead) {
-            champion_->set_action_state(ActionState::Idle);
-        }
-
-        // Update enemy action states - set dead ones to Dead, others to Idle
-        for (auto& enemy : enemies_) {
-            if (!enemy.alive()) {
-                enemy.set_action_state(ActionState::Dead);
-            } else if (enemy.action_state() == ActionState::Dead) {
-                enemy.set_action_state(ActionState::Idle);
-            }
-        }
-
-        auto pos = champion_->pos();
-        fov_.compute(*dungeon_, pos.x, pos.y, FOV_RADIUS);
-
-        if (pos == exit_portal_.pos) {
-            if (floor_ >= 5) {
-                state_ = GameState::Victory;
-            } else {
-                init_level(floor_ + 1);
-            }
-        }
-
-        for (auto& item : items_) {
-            if (!item.picked_up && item.pos == pos) {
-                item.picked_up = true;
-                if (item.type == ItemType::HealthPotion) {
-                    champion_->add_potion();
-                    message_log_.add("Picked up a Health Potion!");
-                }
-            }
-        }
-
-        enemies_.erase(
-            std::remove_if(enemies_.begin(), enemies_.end(),
-                           [](const Enemy& e) { return !e.alive(); }),
-            enemies_.end());
-    }
-
-    if (input_.is_use_potion_pressed() && champion_->has_potions()) {
-        champion_->use_potion();
-        message_log_.add("Used a health potion. HP: " + std::to_string(champion_->stats().hp));
-    }
-
-    if (input_.is_pause_pressed()) {
-        state_ = GameState::Paused;
+    // Update animation timers
+    champion_->update_timers(GetFrameTime());
+    for (auto& enemy : enemies_) {
+        enemy.update_timers(GetFrameTime());
     }
 
     camera_.follow(champion_->pos().x, champion_->pos().y);
