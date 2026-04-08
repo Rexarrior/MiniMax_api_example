@@ -202,16 +202,9 @@ void Game::draw_entity_texture(const std::string& name, Position pos, Camera2D c
     float fx = static_cast<float>(pos.x * TILE_SIZE);
     float fy = static_cast<float>(pos.y * TILE_SIZE);
 
-    // Sprite sheets are 2x2 grid, extract one quadrant
-    int frame_w = tex.width / 2;
-    int frame_h = tex.height / 2;
-    int qx = std::min(frame_col, 1) * frame_w;
-    int qy = std::min(frame_row, 1) * frame_h;
-
-    Rectangle src = {static_cast<float>(qx), static_cast<float>(qy),
-                    static_cast<float>(frame_w), static_cast<float>(frame_h)};
-    Rectangle dst = {fx, fy,
-                    static_cast<float>(TILE_SIZE), static_cast<float>(TILE_SIZE)};
+    // Scale entire sprite to TILE_SIZE (sprites are 512x512, tile is 64x64)
+    Rectangle src = {0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
+    Rectangle dst = {fx, fy, static_cast<float>(TILE_SIZE), static_cast<float>(TILE_SIZE)};
     DrawTexturePro(tex, src, dst, {0, 0}, 0, tint);
 }
 
