@@ -38,9 +38,8 @@ void TurnManager::process_player_turn(Direction dir, Champion& champion,
     }
 
     if (dungeon.is_walkable(target.x, target.y)) {
-        champion.set_moving(true);
         champion.move(dir);
-        champion.set_moving(false);
+        champion.set_moving(TURN_DELAY);
     }
 }
 

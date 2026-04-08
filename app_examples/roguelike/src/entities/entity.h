@@ -36,9 +36,9 @@ public:
         action_state_ = ActionState::Attack;
     }
 
-    void set_moving(bool moving) {
-        is_moving_ = moving;
-        if (moving && action_state_ != ActionState::Dead) {
+    void set_moving(float duration) {
+        move_timer_ = duration;
+        if (action_state_ != ActionState::Dead && action_state_ != ActionState::Attack) {
             action_state_ = ActionState::Walk;
         }
     }
@@ -49,6 +49,15 @@ public:
             if (attack_timer_ <= 0) {
                 attack_timer_ = 0;
                 if (action_state_ == ActionState::Attack) {
+                    action_state_ = ActionState::Idle;
+                }
+            }
+        }
+        if (move_timer_ > 0) {
+            move_timer_ -= dt;
+            if (move_timer_ <= 0) {
+                move_timer_ = 0;
+                if (action_state_ == ActionState::Walk) {
                     action_state_ = ActionState::Idle;
                 }
             }
@@ -79,7 +88,7 @@ protected:
     int anim_frame_ = 0;
     ActionState action_state_ = ActionState::Idle;
     float attack_timer_ = 0.0f;
-    bool is_moving_ = false;
+    float move_timer_ = 0.0f;
 };
 
 }
