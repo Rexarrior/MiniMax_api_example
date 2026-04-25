@@ -4,6 +4,10 @@ background_prompt: Jedi temple balcony overlooking Kashyyyk jungle canopy at sun
   golden hour light, mist rising from giant Wroshyr trees, distant waterfalls, epic
   cinematic landscape, star wars universe
 music: peaceful_morning_temple_atmosphere__gentle_wind_ch.mp3
+is_video: true
+video: jedi_temple_aerial.mp4
+video_prompt: Epic aerial shot of ancient Jedi temple on distant planet, massive spires glowing with blue force energy, young padawans training on courtyards, cinematic Star Wars style, dramatic lighting
+video_duration: 6
 dialogue:
 - narrator: The first light of dawn breaks over the jungle moon of Kashyyyk.
 - narrator: Kai-Tara Ven stands on the balcony of the Jedi temple, her eyes closed,
