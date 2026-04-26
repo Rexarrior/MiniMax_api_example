@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { Scene, GameState, DialogueLine } from '../types/novel'
 import { novelApi } from '../api/novelApi'
+import { useSettingsStore } from './settingsStore'
 
 export const useGameStore = defineStore('game', () => {
   // State
@@ -16,22 +17,27 @@ export const useGameStore = defineStore('game', () => {
   const isPlaying = computed(() => status.value === 'playing')
   const isLoading = computed(() => status.value === 'loading')
   const isEnding = computed(() => currentScene.value?.is_ending ?? false)
-  
+
   const currentDialogue = computed<DialogueLine | null>(() => {
     if (!currentScene.value || dialogueIndex.value >= currentScene.value.dialogues.length) {
       return null
     }
     return currentScene.value.dialogues[dialogueIndex.value]
   })
-  
+
   const hasChoices = computed(() => {
     return currentScene.value?.choices && currentScene.value.choices.length > 0
   })
-  
+
   const isDialogueComplete = computed(() => {
     if (!currentScene.value) return true
     return dialogueIndex.value >= currentScene.value.dialogues.length
   })
+
+  // Helper to get current language
+  function getLanguage() {
+    return useSettingsStore().language
+  }
 
   // Actions
   async function startGame(newStoryId: string) {
@@ -41,9 +47,9 @@ export const useGameStore = defineStore('game', () => {
       const session = await novelApi.startGame({ story_id: newStoryId })
       sessionId.value = session.session_id
       storyId.value = newStoryId
-      
-      // Fetch initial scene
-      const scene = await novelApi.getScene(session.session_id)
+
+      // Fetch initial scene with current language
+      const scene = await novelApi.getScene(session.session_id, getLanguage())
       currentScene.value = scene
       dialogueIndex.value = 0
       status.value = 'playing'
@@ -56,7 +62,7 @@ export const useGameStore = defineStore('game', () => {
   async function refreshScene() {
     if (!sessionId.value) return
     try {
-      const scene = await novelApi.getScene(sessionId.value)
+      const scene = await novelApi.getScene(sessionId.value, getLanguage())
       currentScene.value = scene
       // Always reset dialogueIndex when loading a new scene
       dialogueIndex.value = 0
@@ -71,7 +77,7 @@ export const useGameStore = defineStore('game', () => {
     error.value = null
     try {
       const session = await novelApi.makeChoice(choiceIndex)
-      const scene = await novelApi.getScene(session.session_id)
+      const scene = await novelApi.getScene(session.session_id, getLanguage())
       currentScene.value = scene
       dialogueIndex.value = 0
       status.value = scene.is_ending ? 'ending' : 'playing'
@@ -83,15 +89,21 @@ export const useGameStore = defineStore('game', () => {
 
   async function advanceDialogue() {
     if (!sessionId.value) return
-    
+
     try {
-      await novelApi.advanceDialogue()
-      
-      // After advancing, increment local dialogue index
-      // (Don't call getScene - it would reset the index)
+      const session = await novelApi.advanceDialogue()
+
+      // Check if scene changed (server transitioned to new scene)
+      if (session.current_scene_id !== currentScene.value?.scene_id) {
+        // Scene changed - fetch new scene data
+        await refreshScene()
+        return
+      }
+
+      // Same scene - increment local dialogue index
       if (dialogueIndex.value < (currentScene.value?.dialogues.length ?? 0) - 1) {
         dialogueIndex.value++
-      } else if (currentScene.value?.choices && currentScene.value.choices.length === 0) {
+      } else if (!currentScene.value?.choices || currentScene.value.choices.length === 0) {
         // No more dialogues and no choices - this is an ending
         status.value = 'ending'
       }
