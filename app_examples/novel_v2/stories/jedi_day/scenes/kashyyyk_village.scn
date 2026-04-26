@@ -1,28 +1,40 @@
 id: kashyyyk_village
-title: Wookiee Village
+title:
+  en: "Wookiee Village"
+  ru: "Деревня Вуки"
 background_prompt: Traditional Wookiee treehouse village built into giant tree trunk,
   organic wooden platforms and bridges, warm lantern lights, Wookiees going about
   daily life, jungle vegetation, cozy village atmosphere, star wars universe
 music: village_life_ambient__Wookiee_community_sounds__or.mp3
 dialogue:
-- narrator: Kai-Tara lands in the village clearing. Wookiees pause their work to greet
-    her.
-- narrator: The village chief, an ancient Wookiee with silver fur, approaches.
-- narrator: But before she can speak, Chewbacca emerges from a nearby hut, with a
-    young Wookiee beside him.
+- narrator:
+    en: "Kai-Tara lands in the village clearing. Wookiees pause their work to greet her."
+    ru: "Кай-Тара приземляется на лесной поляне. Вуки приостанавливают работу, чтобы поприветствовать её."
+- narrator:
+    en: "The village chief, an ancient Wookiee with silver fur, approaches."
+    ru: "К деревню приближается деревенский старейшина, древний вуки с серебряной шерстью."
+- narrator:
+    en: "But before she can speak, Chewbacca emerges from a nearby hut, with a young Wookiee beside him."
+    ru: "Но прежде чем она успевает заговорить, Чуивака выходит из ближайшей хижины, рядом с ним молодой вуки."
 - character:
     id: chewbacca
-    text: Kai-Tara! Thank the stars you're here. We need your help.
+    text:
+      en: "Kai-Tara! Thank the stars you're here. We need your help."
+      ru: "Кай-Тара! Хвала звёздам, ты здесь. Нам нужна твоя помощь."
     mood: relieved
     image: char_kashyyyk_village_chewbacca_relieved_fierce_Wookiee_warrior_with_brown_fur__w_0.jpeg
 - character:
     id: tarri
-    text: Are you really a Jedi? Can you teach me to use the Force?
+    text:
+      en: "Are you really a Jedi? Can you teach me to use the Force?"
+      ru: "Ты правда Джедай? Ты можешь научить меня использовать Силу?"
     mood: curious
     image: char_kashyyyk_village_tarri_curious_young_Wookiee_cub_with_lighter_brown_fur_0.jpeg
 - character:
     id: kai_tara
-    text: I am Kai-Tara Ven. And yes, little one, I can sense the Force in you.
+    text:
+      en: "I am Kai-Tara Ven. And yes, little one, I can sense the Force in you."
+      ru: "Я Кай-Тара Вен. И да, малыш, я чувствую в тебе Силу."
     mood: warm
     image: char_kashyyyk_village_kai_tara_warm_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 next: chewbacca_encounter

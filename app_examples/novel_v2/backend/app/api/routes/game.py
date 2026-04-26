@@ -26,9 +26,13 @@ async def get_session(
 
 
 @router.get("/scene/{session_id}", response_model=SceneResponse)
-async def get_scene(session_id: str, service: GameService = Depends(get_game_service)):
+async def get_scene(
+    session_id: str,
+    language: str = "en",
+    service: GameService = Depends(get_game_service),
+):
     try:
-        return await service.get_scene(session_id)
+        return await service.get_scene(session_id, language=language)
     except SessionNotFoundError as e:
         raise HTTPException(status_code=404, detail=str(e))
 

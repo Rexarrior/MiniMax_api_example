@@ -1,5 +1,7 @@
 id: lightsaber_duel
-title: Lightsaber Duel
+title:
+  en: "Lightsaber Duel"
+  ru: "Поединок на Световых Мечах"
 background_prompt: Epic lightsaber battle in large Sith cavern, blue and red blades
   clashing, sparks flying, Force energy blasts colliding, dramatic shadows, intense
   combat atmosphere, star wars universe, cinematic
@@ -9,30 +11,52 @@ video: lightsaber_clash.mp4
 video_prompt: Intense close-up of two lightsabers clashing, blue and red blades creating sparks and energy ripples, dramatic combat in dark throne room, epic orchestral moment, Star Wars battle scene
 video_duration: 6
 dialogue:
-- narrator: Kai-Tara and Varek clash in a blinding display of bladework!
-- narrator: Blue fire meets crimson as Form III meets Form II.
+- narrator:
+    en: "Kai-Tara and Varek clash in a blinding display of bladework!"
+    ru: "Кай-Тара и Варек скрещивают мечи в ослепительном бою!"
+- narrator:
+    en: "Blue fire meets crimson as Form III meets Form II."
+    ru: "Синий огонь встречается с багряным, когда Стиль III встречает Стиль II."
 - character:
     id: darth_varek
-    text: Your technique is flawless... but rage is stronger!
+    text:
+      en: "Your technique is flawless... but rage is stronger!"
+      ru: "Твоя техника безупречна... но ярость сильнее!"
     mood: aggressive
     image: char_lightsaber_duel_darth_varek_aggressive_menacing_dark_figure_in_black_robes_with_0.jpeg
-- narrator: Varek presses forward, his strikes fueled by hatred.
+- narrator:
+    en: "Varek presses forward, his strikes fueled by hatred."
+    ru: "Варек напирает, его удары питает ненависть."
 - character:
     id: kai_tara
-    text: There is no emotion... there is only peace!
+    text:
+      en: "There is no emotion... there is only peace!"
+      ru: "Нет эмоций... есть только покой!"
     mood: focused
     image: char_lightsaber_duel_kai_tara_focused_human_female_Jedi_Knight__brown_hair_in__0.jpeg
-- narrator: She channels the Force, her movements becoming faster, more fluid.
-- narrator: Varek hurls a Force blast. Kai-Tara deflects it into a pillar.
-- narrator: The shrine begins to crack and rumble.
+- narrator:
+    en: "She channels the Force, her movements becoming faster, more fluid."
+    ru: "Она направляет Силу, её движения становятся быстрее, плавнее."
+- narrator:
+    en: "Varek hurls a Force blast. Kai-Tara deflects it into a pillar."
+    ru: "Варек бросает силовую волну. Кай-Тара отражает её в колонну."
+- narrator:
+    en: "The shrine begins to crack and rumble."
+    ru: "Святилище начинает трескаться и содрогаться."
 - character:
     id: darth_varek
-    text: If I cannot have the power... neither can you!
+    text:
+      en: "If I cannot have the power... neither can you!"
+      ru: "Если я не могу получить эту силу... ты тоже не получишь!"
     mood: desperate
     image: char_lightsaber_duel_darth_varek_desperate_menacing_dark_figure_in_black_robes_with_0.jpeg
 choice:
-- text: End him quickly with lightsaber throw
+- text:
+    en: "End him quickly with lightsaber throw"
+    ru: "Быстро закончить бросском светового меча"
   next: sith_collapse
-- text: Use Force push to knock him into the abyss
+- text:
+    en: "Use Force push to knock him into the abyss"
+    ru: "Использовать толчок Силы, чтобы сбросить его в бездну"
   next: sith_collapse
 background: bg_lightsaber_duel_Epic_lightsaber_battle_in_large_Sith_cavern__blue__0.jpeg

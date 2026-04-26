@@ -1,5 +1,7 @@
 id: flight_to_kashyyyk
-title: Flight to Kashyyyk
+title:
+  en: "Flight to Kashyyyk"
+  ru: "Полёт на Кашиикк"
 background_prompt: View from cockpit flying over giant Wroshyr trees of Kashyyyk at
   sunset, golden light filtering through branches, other ships flying in formation,
   breathtaking aerial vista, star wars universe, cinematic
@@ -9,20 +11,30 @@ video: starship_battle.mp4
 video_prompt: Cinematic space battle scene, Rebel starfighters weaving through explosion debris, Star Destroyer looming in background, laser fire illuminating cosmic dust, epic dogfight, Star Wars space opera
 video_duration: 6
 dialogue:
-- narrator: The interceptor screams through hyperspace, emerging above the lush canopy
-    of Kashyyyk.
-- narrator: The giant Wroshyr trees stretch toward the sky, their branches forming
-    a vast network.
+- narrator:
+    en: "The interceptor screams through hyperspace, emerging above the lush canopy of Kashyyyk."
+    ru: "Истребитель прорезает гиперпространство, появляясь над пышным пологом Кашиикка."
+- narrator:
+    en: "The giant Wroshyr trees stretch toward the sky, their branches forming a vast network."
+    ru: "Гигантские деревья Рошр тянутся к небу, их ветви образуют огромную сеть."
 - character:
     id: kai_tara
-    text: The jungle... it's beautiful. The Wookiees have lived here for generations.
+    text:
+      en: "The jungle... it's beautiful. The Wookiees have lived here for generations."
+      ru: "Лес... он прекрасен. Вуки живут здесь поколениями."
     mood: contemplative
     image: char_flight_to_kashyyyk_kai_tara_contemplative_human_female_Jedi_Knight__brown_hair_in__0.jpeg
-- narrator: Her sensors ping. Multiple life signs at the village. And something else...
-- narrator: A dark energy signature coming from the Shadow Lands.
+- narrator:
+    en: "Her sensors ping. Multiple life signs at the village. And something else..."
+    ru: "Её датчики пищат. Множественные сигнатуры жизни у деревни. И кое-что ещё..."
+- narrator:
+    en: "A dark energy signature coming from the Shadow Lands."
+    ru: "Тёмная энергетическая сигнатура исходит из Тёмных Земель."
 - character:
     id: kai_tara
-    text: There! That reading matches the disturbance I felt.
+    text:
+      en: "There! That reading matches the disturbance I felt."
+      ru: "Вот! Эти показания совпадают с возмущением, которое я почувствовала."
     mood: alert
     image: char_flight_to_kashyyyk_kai_tara_alert_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 next: kashyyyk_village

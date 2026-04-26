@@ -1,39 +1,51 @@
 id: masters_lair
-title: Master's Study
+title:
+  en: "Master's Study"
+  ru: "Кабинет Мастера"
 background_prompt: Ancient Jedi Master study filled with glowing holocrons, ancient
   star maps projected in air, shelves with ancient texts, warm fireplace with crackling
   flames, cozy scholarly atmosphere, star wars universe
 music: scholarly_contemplation__warm_fireplace__turning_p.mp3
 dialogue:
-- narrator: Kai-Tara bursts into Master Ysanna Ordo's study, finding the old Master
-    surrounded by holographic star charts.
+- narrator:
+    en: "Kai-Tara bursts into Master Ysanna Ordo's study, finding the old Master surrounded by holographic star charts."
+    ru: "Кай-Тара врывается в кабинет Мастера Исанны Ордо и видит старую Мастер, окружённую голографическими звёздными картами."
 - character:
     id: kai_tara
-    text: Master! I felt a disturbance. Something dark has awakened.
+    text:
+      en: "Master! I felt a disturbance. Something dark has awakened."
+      ru: "Мастер! Я почувствовала возмущение. Что-то тёмное пробудилось."
     mood: alert
     image: char_masters_lair_kai_tara_alert_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 - character:
     id: master_ysanna
-    text: I know, my young apprentice. I've been tracking this presence for days.
+    text:
+      en: "I know, my young apprentice. I've been tracking this presence for days."
+      ru: "Я знаю, моя юная ученица. Я отслеживаю это присутствие уже несколько дней."
     mood: wise
     image: char_masters_lair_master_ysanna_wise_elderly_female_Jedi_Master__silver_hair__0.jpeg
-- narrator: Master Ysanna gestures to a map showing a red-tinged sector near the Wookiee
-    homeworld.
+- narrator:
+    en: "Master Ysanna gestures to a map showing a red-tinged sector near the Wookiee homeworld."
+    ru: "Мастер Исанна указывает на карту, показывающую красноватый сектор около родины вуки."
 - character:
     id: master_ysanna
-    text: Sith remnants. An ancient shrine has been reactivated on Kashyyyk's dark
-      side.
+    text:
+      en: "Sith remnants. An ancient shrine has been reactivated on Kashyyyk's dark side."
+      ru: "Остатки ситхов. Древнее святилище было реактивировано на тёмной стороне Кашиикка."
     mood: serious
     image: char_masters_lair_master_ysanna_serious_elderly_female_Jedi_Master__silver_hair__0.jpeg
 - character:
     id: kai_tara
-    text: Sith? Here? I thought they were destroyed.
+    text:
+      en: "Sith? Here? I thought they were destroyed."
+      ru: "Ситхи? Здесь? Я думала, они были уничтожены."
     mood: concerned
     image: char_masters_lair_kai_tara_concerned_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 - character:
     id: master_ysanna
-    text: Evil never truly dies, Kai-Tara. Take my interceptor. Chewbacca awaits you
-      at the village.
+    text:
+      en: "Evil never truly dies, Kai-Tara. Take my interceptor. Chewbacca awaits you at the village."
+      ru: "Зло никогда по-настоящему не умирает, Кай-Тара. Возьми мой истребитель. Чуивака ждёт тебя в деревне."
     mood: wise
     image: char_masters_lair_master_ysanna_wise_elderly_female_Jedi_Master__silver_hair__0.jpeg
 next: shuttle_bay

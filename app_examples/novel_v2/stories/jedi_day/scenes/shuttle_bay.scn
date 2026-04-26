@@ -1,20 +1,27 @@
 id: shuttle_bay
-title: Shuttle Bay
+title:
+  en: "Shuttle Bay"
+  ru: "Ангар"
 background_prompt: Military shuttle bay with Jedi starfighter and Lambda-class shuttle
   parked, technicians in white suits working on ships, blast doors opening revealing
   starfield, dramatic industrial lighting, star wars universe
 music: engine_hum_activity__shuttle_bay_atmosphere__mecha.mp3
 dialogue:
-- narrator: Kai-Tara sprints into the shuttle bay, her boots echoing on the metal
-    floor.
-- narrator: She vaults into her waiting Jedi interceptor, the cockpit sealing shut
-    with a hiss.
+- narrator:
+    en: "Kai-Tara sprints into the shuttle bay, her boots echoing on the metal floor."
+    ru: "Кай-Тара бежит в ангар, её шаги отдаются эхом по металлическому полу."
+- narrator:
+    en: "She vaults into her waiting Jedi interceptor, the cockpit sealing shut with a hiss."
+    ru: "Она запрыгивает в ожидающий её джедайский истребитель, кабина герметично закрывается с шипением."
 - character:
     id: kai_tara
-    text: R-22, take me to Kashyyyk coordinates. Maximum speed.
+    text:
+      en: "R-22, take me to Kashyyyk coordinates. Maximum speed."
+      ru: "R-22, следуй на координаты Кашиикка. Максимальная скорость."
     mood: determined
     image: char_shuttle_bay_kai_tara_determined_human_female_Jedi_Knight__brown_hair_in__0.jpeg
-- narrator: The starfighter's engines roar to life as the hangar doors open to reveal
-    the stars.
+- narrator:
+    en: "The starfighter's engines roar to life as the hangar doors open to reveal the stars."
+    ru: "Двигатели истребителя ревут, двери ангара открываются, обнажая звёзды."
 next: flight_to_kashyyyk
 background: bg_shuttle_bay_Military_shuttle_bay_with_Jedi_starfighter_and_Lam_0.jpeg

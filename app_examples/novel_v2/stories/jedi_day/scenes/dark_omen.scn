@@ -1,24 +1,41 @@
 id: dark_omen
-title: Dark Omen
+title:
+  en: "Dark Omen"
+  ru: "Тёмное Предзнаменование"
 background_prompt: Dense jungle path on Kashyyyk with ominous red-tinged sky, strange
   artifacts on ground - skull totems and dark symbols, fog rolling in, sense of dread,
   foreboding atmosphere, star wars universe
 music: foreboding_jungle_danger__dense_forest_sounds__omi.mp3
 dialogue:
-- narrator: Kai-Tara ventures deep into the Shadow Lands alone. The jungle grows darker.
-- narrator: The trees twist into unnatural shapes. Red-tinged mist swirls around her
-    boots.
+- narrator:
+    en: "Kai-Tara ventures deep into the Shadow Lands alone. The jungle grows darker."
+    ru: "Кай-Тара одна углубляется в Тёмные Земли. Лес становится темнее."
+- narrator:
+    en: "The trees twist into unnatural shapes. Red-tinged mist swirls around her boots."
+    ru: "Деревья скручиваются в неестественные формы. Красноватый туман клубится вокруг她的 ботинок."
 - character:
     id: kai_tara
-    text: The dark side is strong here. I can feel it pressing against my mind.
+    text:
+      en: "The dark side is strong here. I can feel it pressing against my mind."
+      ru: "Тёмная сторона сильна здесь. Я чувствую, как она давит на мой разум."
     mood: strained
     image: char_dark_omen_kai_tara_strained_human_female_Jedi_Knight__brown_hair_in__0.jpeg
-- narrator: She steps over ancient stone markers carved with Sith runes.
-- narrator: A roar echoes through the trees. Not animal. Mechanical.
-- narrator: Battle droids emerge from the shadows, red optics blazing.
+- narrator:
+    en: "She steps over ancient stone markers carved with Sith runes."
+    ru: "Она переступает через древние каменные метки, вырезанные ситхскими рунами."
+- narrator:
+    en: "A roar echoes through the trees. Not animal. Mechanical."
+    ru: "Рёв отдаётся эхом среди деревьев. Не животное. Механический."
+- narrator:
+    en: "Battle droids emerge from the shadows, red optics blazing."
+    ru: "Боевые дроиды выходят из теней, их красные оптические датчики полыхают."
 choice:
-- text: Engage with lightsaber
+- text:
+    en: "Engage with lightsaber"
+    ru: "Вступить в бой световым мечом"
   next: sith_shrine
-- text: Use Force to sense their weak points
+- text:
+    en: "Use Force to sense their weak points"
+    ru: "Использовать Силу, чтобы найти их слабые места"
   next: sith_shrine
 background: bg_dark_omen_Dense_jungle_path_on_Kashyyyk_with_ominous_red_tin_0.jpeg

@@ -1,30 +1,46 @@
 id: sith_collapse
-title: Shrine Collapse
+title:
+  en: "Shrine Collapse"
+  ru: "Обвал Святилища"
 background_prompt: Sith temple collapsing with dramatic effect, rocks falling, beams
   of light from cracks above, dust clouds, chaotic destruction, epic scale, star wars
   universe
 music: dark_ritual_ambience__ancient_Sith_temple__glowing.mp3
 dialogue:
-- narrator: With a mighty Force push, Kai-Tara sends Varek tumbling into the abyss!
-- narrator: The shrine groans as ancient supports give way. Debris rains from above.
+- narrator:
+    en: "With a mighty Force push, Kai-Tara sends Varek tumbling into the abyss!"
+    ru: "Мощным толчком Силы Кай-Тара отправляет Варека в бездну!"
+- narrator:
+    en: "The shrine groans as ancient supports give way. Debris rains from above."
+    ru: "Святилище скрежещет, древние опоры поддаются. Обломки дождём сыплются сверху."
 - character:
     id: kai_tara
-    text: Chewbacca! Now!
+    text:
+      en: "Chewbacca! Now!"
+      ru: "Чуивака! Сейчас!"
     mood: shouting
     image: char_sith_collapse_kai_tara_shouting_human_female_Jedi_Knight__brown_hair_in__0.jpeg
-- narrator: Using the last of her strength, Kai-Tara Force-pulls Chewbacca from his
-    cell.
+- narrator:
+    en: "Using the last of her strength, Kai-Tara Force-pulls Chewbacca from his cell."
+    ru: "Используя последние силы, Кай-Тара тянет Чуиваку из его камеры Силой."
 - character:
     id: chewbacca
-    text: Rwaaaahh! (Thank you, friend!)
+    text:
+      en: "Rwaaaahh! (Thank you, friend!)"
+      ru: "Рвааааа! (Спасибо, друг!)"
     mood: grateful
     image: char_sith_collapse_chewbacca_grateful_fierce_Wookiee_warrior_with_brown_fur__w_0.jpeg
-- narrator: Together they sprint for the exit as the entire shrine implodes behind
-    them.
-- narrator: Varek's screams echo briefly... then nothing.
+- narrator:
+    en: "Together they sprint for the exit as the entire shrine implodes behind them."
+    ru: "Вместе они бегут к выходу, пока всё святилище обрушивается позади них."
+- narrator:
+    en: "Varek's screams echo briefly... then nothing."
+    ru: "Крик Варека ненадолго отдаётся эхом... потом тишина."
 - character:
     id: kai_tara
-    text: The dark side temple is no more. The Wookiees are safe.
+    text:
+      en: "The dark side temple is no more. The Wookiees are safe."
+      ru: "Храм тёмной стороны больше не существует. Вуки в безопасности."
     mood: exhausted_relieved
     image: char_sith_collapse_kai_tara_exhausted_relieved_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 next: victory_return

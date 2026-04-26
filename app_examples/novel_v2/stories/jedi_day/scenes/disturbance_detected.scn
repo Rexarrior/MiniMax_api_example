@@ -1,29 +1,46 @@
 id: disturbance_detected
-title: Disturbance in the Force
+title:
+  en: "Disturbance in the Force"
+  ru: "Возмущение в Силе"
 background_prompt: Same temple corridor but now with ominous dark red energy cracks
   visible in the air, shadows moving unnaturally, sense of dread, dramatic lighting,
   star wars universe
 music: ominous_tension_build__dark_strings__low_droning_b.mp3
 dialogue:
-- narrator: Suddenly, a violent disturbance ripples through the Force!
-- narrator: Kai-Tara gasps, her eyes snapping open. The walls seem to pulse with dark
-    energy.
+- narrator:
+    en: "Suddenly, a violent disturbance ripples through the Force!"
+    ru: "Внезапно сильное возмущение проходит через Силу!"
+- narrator:
+    en: "Kai-Tara gasps, her eyes snapping open. The walls seem to pulse with dark energy."
+    ru: "Кай-Тара задыхается, её глаза резко открываются. Стены, кажется, пульсируют тёмной энергией."
 - character:
     id: kai_tara
-    text: Something is wrong. A cold darkness... I've never felt anything like this.
+    text:
+      en: "Something is wrong. A cold darkness... I've never felt anything like this."
+      ru: "Что-то не так. Холодная тьма... Я никогда ничего подобного не чувствовала."
     mood: alert
     image: char_disturbance_detected_kai_tara_alert_human_female_Jedi_Knight__brown_hair_in__0.jpeg
-- narrator: She springs to her feet, lightsaber in hand, senses straining.
+- narrator:
+    en: "She springs to her feet, lightsaber in hand, senses straining."
+    ru: "Она вскакивает, световой меч в руке, чувства напряжены."
 - character:
     id: kai_tara
-    text: This feeling... it's not just a disturbance. It's a presence.
+    text:
+      en: "This feeling... it's not just a disturbance. It's a presence."
+      ru: "Это чувство... это не просто возмущение. Это присутствие."
     mood: alert
     image: char_disturbance_detected_kai_tara_alert_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 choice:
-- text: Rush to Master's study immediately
+- text:
+    en: "Rush to Master's study immediately"
+    ru: "Немедленно бежать в кабинет Мастера"
   next: masters_lair
-- text: Check the communications room first
+- text:
+    en: "Check the communications room first"
+    ru: "Сначала проверить комнату связи"
   next: urgent_transmission
-- text: Head to the shuttle bay
+- text:
+    en: "Head to the shuttle bay"
+    ru: "Отправиться к ангару"
   next: shuttle_bay
 background: bg_disturbance_detected_Same_temple_corridor_but_now_with_ominous_dark_red_0.jpeg

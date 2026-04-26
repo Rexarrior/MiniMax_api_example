@@ -1,38 +1,56 @@
 id: sith_shrine
-title: The Sith Shrine
+title:
+  en: "The Sith Shrine"
+  ru: "Святилище Ситхов"
 background_prompt: Ancient underground Sith temple on Kashyyyk, dark stone pillars
   with glowing red runes, volcanic vents releasing steam, mysterious holocrons floating,
   dramatic cavern lighting, ominous atmosphere, star wars universe
 music: dark_ritual_ambience__ancient_Sith_temple__glowing.mp3
 dialogue:
-- narrator: Kai-Tara descends into the ancient Sith shrine. The air grows cold.
-- narrator: Red runes pulse along the walls. In the center, a figure in black robes
-    awaits.
+- narrator:
+    en: "Kai-Tara descends into the ancient Sith shrine. The air grows cold."
+    ru: "Кай-Тара спускается в древнее святилище ситхов. Воздух становится холоднее."
+- narrator:
+    en: "Red runes pulse along the walls. In the center, a figure in black robes awaits."
+    ru: "Красные руны пульсируют вдоль стен. В центре ждёт фигура в чёрных одеяниях."
 - character:
     id: darth_varek
-    text: A Jedi... how delightful. Another lamb to the slaughter.
+    text:
+      en: "A Jedi... how delightful. Another lamb to the slaughter."
+      ru: "Джедай... как мило. Ещё один ягнёнок на заклание."
     mood: sinister
     image: char_sith_shrine_darth_varek_sinister_menacing_dark_figure_in_black_robes_with_0.jpeg
 - character:
     id: kai_tara
-    text: Release your prisoners, Sith. This temple belongs to the past.
+    text:
+      en: "Release your prisoners, Sith. This temple belongs to the past."
+      ru: "Отпусти пленников, ситх. Этот храм принадлежит прошлому."
     mood: defiant
     image: char_sith_shrine_kai_tara_defiant_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 - character:
     id: darth_varek
-    text: The past? This shrine holds the secrets of Marka Ragnos himself!
+    text:
+      en: "The past? This shrine holds the secrets of Marka Ragnos himself!"
+      ru: "Прошлое? Это святилище хранит секреты самого Марка Рэгноса!"
     mood: angry
     image: char_sith_shrine_darth_varek_angry_menacing_dark_figure_in_black_robes_with_0.jpeg
-- narrator: He ignites his crimson lightsaber. Behind him, Chewbacca roars from a
-    cell.
+- narrator:
+    en: "He ignites his crimson lightsaber. Behind him, Chewbacca roars from a cell."
+    ru: "Он активирует свой багровый световой меч. За его спиной Чуивака рычит из камеры."
 - character:
     id: darth_varek
-    text: Bow to the dark side, or watch your ally die.
+    text:
+      en: "Bow to the dark side, or watch your ally die."
+      ru: "Преклонись к тёмной стороне, или смотри, как твой союзник умрёт."
     mood: cruel
     image: char_sith_shrine_darth_varek_cruel_menacing_dark_figure_in_black_robes_with_0.jpeg
 choice:
-- text: Attack without hesitation
+- text:
+    en: "Attack without hesitation"
+    ru: "Атаковать без колебаний"
   next: lightsaber_duel
-- text: Try to reason with Varek
+- text:
+    en: "Try to reason with Varek"
+    ru: "Попытаться убедить Варека"
   next: varek_logic
 background: bg_sith_shrine_Ancient_underground_Sith_temple_on_Kashyyyk__dark__0.jpeg

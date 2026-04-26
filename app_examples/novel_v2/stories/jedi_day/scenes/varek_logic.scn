@@ -1,35 +1,51 @@
 id: varek_logic
-title: Varek's Logic
+title:
+  en: "Varek's Logic"
+  ru: "Логика Варека"
 background_prompt: Same Sith shrine interior, Darth Varek speaking dramatically with
   red backlighting, dark throne visible, holocrons orbiting, star wars universe
 music: ominous_tension_build__dark_strings__low_droning_b.mp3
 dialogue:
 - character:
     id: darth_varek
-    text: You Jedi claim balance, yet you hoard power. I offer freedom!
+    text:
+      en: "You Jedi claim balance, yet you hoard power. I offer freedom!"
+      ru: "Вы, джедаи, говорите о балансе, но храните власть. Я предлагаю свободу!"
     mood: passionate
     image: char_varek_logic_darth_varek_passionate_menacing_dark_figure_in_black_robes_with_0.jpeg
 - character:
     id: kai_tara
-    text: Freedom through fear and pain? The dark side corrupts.
+    text:
+      en: "Freedom through fear and pain? The dark side corrupts."
+      ru: "Свобода через страх и боль? Тёмная сторона развращает."
     mood: skeptical
     image: char_varek_logic_kai_tara_skeptical_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 - character:
     id: darth_varek
-    text: Corruption? I see clearly now. The Senate is rotten. The Jedi are fools.
+    text:
+      en: "Corruption? I see clearly now. The Senate is rotten. The Jedi are fools."
+      ru: "Разврат? Теперь я вижу ясно. Сенат гнил. Джедаи — глупцы."
     mood: agitated
     image: char_varek_logic_darth_varek_agitated_menacing_dark_figure_in_black_robes_with_0.jpeg
-- narrator: Kai-Tara senses something - a tremor in Varek's conviction.
+- narrator:
+    en: "Kai-Tara senses something - a tremor in Varek's conviction."
+    ru: "Кай-Тара чувствует что-то — трещину в убеждениях Варека."
 - character:
     id: kai_tara
-    text: You've seen something... or someone. Who turned you to darkness?
+    text:
+      en: "You've seen something... or someone. Who turned you to darkness?"
+      ru: "Ты видел что-то... или кого-то. Кто обратил тебя ко тьме?"
     mood: probing
     image: char_varek_logic_kai_tara_probing_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 - character:
     id: darth_varek
-    text: Silence! You know nothing!
+    text:
+      en: "Silence! You know nothing!"
+      ru: "Молчи! Ты ничего не знаешь!"
     mood: enraged
     image: char_varek_logic_darth_varek_enraged_menacing_dark_figure_in_black_robes_with_0.jpeg
-- narrator: His composure shatters. He lunges forward with a furious strike!
+- narrator:
+    en: "His composure shatters. He lunges forward with a furious strike!"
+    ru: "Его самообладание рушится. Он бросается вперёд с яростным ударом!"
 next: lightsaber_duel
 background: bg_varek_logic_Same_Sith_shrine_interior__Darth_Varek_speaking_dr_0.jpeg

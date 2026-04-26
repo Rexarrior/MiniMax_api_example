@@ -1,17 +1,21 @@
 <script setup lang="ts">
-import { useSettingsStore } from '../../stores/settingsStore'
+import { useSettingsStore, type Language } from '../../stores/settingsStore'
 import { useAudioStore } from '../../stores/audioStore'
 import { storeToRefs } from 'pinia'
 
 const settingsStore = useSettingsStore()
 const audioStore = useAudioStore()
 
-const { cps, voiceEnabled } = storeToRefs(settingsStore)
+const { cps, voiceEnabled, language } = storeToRefs(settingsStore)
 const { musicVolume, isMuted } = storeToRefs(audioStore)
 
 defineEmits<{
   (e: 'close'): void
 }>()
+
+function setLanguage(lang: Language) {
+  settingsStore.setLanguage(lang)
+}
 </script>
 
 <template>
@@ -23,15 +27,40 @@ defineEmits<{
       </div>
 
       <div class="space-y-6">
+        <!-- Language -->
+        <div>
+          <label class="block text-gray-300 mb-2">Language / Язык</label>
+          <div class="flex gap-2">
+            <button
+              @click="setLanguage('en')"
+              :class="[
+                'flex-1 py-2 px-4 rounded transition',
+                language === 'en' ? 'bg-purple-600 text-white' : 'bg-gray-600 text-gray-300'
+              ]"
+            >
+              English
+            </button>
+            <button
+              @click="setLanguage('ru')"
+              :class="[
+                'flex-1 py-2 px-4 rounded transition',
+                language === 'ru' ? 'bg-purple-600 text-white' : 'bg-gray-600 text-gray-300'
+              ]"
+            >
+              Русский
+            </button>
+          </div>
+        </div>
+
         <!-- Text Speed -->
         <div>
           <label class="block text-gray-300 mb-2">Text Speed: {{ cps }} CPS</label>
-          <input 
-            type="range" 
+          <input
+            type="range"
             :value="cps"
             @input="settingsStore.setCps(Number(($event.target as HTMLInputElement).value))"
-            min="40" 
-            max="60" 
+            min="40"
+            max="60"
             step="5"
             class="w-full"
           />
@@ -44,12 +73,12 @@ defineEmits<{
         <!-- Music Volume -->
         <div>
           <label class="block text-gray-300 mb-2">Music Volume</label>
-          <input 
-            type="range" 
+          <input
+            type="range"
             :value="musicVolume"
             @input="audioStore.setMusicVolume(Number(($event.target as HTMLInputElement).value))"
-            min="0" 
-            max="1" 
+            min="0"
+            max="1"
             step="0.1"
             class="w-full"
           />
@@ -58,7 +87,7 @@ defineEmits<{
         <!-- Voice -->
         <div class="flex items-center justify-between">
           <label class="text-gray-300">Voice Acting</label>
-          <button 
+          <button
             @click="settingsStore.toggleVoice()"
             :class="[
               'px-4 py-2 rounded',
@@ -72,7 +101,7 @@ defineEmits<{
         <!-- Mute -->
         <div class="flex items-center justify-between">
           <label class="text-gray-300">Mute All</label>
-          <button 
+          <button
             @click="audioStore.toggleMute()"
             :class="[
               'px-4 py-2 rounded',
@@ -84,7 +113,7 @@ defineEmits<{
         </div>
       </div>
 
-      <button 
+      <button
         @click="$emit('close')"
         class="mt-8 w-full novel-button"
       >

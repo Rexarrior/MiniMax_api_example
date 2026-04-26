@@ -1,27 +1,43 @@
 id: urgent_transmission
-title: Urgent Transmission
+title:
+  en: "Urgent Transmission"
+  ru: "Срочная Передача"
 background_prompt: Jedi communications room with multiple holographic displays showing
   star maps with red alert markers, warning symbols flashing, busy military atmosphere,
   multiple officers working, star wars universe
 music: urgent_military_comm_traffic__alert_beeps__fast_pa.mp3
 dialogue:
-- narrator: At the communications terminal, urgent messages flood the screens.
-- narrator: Multiple Wookiee distress signals are coming from the lower canopy.
+- narrator:
+    en: "At the communications terminal, urgent messages flood the screens."
+    ru: "На коммуникационном терминале срочные сообщения заполняют экраны."
+- narrator:
+    en: "Multiple Wookiee distress signals are coming from the lower canopy."
+    ru: "Множественные сигналы бедствия от вуки поступают из нижнего полога."
 - character:
     id: kai_tara
-    text: These signals... they're coming from the Shadow Lands.
+    text:
+      en: "These signals... they're coming from the Shadow Lands."
+      ru: "Эти сигналы... они исходят из Тёмных Земель."
     mood: concerned
     image: char_urgent_transmission_kai_tara_concerned_human_female_Jedi_Knight__brown_hair_in__0.jpeg
-- narrator: A Wookiee voice crackles through the comm.
+- narrator:
+    en: "A Wookiee voice crackles through the comm."
+    ru: "Голос вуки прорывается через связь."
 - character:
     id: chewbacca
-    text: Kai-Tara! Treechoppaw! Need help! Dark ones attacking!
+    text:
+      en: "Kai-Tara! Treechoppaw! Need help! Dark ones attacking!"
+      ru: "Кай-Тара! Тричоппа! Нужна помощь! Тёмные атакуют!"
     mood: urgent
     image: char_urgent_transmission_chewbacca_urgent_fierce_Wookiee_warrior_with_brown_fur__w_0.jpeg
-- narrator: The transmission cuts to static.
+- narrator:
+    en: "The transmission cuts to static."
+    ru: "Связь обрывается статическим шумом."
 - character:
     id: kai_tara
-    text: Chewbacca! No!
+    text:
+      en: "Chewbacca! No!"
+      ru: "Чуивака! Нет!"
     mood: alert
     image: char_urgent_transmission_kai_tara_alert_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 next: shuttle_bay

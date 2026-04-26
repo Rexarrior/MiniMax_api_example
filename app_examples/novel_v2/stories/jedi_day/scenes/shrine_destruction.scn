@@ -1,5 +1,7 @@
 id: shrine_destruction
-title: Temple Explosion
+title:
+  en: "Temple Explosion"
+  ru: "Взрыв Храма"
 background_prompt: slow motion explosion of ancient Sith temple, debris flying outward,
   red and orange fireball, dust cloud expanding, epic destruction sequence, cinematic
 music: dark_ritual_ambience__ancient_Sith_temple__glowing.mp3

@@ -1,5 +1,7 @@
 id: jedi_temple_dawn
-title: Dawn at the Temple
+title:
+  en: "Dawn at the Temple"
+  ru: "Рассвет в Храме"
 background_prompt: Jedi temple balcony overlooking Kashyyyk jungle canopy at sunrise,
   golden hour light, mist rising from giant Wroshyr trees, distant waterfalls, epic
   cinematic landscape, star wars universe
@@ -9,14 +11,21 @@ video: jedi_temple_aerial.mp4
 video_prompt: Epic aerial shot of ancient Jedi temple on distant planet, massive spires glowing with blue force energy, young padawans training on courtyards, cinematic Star Wars style, dramatic lighting
 video_duration: 6
 dialogue:
-- narrator: The first light of dawn breaks over the jungle moon of Kashyyyk.
-- narrator: Kai-Tara Ven stands on the balcony of the Jedi temple, her eyes closed,
-    breathing in the energy of the Force.
+- narrator:
+    en: "The first light of dawn breaks over the jungle moon of Kashyyyk."
+    ru: "Первый свет зари пробивается над лесным спутником Кашиикк."
+- narrator:
+    en: "Kai-Tara Ven stands on the balcony of the Jedi temple, her eyes closed, breathing in the energy of the Force."
+    ru: "Кай-Тара Вен стоит на балконе Храма Джедаев, её глаза закрыты, она вдыхает энергию Силы."
 - character:
     id: kai_tara
-    text: The Force flows through all living things. The jungle speaks to me.
+    text:
+      en: "The Force flows through all living things. The jungle speaks to me."
+      ru: "Сила течёт через всё живое. Лес говорит со мной."
     mood: focused
     image: char_jedi_temple_dawn_kai_tara_focused_human_female_Jedi_Knight__brown_hair_in__0.jpeg
-- narrator: A new day begins for the Jedi Knight. But today feels different...
-next: meditation_room
+- narrator:
+    en: "A new day begins for the Jedi Knight. But today feels different..."
+    ru: "Новый день начинается для рыцаря Джедая. Но сегодня всё чувствуется иначе..."
 background: bg_jedi_temple_dawn_Jedi_temple_balcony_overlooking_Kashyyyk_jungle_ca_0.jpeg
+next: meditation_room

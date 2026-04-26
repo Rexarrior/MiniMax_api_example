@@ -1,27 +1,40 @@
 id: victory_return
-title: Return as Hero
+title:
+  en: "Return as Hero"
+  ru: "Возвращение как Героя"
 background_prompt: Triumphant return to Wookiee village at sunset, Wookiees cheering,
   torches lit, Kai-Tara standing proud center frame, victorious atmosphere, star wars
   universe, cinematic
 music: heroic_adventure_flight__epic_orchestral__John_Wil.mp3
 dialogue:
-- narrator: Kai-Tara and Chewbacca emerge from the jungle to cheering Wookiees.
-- narrator: The village chief presents her with traditional Wookiee braids of honor.
+- narrator:
+    en: "Kai-Tara and Chewbacca emerge from the jungle to cheering Wookiees."
+    ru: "Кай-Тара и Чуивака выходят из джунглей к ликующим вуки."
+- narrator:
+    en: "The village chief presents her with traditional Wookiee braids of honor."
+    ru: "Деревенский старейшина вручает ей традиционные косы чести вуки."
 - character:
     id: chewbacca
-    text: Rrawr rwaw rwawr! (She saved us all! The Jedi is a true hero!)
+    text:
+      en: "Rrawr rwaw rwawr! (She saved us all! The Jedi is a true hero!)"
+      ru: "Ррааа рвааа рвааа! (Она спасла всех нас! Джедай — настоящий герой!)"
     mood: jubilant
     image: char_victory_return_chewbacca_jubilant_fierce_Wookiee_warrior_with_brown_fur__w_0.jpeg
 - character:
     id: tarri
-    text: You did it! You really did it!
+    text:
+      en: "You did it! You really did it!"
+      ru: "Ты сделала это! Ты правда сделала это!"
     mood: excited
     image: char_victory_return_tarri_excited_young_Wookiee_cub_with_lighter_brown_fur_0.jpeg
-- narrator: But Kai-Tara's expression remains serious.
+- narrator:
+    en: "But Kai-Tara's expression remains serious."
+    ru: "Но выражение лица Кай-Тары остаётся серьёзным."
 - character:
     id: kai_tara
-    text: This was only one shrine. Varek spoke of a master... a greater darkness
-      is coming.
+    text:
+      en: "This was only one shrine. Varek spoke of a master... a greater darkness is coming."
+      ru: "Это был лишь один храм. Варек говорил о мастере... грядёт большая тьма."
     mood: ominous
     image: char_victory_return_kai_tara_ominous_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 next: yoda_style_end

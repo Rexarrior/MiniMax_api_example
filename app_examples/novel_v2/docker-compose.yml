@@ -17,8 +17,8 @@ services:
 
   backend:
     build: ./backend
-    ports:
-      - "8001:8000"
+    # ports:
+    #   - "8001:8000"
     environment:
       DATABASE_URL: postgresql+asyncpg://novel:novelpassword@postgres:5432/novel
       STORIES_DIR: /app/stories

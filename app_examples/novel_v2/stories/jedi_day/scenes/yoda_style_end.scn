@@ -1,34 +1,47 @@
 id: yoda_style_end
-title: Peace Restored
+title:
+  en: "Peace Restored"
+  ru: "Мир Восстановлен"
 background_prompt: Kai-Tara back in Jedi meditation chamber, peaceful pose, sunrise
   streaming through stained glass showing Force symbols, serene atmosphere, blue lighting,
   star wars universe, iconic star wars style
 music: peaceful_morning_temple_atmosphere__gentle_wind_ch.mp3
 dialogue:
-- narrator: Back at the Jedi temple, Kai-Tara meditates once more.
-- narrator: The disturbance has passed. The Force flows peacefully once more.
+- narrator:
+    en: "Back at the Jedi temple, Kai-Tara meditates once more."
+    ru: "Обратно в Храме Джедаев Кай-Тара медитирует снова."
+- narrator:
+    en: "The disturbance has passed. The Force flows peacefully once more."
+    ru: "Возмущение прошло. Сила снова течёт мирно."
 - character:
     id: master_ysanna
-    text: You handled the situation well, my apprentice. You are growing stronger.
+    text:
+      en: "You handled the situation well, my apprentice. You are growing stronger."
+      ru: "Ты справилась с ситуацией хорошо, моя ученица. Ты становишься сильнее."
     mood: proud
     image: char_yoda_style_end_master_ysanna_proud_elderly_female_Jedi_Master__silver_hair__0.jpeg
 - character:
     id: kai_tara
-    text: I did what was necessary. But Master... do you think Varek's master will
-      come?
+    text:
+      en: "I did what was necessary. But Master... do you think Varek's master will come?"
+      ru: "Я сделала то, что было необходимо. Но Мастер... как думаете, придёт ли мастер Варека?"
     mood: concerned
     image: char_yoda_style_end_kai_tara_concerned_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 - character:
     id: master_ysanna
-    text: The dark side will always rise again. And the Jedi will always be there
-      to face it.
+    text:
+      en: "The dark side will always rise again. And the Jedi will always be there to face it."
+      ru: "Тёмная сторона всегда будет подниматься снова. И Джедаи всегда будут рядом, чтобы противостоять ей."
     mood: wise
     image: char_yoda_style_end_master_ysanna_wise_elderly_female_Jedi_Master__silver_hair__0.jpeg
-- narrator: As the sun sets over Kashyyyk, Kai-Tara feels a new resolve burning within
-    her.
+- narrator:
+    en: "As the sun sets over Kashyyyk, Kai-Tara feels a new resolve burning within her."
+    ru: "Когда солнце садится над Кашиикком, Кай-Тара чувствует новую решимость, горящую внутри неё."
 - character:
     id: kai_tara
-    text: Then I'll be ready. The Force will guide me.
+    text:
+      en: "Then I'll be ready. The Force will guide me."
+      ru: "Тогда я буду готова. Сила направит меня."
     mood: determined
     image: char_yoda_style_end_kai_tara_determined_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 background: bg_yoda_style_end_Kai_Tara_back_in_Jedi_meditation_chamber__peaceful_0.jpeg

@@ -30,8 +30,9 @@ class NovelApi {
     return response.data
   }
 
-  async getScene(sessionId: string): Promise<Scene> {
-    const response = await client.get(`/game/scene/${sessionId}`)
+  async getScene(sessionId: string, language?: string): Promise<Scene> {
+    const params = language ? `?language=${language}` : ''
+    const response = await client.get(`/game/scene/${sessionId}${params}`)
     return response.data
   }
 

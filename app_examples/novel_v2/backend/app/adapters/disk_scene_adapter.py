@@ -11,13 +11,42 @@ from pathlib import Path
 from typing import Optional
 import yaml
 import os
+import hashlib
+
+
+def _get_text_hash(text: str, language: str = "en") -> str:
+    """Get MD5 hash of text for voice filename matching."""
+    if isinstance(text, dict):
+        # Prefer requested language, fallback to English, then first available
+        text = text.get(language) or text.get("en") or next(iter(text.values()), "")
+    return hashlib.md5(text.encode()).hexdigest()[:10]
 
 
 class DiskSceneAdapter(SceneAdapter):
     def __init__(self, stories_dir: str):
         self.stories_dir = Path(stories_dir)
+        self._char_cache: dict[str, dict] = {}
 
-    async def load_scene(self, story_id: str, scene_id: str) -> SceneData:
+    def _load_characters(self, story_id: str) -> dict[str, dict]:
+        """Load characters.yaml with caching."""
+        if story_id in self._char_cache:
+            return self._char_cache[story_id]
+
+        chars_path = self.stories_dir / story_id / "assets" / "characters.yaml"
+        if not chars_path.exists():
+            return {}
+
+        with open(chars_path, "r", encoding="utf-8") as f:
+            self._char_cache[story_id] = yaml.safe_load(f) or {}
+        return self._char_cache[story_id]
+
+    async def load_scene(self, story_id: str, scene_id: str, language: str = "en") -> SceneData:
+        """Load a scene with language-specific voice URLs.
+
+        Voice files are resolved with language prefix:
+        - English: voice_kai_tara_hash_speed_pitch.mp3 (no prefix)
+        - Russian: ru_voice_kai_tara_hash_speed_pitch.mp3 (ru_ prefix)
+        """
         story_path = self.stories_dir / story_id
         if not story_path.exists():
             raise StoryNotFoundError(f"Story not found: {story_id}")
@@ -28,6 +57,9 @@ class DiskSceneAdapter(SceneAdapter):
 
         with open(scene_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f)
+
+        # Load characters for voice settings
+        characters = self._load_characters(story_id)
 
         dialogues = []
         for d in data.get("dialogue", []):
@@ -63,6 +95,19 @@ class DiskSceneAdapter(SceneAdapter):
                     speaker = char_data.get("id", "")
                     text = char_data.get("text", d.get("text", ""))
                     mood = char_data.get("mood", d.get("mood"))
+
+                # Auto-generate voice_url from character settings if not explicit
+                if not char_voice and speaker in characters and language != "en":
+                    char_settings = characters[speaker]
+                    voice_id_key = f"voice_id_{language}"
+                    voice_id = char_settings.get(voice_id_key)
+                    if voice_id:
+                        speed = char_settings.get("speed", 1.0)
+                        pitch = char_settings.get("pitch", 0)
+                        text_hash = _get_text_hash(text, language)
+                        lang_prefix = f"{language}_" if language != "en" else ""
+                        char_voice = f"{lang_prefix}voice_{speaker}_{text_hash}_{speed}_{pitch}.mp3"
+
                 dialogues.append(
                     DialogueLine(
                         speaker=speaker,

@@ -1,5 +1,7 @@
 id: lightsaber_ignite
-title: Energy Blade Ignition
+title:
+  en: "Energy Blade Ignition"
+  ru: "Активация Энергетического Клинка"
 background_prompt: close up of energy blade ignition, glowing plasma extending with
   motion blur, humming energy, sparks, cinematic weapon reveal
 music: heroic_adventure_flight__epic_orchestral__John_Wil.mp3

@@ -4,6 +4,7 @@ kai_tara:
   description: "Young Jedi Knight, skilled in Form III and Force sense, stationed on Kashyyyk"
   appearance_prompt: "human female Jedi Knight, brown hair in practical braid, wearing traditional tan Jedi robes, holding ignited blue lightsaber, standing proudly, jungle temple background, cinematic lighting, star wars universe"
   voice_id: "English_Graceful_Lady"
+  voice_id_ru: "Russian_expressive_female"
   speed: 1.0
   pitch: 2
 
@@ -13,6 +14,7 @@ master_ysanna:
   description: "Veteran Jedi Master, Kai-Tara's mentor, Wookiee-human hybrid"
   appearance_prompt: "elderly female Jedi Master, silver hair, wearing dark brown robes with Wookiee fur accents, wise kind face, standing in Jedi temple interior, star wars universe, cinematic"
   voice_id: "English_Insightful_Speaker"
+  voice_id_ru: "Russian_mature_female"
   speed: 0.85
   pitch: -3
 
@@ -22,6 +24,7 @@ chewbacca:
   description: "Legendary Wookiee co-pilot of Millennium Falcon, ally of the Jedi"
   appearance_prompt: "fierce Wookiee warrior with brown fur, wearing utility belt with holsters, holding DL-44 pistol, standing in dense jungle, Kashyyyk backdrop, star wars universe, cinematic lighting"
   voice_id: "English_Persuasive_Man"
+  voice_id_ru: "Russian_expressive_male"
   speed: 0.9
   pitch: 5
 
@@ -31,6 +34,7 @@ darth_varek:
   description: "Sith acolyte seeking ancient knowledge, servant of残留 Sith Lord"
   appearance_prompt: "menacing dark figure in black robes with crimson accents, hood up showing scarred face, red lightsaber ignited, dark throne room with Sith artifacts, star wars universe, dramatic lighting"
   voice_id: "English_Persuasive_Man"
+  voice_id_ru: "Russian_deep_male"
   speed: 1.1
   pitch: -8
 
@@ -40,6 +44,7 @@ tarri:
   description: "Young Wookiee cub, nephew of Chewbacca, potential Force-sensitive"
   appearance_prompt: "young Wookiee cub with lighter brown fur, big expressive eyes, wearing simple cloth vest, standing shyly, Kashyyyk treehouse interior, warm lighting, star wars universe"
   voice_id: "English_radiant_girl"
+  voice_id_ru: "Russian_young_female"
   speed: 1.2
   pitch: 6
 
@@ -49,5 +54,6 @@ boushh:
   description: "Wookiee bounty hunter, Chewbacca's cousin, works as informant"
   appearance_prompt: "large Wookiee bounty hunter in worn combat armor with EE-3 carbine rifle, serious expression, standing in shadow, industrial spaceport cantina, star wars universe"
   voice_id: "English_Persuasive_Man"
+  voice_id_ru: "Russian_gravelly_male"
   speed: 0.8
   pitch: -2

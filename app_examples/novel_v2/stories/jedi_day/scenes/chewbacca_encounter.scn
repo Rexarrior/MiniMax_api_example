@@ -1,45 +1,64 @@
 id: chewbacca_encounter
-title: Reunion with Chewbacca
+title:
+  en: "Reunion with Chewbacca"
+  ru: "Встреча с Чуивакой"
 background_prompt: Treehouse clearing with Chewbacca and young Tarri, dense jungle
   visible through gaps, warm lantern glow, dramatic shadows, intimate conversation
   setting, star wars universe
 music: friendly_reunion_warm__emotional_reunion_music__to.mp3
 dialogue:
-- narrator: Chewbacca leads Kai-Tara to a quieter platform, away from curious eyes.
+- narrator:
+    en: "Chewbacca leads Kai-Tara to a quieter platform, away from curious eyes."
+    ru: "Чуивака ведёт Кай-Тара на более тихую платформу, вдали от любопытных глаз."
 - character:
     id: chewbacca
-    text: Treechoppaw has been taken by the dark one. My nephew... he was exploring
-      the old paths.
+    text:
+      en: "Treechoppaw has been taken by the dark one. My nephew... he was exploring the old paths."
+      ru: "Тричоппа был похищен тёмным. Мой племянник... он исследовал старые тропы."
     mood: worried
     image: char_chewbacca_encounter_chewbacca_worried_fierce_Wookiee_warrior_with_brown_fur__w_0.jpeg
 - character:
     id: kai_tara
-    text: The Shrine of Dagorr? I sensed that location. It's a Sith ritual site.
+    text:
+      en: "The Shrine of Dagorr? I sensed that location. It's a Sith ritual site."
+      ru: "Храм Дагорр? Я чувствовала это место. Это культовое место ситхов."
     mood: serious
     image: char_chewbacca_encounter_kai_tara_serious_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 - character:
     id: chewbacca
-    text: Raawr! (The dark one - he wears red blades, speaks of ancient power)
+    text:
+      en: "Raawr! (The dark one - he wears red blades, speaks of ancient power)"
+      ru: "Рраааа! (Тёмный — он носит красные мечи, говорит о древней силе)"
     mood: angry
     image: char_chewbacca_encounter_chewbacca_angry_fierce_Wookiee_warrior_with_brown_fur__w_0.jpeg
 - character:
     id: kai_tara
-    text: A Sith acolyte. Dangerous, but not a Master. We can handle this.
+    text:
+      en: "A Sith acolyte. Dangerous, but not a Master. We can handle this."
+      ru: "Адепт ситхов. Опасен, но не Мастер. Мы справимся."
     mood: confident
     image: char_chewbacca_encounter_kai_tara_confident_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 - character:
     id: tarri
-    text: Please save my uncle! I'll do anything!
+    text:
+      en: "Please save my uncle! I'll do anything!"
+      ru: "Пожалуйста, спаси моего дядю! Я что угодно сделаю!"
     mood: desperate
     image: char_chewbacca_encounter_tarri_desperate_young_Wookiee_cub_with_lighter_brown_fur_0.jpeg
 - character:
     id: kai_tara
-    text: Stay here, young one. I'll bring him back.
+    text:
+      en: "Stay here, young one. I'll bring him back."
+      ru: "Оставайся здесь, малыш. Я его верну."
     mood: determined
     image: char_chewbacca_encounter_kai_tara_determined_human_female_Jedi_Knight__brown_hair_in__0.jpeg
 choice:
-- text: Go alone to maintain stealth
+- text:
+    en: "Go alone to maintain stealth"
+    ru: "Идти одной для скрытности"
   next: dark_omen
-- text: Take Boushh as backup
+- text:
+    en: "Take Boushh as backup"
+    ru: "Взять Бауша как подкрепление"
   next: Boushh_backup
 background: bg_chewbacca_encounter_Treehouse_clearing_with_Chewbacca_and_young_Tarri__0.jpeg
