@@ -14,8 +14,3 @@ non-commit
 
 # Roguelike build artifacts
 app_examples/roguelike/build/
-*.mp3
-*.wav
-# Generated novel assets
-app_examples/novel_v2/stories/*/assets/voices/*.mp3
-app_examples/novel_v2/stories/*/assets/videos/*.mp4
