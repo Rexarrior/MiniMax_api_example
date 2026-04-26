@@ -9,6 +9,7 @@ class GameSession:
     session_id: str
     user_id: Optional[str]
     story_id: str
+    language: str
     current_scene_id: str
     dialogue_index: int
     is_ending: bool
@@ -25,7 +26,7 @@ class GameSession:
 class GameEngine(ABC):
     @abstractmethod
     async def start_session(
-        self, story_id: str, user_id: str | None = None
+        self, story_id: str, user_id: str | None = None, language: str = "en"
     ) -> GameSession:
         """Start a new game session"""
         pass

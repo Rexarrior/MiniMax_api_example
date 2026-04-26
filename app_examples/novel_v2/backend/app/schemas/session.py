@@ -6,12 +6,14 @@ from datetime import datetime
 class SessionCreate(BaseModel):
     story_id: str
     user_id: Optional[str] = None
+    language: str = "en"
 
 
 class SessionResponse(BaseModel):
     session_id: str
     user_id: Optional[str]
     story_id: str
+    language: str
     current_scene_id: str
     dialogue_index: int
     is_ending: bool

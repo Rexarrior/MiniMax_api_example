@@ -28,6 +28,7 @@ export interface GameSession {
   session_id: string
   user_id: string | null
   story_id: string
+  language: string
   current_scene_id: string
   dialogue_index: number
   is_ending: boolean

@@ -10,6 +10,9 @@ from app.schemas.session import SessionResponse, SessionCreate
 from app.schemas.scene import SceneResponse, ChoiceRequest, DialogueSchema, ChoiceSchema
 from typing import Optional
 import time
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class GameService:
@@ -24,7 +27,9 @@ class GameService:
         return await self.scene_adapter.list_stories()
 
     async def start_game(self, request: SessionCreate) -> SessionResponse:
-        session = await self.engine.start_session(request.story_id, request.user_id)
+        session = await self.engine.start_session(
+            request.story_id, request.user_id, language=request.language
+        )
         return self._session_to_response(session)
 
     async def get_session(self, session_id: str) -> SessionResponse:
@@ -33,13 +38,15 @@ class GameService:
             raise SessionNotFoundError(f"Session {session_id} not found")
         return self._session_to_response(session)
 
-    async def get_scene(self, session_id: str) -> SceneResponse:
+    async def get_scene(self, session_id: str, language: str = "en") -> SceneResponse:
         session = await self.engine.get_session(session_id)
         if not session:
             raise SessionNotFoundError(f"Session {session_id} not found")
 
+        logger.info(f"[get_scene] session_id={session_id}, language={language}, current_scene={session.current_scene_id}, dialogue_index={session.dialogue_index}")
+
         scene_data = await self.scene_adapter.load_scene(
-            session.story_id, session.current_scene_id
+            session.story_id, session.current_scene_id, language=language
         )
 
         # Build full scene response with URLs
@@ -81,7 +88,7 @@ class GameService:
             dialogues.append(
                 DialogueSchema(
                     speaker=d.speaker,
-                    text=d.text,
+                    text=d.get_text(language),  # Use get_text() for i18n
                     mood=d.mood,
                     voice_url=voice_url,
                     character_image_url=char_image_url,
@@ -89,13 +96,13 @@ class GameService:
             )
 
         choices = [
-            ChoiceSchema(text=c.text, next_scene_id=c.next_scene_id)
+            ChoiceSchema(text=c.get_text(language), next_scene_id=c.next_scene_id)  # Use get_text() for i18n
             for c in scene_data.choices
         ]
 
         return SceneResponse(
             scene_id=scene_data.id,
-            title=scene_data.title,
+            title=scene_data.get_title(language),  # Use get_title() for i18n
             background_url=background_url,
             background_video_url=None,
             dialogues=dialogues,
@@ -113,7 +120,9 @@ class GameService:
         return self._session_to_response(session)
 
     async def advance_dialogue(self, session_id: str) -> SessionResponse:
+        logger.info(f"[advance_dialogue] BEFORE session_id={session_id}")
         session = await self.engine.advance_dialogue(session_id)
+        logger.info(f"[advance_dialogue] AFTER session_id={session_id}, current_scene={session.current_scene_id}, dialogue_index={session.dialogue_index}")
         return self._session_to_response(session)
 
     def _session_to_response(self, session) -> SessionResponse:
@@ -121,6 +130,7 @@ class GameService:
             session_id=str(session.session_id),
             user_id=session.user_id,
             story_id=session.story_id,
+            language=session.language,
             current_scene_id=session.current_scene_id,
             dialogue_index=session.dialogue_index,
             is_ending=session.is_ending,

@@ -44,12 +44,13 @@ export const useGameStore = defineStore('game', () => {
     status.value = 'loading'
     error.value = null
     try {
-      const session = await novelApi.startGame({ story_id: newStoryId })
+      const lang = getLanguage()
+      const session = await novelApi.startGame({ story_id: newStoryId, language: lang })
       sessionId.value = session.session_id
       storyId.value = newStoryId
 
       // Fetch initial scene with current language
-      const scene = await novelApi.getScene(session.session_id, getLanguage())
+      const scene = await novelApi.getScene(session.session_id, lang)
       currentScene.value = scene
       dialogueIndex.value = 0
       status.value = 'playing'

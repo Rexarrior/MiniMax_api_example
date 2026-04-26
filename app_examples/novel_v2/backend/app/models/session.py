@@ -13,6 +13,7 @@ class GameSessionModel(Base):
     session_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(String(255), nullable=True, index=True)
     story_id = Column(String(255), nullable=False, index=True)
+    language = Column(String(10), default="en")
     current_scene_id = Column(String(255), nullable=False)
     dialogue_index = Column(Integer, default=0)
     is_ending = Column(Boolean, default=False)

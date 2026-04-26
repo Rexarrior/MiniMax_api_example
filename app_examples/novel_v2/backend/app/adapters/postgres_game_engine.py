@@ -10,6 +10,9 @@ from app.models.session import GameSessionModel
 from app.repositories.session_repository import SessionRepository
 from datetime import datetime
 from typing import Optional
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class PostgresGameEngine(GameEngine):
@@ -49,10 +52,10 @@ class PostgresGameEngine(GameEngine):
         return (background_url, music_url, current_character_image_url)
 
     async def start_session(
-        self, story_id: str, user_id: str | None = None
+        self, story_id: str, user_id: str | None = None, language: str = "en"
     ) -> GameSession:
         start_scene_id = await self.scene_adapter.get_story_start_scene(story_id)
-        scene_data = await self.scene_adapter.load_scene(story_id, start_scene_id)
+        scene_data = await self.scene_adapter.load_scene(story_id, start_scene_id, language=language)
 
         (
             background_url,
@@ -63,6 +66,7 @@ class PostgresGameEngine(GameEngine):
         session_model = GameSessionModel(
             user_id=user_id,
             story_id=story_id,
+            language=language,
             current_scene_id=start_scene_id,
             dialogue_index=0,
             is_ending=False,
@@ -105,7 +109,7 @@ class PostgresGameEngine(GameEngine):
 
         next_scene_id = choices[choice_index]["next"]
 
-        scene_data = await self.scene_adapter.load_scene(model.story_id, next_scene_id)
+        scene_data = await self.scene_adapter.load_scene(model.story_id, next_scene_id, language=model.language)
 
         (
             background_url,
@@ -143,12 +147,18 @@ class PostgresGameEngine(GameEngine):
         if not model:
             raise SessionNotFoundError(f"Session {session_id} not found")
 
+        logger.info(f"[PG_advance] session_id={session_id}, BEFORE: dialogue_index={model.dialogue_index}, len(dialogues)={len(model.dialogues_json)}, next_scene={model.next_scene_id}")
+
         model.dialogue_index += 1
 
+        logger.info(f"[PG_advance] session_id={session_id}, AFTER INDEX INC: dialogue_index={model.dialogue_index}")
+
         if model.dialogue_index >= len(model.dialogues_json):
+            logger.info(f"[PG_advance] session_id={session_id}, REACHED END OF DIALOGUES")
             if model.next_scene_id:
+                logger.info(f"[PG_advance] session_id={session_id}, LOADING NEXT SCENE: {model.next_scene_id}")
                 scene_data = await self.scene_adapter.load_scene(
-                    model.story_id, model.next_scene_id
+                    model.story_id, model.next_scene_id, language=model.language
                 )
                 (
                     background_url,
@@ -189,6 +199,7 @@ class PostgresGameEngine(GameEngine):
             session_id=str(model.session_id),
             user_id=model.user_id,
             story_id=model.story_id,
+            language=model.language,
             current_scene_id=model.current_scene_id,
             dialogue_index=model.dialogue_index,
             is_ending=model.is_ending,

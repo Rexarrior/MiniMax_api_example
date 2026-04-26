@@ -9,6 +9,7 @@ export interface ApiResponse<T> {
 export interface StartGameRequest {
   story_id: string
   user_id?: string
+  language?: string
 }
 
 export interface ChoiceRequest {
