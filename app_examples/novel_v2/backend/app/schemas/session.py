@@ -1,12 +1,12 @@
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, Field
+from typing import Optional, Literal
 from datetime import datetime
 
 
 class SessionCreate(BaseModel):
-    story_id: str
+    story_id: str = Field(..., min_length=1, description="Story identifier")
     user_id: Optional[str] = None
-    language: str = "en"
+    language: Literal["en", "ru"] = "en"
 
 
 class SessionResponse(BaseModel):

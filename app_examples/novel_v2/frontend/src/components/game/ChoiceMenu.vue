@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Choice } from '../../types/novel'
 
-defineProps<{
-  choices: Choice[]
+const props = defineProps<{
+  choices?: Choice[]
 }>()
 
 const emit = defineEmits<{
@@ -15,12 +15,12 @@ function handleSelect(index: number) {
 </script>
 
 <template>
-  <div class="choice-menu mt-4 space-y-2">
+  <div v-if="choices && choices.length > 0" class="choice-menu mt-4 space-y-2">
     <button
       v-for="(choice, index) in choices"
       :key="index"
       @click.stop="handleSelect(index)"
-      class="w-full p-3 bg-gray-800 hover:bg-purple-700 
+      class="w-full p-3 bg-gray-800 hover:bg-purple-700
              text-left text-white rounded-lg
              transition-colors duration-200
              border border-gray-700 hover:border-purple-500"

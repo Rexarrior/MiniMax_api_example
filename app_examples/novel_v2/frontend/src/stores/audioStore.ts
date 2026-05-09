@@ -10,10 +10,16 @@ export const useAudioStore = defineStore('audio', () => {
   const sfxVolume = ref(0.8)
   const currentMusic = ref<string | null>(null)
   const isMusicPlaying = ref(false)
-  
+
   // Howl instances
   let currentMusicHowl: Howl | null = null
   let currentVoiceHowl: Howl | null = null
+
+  // Track pending music URL to prevent race conditions
+  let pendingMusicUrl: string | null = null
+
+  // Store fade intervals so they can be cleared
+  let fadeInterval: ReturnType<typeof setInterval> | null = null
 
   // Crossfade duration in seconds
   const CROSSFADE_DURATION = 1.5
@@ -22,28 +28,37 @@ export const useAudioStore = defineStore('audio', () => {
   const effectiveMusicVolume = computed(() => isMuted.value ? 0 : musicVolume.value)
   const effectiveVoiceVolume = computed(() => isMuted.value ? 0 : voiceVolume.value)
 
+  function clearFadeInterval() {
+    if (fadeInterval !== null) {
+      clearInterval(fadeInterval)
+      fadeInterval = null
+    }
+  }
+
   // Actions
   function playMusic(url: string, fadeIn = true) {
     if (!url) return
-    
-    // If same music is playing, don't restart
-    if (currentMusic.value === url && currentMusicHowl && isMusicPlaying.value) {
+
+    // If same music is playing or pending, don't restart
+    if ((currentMusic.value === url || pendingMusicUrl === url) && currentMusicHowl && isMusicPlaying.value) {
       return
     }
+
+    // Stop any existing fade interval
+    clearFadeInterval()
 
     // Fade out current music
     if (currentMusicHowl && isMusicPlaying.value) {
       const oldHowl = currentMusicHowl
       if (fadeIn) {
         // Start fading out
-        const fadeStep = 0.1
         const steps = CROSSFADE_DURATION * 10
         let currentStep = 0
-        const interval = setInterval(() => {
+        fadeInterval = setInterval(() => {
           currentStep++
           oldHowl.volume(effectiveMusicVolume.value * (1 - currentStep / steps))
           if (currentStep >= steps) {
-            clearInterval(interval)
+            clearFadeInterval()
             oldHowl.stop()
           }
         }, 100)
@@ -51,6 +66,9 @@ export const useAudioStore = defineStore('audio', () => {
         oldHowl.stop()
       }
     }
+
+    // Mark this URL as pending
+    pendingMusicUrl = url
 
     // Create new music instance
     currentMusicHowl = new Howl({
@@ -60,17 +78,19 @@ export const useAudioStore = defineStore('audio', () => {
       onplay: () => {
         isMusicPlaying.value = true
         currentMusic.value = url
-        
+        pendingMusicUrl = null
+
         // Fade in
         if (fadeIn) {
-          const fadeStep = 0.1
           const steps = CROSSFADE_DURATION * 10
           let currentStep = 0
-          const interval = setInterval(() => {
+          fadeInterval = setInterval(() => {
             currentStep++
-            currentMusicHowl!.volume(effectiveMusicVolume.value * (currentStep / steps))
+            if (currentMusicHowl) {
+              currentMusicHowl.volume(effectiveMusicVolume.value * (currentStep / steps))
+            }
             if (currentStep >= steps) {
-              clearInterval(interval)
+              clearFadeInterval()
             }
           }, 100)
         }
@@ -78,8 +98,13 @@ export const useAudioStore = defineStore('audio', () => {
       onend: () => {
         isMusicPlaying.value = false
       },
+      onloaderror: () => {
+        // Clean up on error
+        pendingMusicUrl = null
+        isMusicPlaying.value = false
+      },
     })
-    
+
     currentMusicHowl.play()
   }
 
@@ -98,16 +123,18 @@ export const useAudioStore = defineStore('audio', () => {
         currentVoiceHowl = null
       },
     })
-    
+
     currentVoiceHowl.play()
   }
 
   function stopMusic() {
+    clearFadeInterval()
     if (currentMusicHowl) {
       currentMusicHowl.stop()
       currentMusicHowl = null
     }
     currentMusic.value = null
+    pendingMusicUrl = null
     isMusicPlaying.value = false
   }
 

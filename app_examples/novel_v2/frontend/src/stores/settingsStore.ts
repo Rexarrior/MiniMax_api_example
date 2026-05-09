@@ -44,6 +44,13 @@ export const useSettingsStore = defineStore('settings', () => {
     voiceEnabled.value = false
     autoAdvance.value = false
     skipOngoing.value = false
+    language.value = 'en'
+    // Clear all settings from localStorage
+    localStorage.removeItem('settings_cps')
+    localStorage.removeItem('settings_voice')
+    localStorage.removeItem('settings_auto')
+    localStorage.removeItem('settings_skip')
+    localStorage.removeItem('settings_language')
   }
 
   return {

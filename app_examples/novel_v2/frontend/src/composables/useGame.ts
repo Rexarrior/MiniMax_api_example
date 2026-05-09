@@ -34,9 +34,14 @@ export function useGame() {
   )
   
   async function startStory(storyId: string) {
-    await gameStore.startGame(storyId)
-    if (gameStore.isPlaying) {
-      router.push({ name: 'Game', params: { storyId } })
+    try {
+      await gameStore.startGame(storyId)
+      if (gameStore.isPlaying) {
+        router.push({ name: 'Game', params: { storyId } })
+      }
+    } catch (error) {
+      console.error('Failed to start story:', error)
+      // Error is already handled in gameStore.startGame and set on gameStore.error
     }
   }
   

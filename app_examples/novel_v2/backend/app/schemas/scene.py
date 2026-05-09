@@ -29,4 +29,4 @@ class SceneResponse(BaseModel):
 
 
 class ChoiceRequest(BaseModel):
-    choice_index: int
+    choice_index: int = Field(..., ge=0, description="Index of the choice to make")

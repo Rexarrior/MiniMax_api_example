@@ -13,16 +13,27 @@ export const useStoryStore = defineStore('story', () => {
   const storyCount = computed(() => stories.value.length)
 
   // Actions
-  async function fetchStories() {
+  async function fetchStories(retries = 3, delay = 1000) {
     isLoading.value = true
     error.value = null
-    try {
-      stories.value = await novelApi.listStories()
-    } catch (e) {
-      error.value = e instanceof Error ? e.message : 'Failed to fetch stories'
-    } finally {
-      isLoading.value = false
+    let lastError: Error | null = null
+
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        stories.value = await novelApi.listStories()
+        isLoading.value = false
+        return
+      } catch (e) {
+        lastError = e instanceof Error ? e : new Error('Failed to fetch stories')
+        if (attempt < retries) {
+          // Exponential backoff: 1s, 2s, 4s
+          await new Promise(resolve => setTimeout(resolve, delay * Math.pow(2, attempt)))
+        }
+      }
     }
+
+    error.value = lastError?.message ?? 'Failed to fetch stories'
+    isLoading.value = false
   }
 
   function getStoryById(id: string): Story | undefined {
