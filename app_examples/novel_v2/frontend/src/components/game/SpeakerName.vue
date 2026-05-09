@@ -4,10 +4,15 @@ defineProps<{
 }>()
 
 function formatName(name: string): string {
+  // Only split and capitalize if name contains underscore
+  // Otherwise return as-is to avoid double-capitalization
+  if (name.includes('_')) {
+    return name
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  }
   return name
-    .split('_')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
 }
 </script>
 

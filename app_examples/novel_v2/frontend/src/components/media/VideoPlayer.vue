@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 
 const props = defineProps<{
   videoUrl: string | null
@@ -12,6 +12,7 @@ const emit = defineEmits<{
 }>()
 
 const videoRef = ref<HTMLVideoElement | null>(null)
+const containerRef = ref<HTMLDivElement | null>(null)
 
 watch(() => props.videoUrl, (newUrl) => {
   if (videoRef.value) {
@@ -22,6 +23,11 @@ watch(() => props.videoUrl, (newUrl) => {
       videoRef.value.pause()
     }
   }
+})
+
+onMounted(() => {
+  // Ensure the container is focusable and receives keyboard events
+  containerRef.value?.focus()
 })
 
 function handleEnded() {
@@ -36,8 +42,9 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <div 
+  <div
     v-if="videoUrl"
+    ref="containerRef"
     class="video-player fixed inset-0 z-50 bg-black"
     @keydown="handleKeydown"
     tabindex="0"

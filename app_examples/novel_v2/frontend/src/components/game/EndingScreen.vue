@@ -12,12 +12,14 @@ function goToTitle() {
   router.push({ name: 'Title' })
 }
 
-function replayStory() {
+async function replayStory() {
   const storyId = gameStore.storyId
   gameStore.resetGame()
   if (storyId) {
-    gameStore.startGame(storyId)
-    router.push({ name: 'Game', params: { storyId } })
+    await gameStore.startGame(storyId)
+    if (gameStore.isPlaying) {
+      router.push({ name: 'Game', params: { storyId } })
+    }
   }
 }
 </script>
