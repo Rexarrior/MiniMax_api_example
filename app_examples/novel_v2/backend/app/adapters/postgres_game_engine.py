@@ -8,7 +8,7 @@ from app.core.exceptions import (
 )
 from app.models.session import GameSessionModel
 from app.repositories.session_repository import SessionRepository
-from datetime import datetime
+from datetime import datetime, UTC
 from typing import Optional
 import logging
 
@@ -74,12 +74,12 @@ class PostgresGameEngine(GameEngine):
             music_url=music_url,
             current_character_image_url=current_character_image_url,
             choices_json=[
-                {"text": c.text, "next": c.next_scene_id} for c in scene_data.choices
+                {"text": c.get_text(language), "next": c.next_scene_id} for c in scene_data.choices
             ],
             dialogues_json=[
                 {
                     "speaker": d.speaker,
-                    "text": d.text,
+                    "text": d.get_text(language),
                     "mood": d.mood,
                     "voice_url": d.voice_url,
                     "character_image_url": d.character_image_url,
@@ -124,12 +124,12 @@ class PostgresGameEngine(GameEngine):
         model.music_url = music_url
         model.current_character_image_url = current_character_image_url
         model.choices_json = [
-            {"text": c.text, "next": c.next_scene_id} for c in scene_data.choices
+            {"text": c.get_text(model.language), "next": c.next_scene_id} for c in scene_data.choices
         ]
         model.dialogues_json = [
             {
                 "speaker": d.speaker,
-                "text": d.text,
+                "text": d.get_text(model.language),
                 "mood": d.mood,
                 "voice_url": d.voice_url,
                 "character_image_url": d.character_image_url,
@@ -137,7 +137,7 @@ class PostgresGameEngine(GameEngine):
             for d in scene_data.dialogues
         ]
         model.next_scene_id = scene_data.next_scene_id
-        model.updated_at = datetime.utcnow()
+        model.updated_at = datetime.now(UTC)
 
         updated = await self.session_repo.update(model)
         return self._model_to_session(updated)
@@ -173,13 +173,13 @@ class PostgresGameEngine(GameEngine):
                 model.music_url = music_url
                 model.current_character_image_url = current_character_image_url
                 model.choices_json = [
-                    {"text": c.text, "next": c.next_scene_id}
+                    {"text": c.get_text(model.language), "next": c.next_scene_id}
                     for c in scene_data.choices
                 ]
                 model.dialogues_json = [
                     {
                         "speaker": d.speaker,
-                        "text": d.text,
+                        "text": d.get_text(model.language),
                         "mood": d.mood,
                         "voice_url": d.voice_url,
                         "character_image_url": d.character_image_url,
@@ -188,9 +188,11 @@ class PostgresGameEngine(GameEngine):
                 ]
                 model.next_scene_id = scene_data.next_scene_id
             elif not model.choices_json:
+                # Keep dialogue_index at last valid position
+                model.dialogue_index = len(model.dialogues_json) - 1
                 model.is_ending = True
 
-        model.updated_at = datetime.utcnow()
+        model.updated_at = datetime.now(UTC)
         updated = await self.session_repo.update(model)
         return self._model_to_session(updated)
 

@@ -74,10 +74,15 @@ export const useGameStore = defineStore('game', () => {
 
   async function makeChoice(choiceIndex: number) {
     if (!hasChoices.value) return
+    if (!sessionId.value) {
+      error.value = 'No session ID'
+      status.value = 'error'
+      return
+    }
     status.value = 'loading'
     error.value = null
     try {
-      const session = await novelApi.makeChoice(choiceIndex)
+      const session = await novelApi.makeChoice(sessionId.value, choiceIndex)
       const scene = await novelApi.getScene(session.session_id, getLanguage())
       currentScene.value = scene
       dialogueIndex.value = 0
@@ -92,7 +97,7 @@ export const useGameStore = defineStore('game', () => {
     if (!sessionId.value) return
 
     try {
-      const session = await novelApi.advanceDialogue()
+      const session = await novelApi.advanceDialogue(sessionId.value)
 
       // Check if scene changed (server transitioned to new scene)
       if (session.current_scene_id !== currentScene.value?.scene_id) {
@@ -104,8 +109,8 @@ export const useGameStore = defineStore('game', () => {
       // Same scene - increment local dialogue index
       if (dialogueIndex.value < (currentScene.value?.dialogues.length ?? 0) - 1) {
         dialogueIndex.value++
-      } else if (!currentScene.value?.choices || currentScene.value.choices.length === 0) {
-        // No more dialogues and no choices - this is an ending
+      } else if (!currentScene.value?.choices || currentScene.value.choices.length === 0 || currentScene.value.is_ending) {
+        // No more dialogues - this is an ending (no choices or server-marked ending)
         status.value = 'ending'
       }
     } catch (e) {
@@ -114,7 +119,7 @@ export const useGameStore = defineStore('game', () => {
   }
 
   function nextDialogue() {
-    if (dialogueIndex.value < (currentScene.value?.dialogues.length ?? 0)) {
+    if (dialogueIndex.value < (currentScene.value?.dialogues.length ?? 0) - 1) {
       dialogueIndex.value++
     }
   }

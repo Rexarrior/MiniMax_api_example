@@ -1,10 +1,15 @@
 from sqlalchemy import Column, String, Integer, Boolean, Text, DateTime, JSON
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
-from datetime import datetime
+from datetime import datetime, UTC
 import uuid
 
 Base = declarative_base()
+
+
+def utc_now():
+    """Return current UTC time (Python 3.12+ compatible)."""
+    return datetime.now(UTC)
 
 
 class GameSessionModel(Base):
@@ -23,8 +28,8 @@ class GameSessionModel(Base):
     choices_json = Column(JSON, default=list)
     dialogues_json = Column(JSON, default=list)
     next_scene_id = Column(String(255), nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=utc_now)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now)
 
     def to_dict(self) -> dict:
         return {

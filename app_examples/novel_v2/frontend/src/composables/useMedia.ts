@@ -23,25 +23,45 @@ export function useMedia() {
     })
   }
   
-  async function preloadMedia(urls: string[]) {
+  async function preloadMedia(urls: string[]): Promise<{ successful: string[]; failed: string[] }> {
     isLoading.value = true
     error.value = null
-    
-    try {
-      await Promise.all(
-        urls.map(async (url) => {
+
+    const successful: string[] = []
+    const failed: string[] = []
+
+    const results = await Promise.allSettled(
+      urls.map(async (url) => {
+        try {
           if (url.match(/\.(jpg|jpeg|png|webp|gif)$/i)) {
-            return preloadImage(url)
+            await preloadImage(url)
           } else if (url.match(/\.(mp3|ogg|wav)$/i)) {
-            return preloadAudio(url)
+            await preloadAudio(url)
+          } else {
+            // Unsupported file type - this is not an error, just skip it
+            // Videos and other types are not preloaded by this function
+            console.warn(`Unsupported media type for preloading: ${url}`)
+            return // Early return for unsupported types
           }
-        })
-      )
-    } catch (e) {
-      error.value = e instanceof Error ? e.message : 'Failed to preload media'
-    } finally {
-      isLoading.value = false
+          successful.push(url)
+        } catch (e) {
+          failed.push(url)
+          throw e // Re-throw so Promise.allSettled captures the rejection
+        }
+      })
+    )
+
+    // Check for failures
+    const errors = results
+      .filter((r): r is PromiseRejectedResult => r.status === 'rejected')
+      .map(r => r.reason?.message || 'Unknown error')
+
+    if (errors.length > 0) {
+      error.value = `Failed to preload ${errors.length} media file(s): ${errors.join(', ')}`
     }
+
+    isLoading.value = false
+    return { successful, failed }
   }
   
   return {

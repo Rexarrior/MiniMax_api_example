@@ -29,6 +29,10 @@ async def startup():
 
 
 # CORS middleware
+# Validate CORS configuration for security
+if "*" in settings.cors_origins and settings.environment == "production":
+    raise ValueError("Wildcard origin '*' not allowed in production with credentials")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,

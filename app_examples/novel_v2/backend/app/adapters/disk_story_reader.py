@@ -20,12 +20,45 @@ class DiskStoryReader(StoryReader):
         self.stories_dir = Path(stories_dir)
         self.media_base_url = media_base_url
 
+    def _validate_path(self, filename: str, base_dir: Path) -> Optional[Path]:
+        """Validate that a filename doesn't contain path traversal.
+
+        Args:
+            filename: The filename/path to validate
+            base_dir: The expected base directory
+
+        Returns:
+            Resolved Path if valid, None if invalid (traversal detected)
+        """
+        # Reject absolute paths
+        if Path(filename).is_absolute():
+            return None
+
+        # Reject paths containing ..
+        if ".." in filename:
+            return None
+
+        # Build the full path and resolve it
+        full_path = base_dir / filename
+        try:
+            resolved = full_path.resolve()
+            # Verify the resolved path is still within base_dir
+            resolved.relative_to(base_dir.resolve())
+            return resolved
+        except ValueError:
+            # Path escaped base_dir
+            return None
+
     def _get_url(self, story_id: str, *parts: str) -> str:
         """Build a media URL from parts"""
         return f"{self.media_base_url}/{story_id}/" + "/".join(parts)
 
     async def get_audio_url(self, story_id: str, audio_name: str) -> Optional[str]:
         """Get URL for background music"""
+        # Validate input
+        if not self._validate_path(audio_name, self.stories_dir / story_id / "assets" / "music"):
+            return None
+
         # Check if audio_name already has an extension
         base_name = audio_name
         for ext in [".mp3", ".ogg", ".wav"]:
@@ -45,11 +78,16 @@ class DiskStoryReader(StoryReader):
         self, story_id: str, character: str, voice_id: str
     ) -> Optional[str]:
         """Get URL for character voice line"""
-        path = self.stories_dir / story_id / "assets" / "voices" / voice_id
+        # Validate input
+        voices_dir = self.stories_dir / story_id / "assets" / "voices"
+        if not self._validate_path(voice_id, voices_dir):
+            return None
+
+        path = voices_dir / voice_id
         if path.exists():
             return self._get_url(story_id, "assets", "voices", voice_id)
 
-        mp3_path = self.stories_dir / story_id / "assets" / "voices" / f"{voice_id}.mp3"
+        mp3_path = voices_dir / f"{voice_id}.mp3"
         if mp3_path.exists():
             return self._get_url(story_id, "assets", "voices", f"{voice_id}.mp3")
 
@@ -57,13 +95,16 @@ class DiskStoryReader(StoryReader):
 
     async def get_video_url(self, story_id: str, video_name: str) -> Optional[str]:
         """Get URL for video asset"""
+        # Validate input
+        videos_dir = self.stories_dir / story_id / "assets" / "videos"
+        if not self._validate_path(video_name, videos_dir):
+            return None
+
         for ext in [".mp4", ".webm"]:
-            path = (
-                self.stories_dir / story_id / "assets" / "videos" / f"{video_name}{ext}"
-            )
+            path = videos_dir / f"{video_name}{ext}"
             if path.exists():
                 return self._get_url(story_id, "assets", "videos", f"{video_name}{ext}")
-        path = self.stories_dir / story_id / "assets" / "videos" / video_name
+        path = videos_dir / video_name
         if path.exists():
             return self._get_url(story_id, "assets", "videos", video_name)
         return None
@@ -80,6 +121,12 @@ class DiskStoryReader(StoryReader):
         images_dir = self.stories_dir / story_id / "assets" / "images"
 
         if not images_dir.exists():
+            return None
+
+        # Validate character and mood to prevent path traversal
+        if not self._validate_path(character, images_dir):
+            return None
+        if mood and not self._validate_path(mood, images_dir):
             return None
 
         # If character looks like a full filename (starts with 'char_' or 'bg_'),
@@ -124,6 +171,10 @@ class DiskStoryReader(StoryReader):
         """Get URL for background image"""
         images_dir = self.stories_dir / story_id / "assets" / "images"
 
+        # Validate input
+        if not self._validate_path(background_name, images_dir):
+            return None
+
         for ext in [".png", ".jpg", ".jpeg", ".webp"]:
             path = images_dir / f"{background_name}{ext}"
             if path.exists():
@@ -140,6 +191,10 @@ class DiskStoryReader(StoryReader):
     async def get_image_url(self, story_id: str, image_name: str) -> Optional[str]:
         """Get URL for any image by exact filename (without extension check)"""
         images_dir = self.stories_dir / story_id / "assets" / "images"
+
+        # Validate input
+        if not self._validate_path(image_name, images_dir):
+            return None
 
         # If image_name has extension, try directly
         for ext in ["", ".png", ".jpg", ".jpeg", ".webp"]:

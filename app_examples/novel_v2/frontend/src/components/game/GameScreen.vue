@@ -111,8 +111,8 @@ function handleSoundSkip() {
         
 
         
-        <div 
-          v-if="!hasChoices && !isTyping && !isDialogueComplete"
+        <div
+          v-if="!hasChoices && !isTyping && isDialogueComplete"
           class="text-center text-gray-400 text-sm mt-2 animate-pulse"
         >
           Click to continue...

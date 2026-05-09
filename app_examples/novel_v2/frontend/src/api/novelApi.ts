@@ -36,11 +36,7 @@ class NovelApi {
     return response.data
   }
 
-  async makeChoice(choiceIndex: number): Promise<GameSession> {
-    const sessionId = localStorage.getItem('session_id')
-    if (!sessionId) {
-      throw new Error('No session ID')
-    }
+  async makeChoice(sessionId: string, choiceIndex: number): Promise<GameSession> {
     const response = await client.post(
       '/game/choice',
       { choice_index: choiceIndex },
@@ -49,11 +45,7 @@ class NovelApi {
     return response.data
   }
 
-  async advanceDialogue(): Promise<GameSession> {
-    const sessionId = localStorage.getItem('session_id')
-    if (!sessionId) {
-      throw new Error('No session ID')
-    }
+  async advanceDialogue(sessionId: string): Promise<GameSession> {
     const response = await client.post(
       '/game/advance',
       {},

@@ -2,7 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException, Header
 from app.services.game_service import GameService
 from app.schemas.session import SessionCreate, SessionResponse
 from app.schemas.scene import SceneResponse, ChoiceRequest
-from app.core.exceptions import SessionNotFoundError, InvalidChoiceError
+from app.core.exceptions import (
+    SessionNotFoundError,
+    InvalidChoiceError,
+    StoryNotFoundError,
+    SceneNotFoundError,
+)
 from app.api.deps import get_game_service
 
 router = APIRouter(prefix="/game", tags=["game"])
@@ -35,6 +40,8 @@ async def get_scene(
         return await service.get_scene(session_id, language=language)
     except SessionNotFoundError as e:
         raise HTTPException(status_code=404, detail=str(e))
+    except (StoryNotFoundError, SceneNotFoundError) as e:
+        raise HTTPException(status_code=404, detail=str(e))
 
 
 @router.post("/choice", response_model=SessionResponse)
@@ -49,6 +56,8 @@ async def make_choice(
         raise HTTPException(status_code=404, detail=str(e))
     except InvalidChoiceError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except (StoryNotFoundError, SceneNotFoundError) as e:
+        raise HTTPException(status_code=404, detail=str(e))
 
 
 @router.post("/advance", response_model=SessionResponse)
@@ -58,4 +67,6 @@ async def advance_dialogue(
     try:
         return await service.advance_dialogue(x_session_id)
     except SessionNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except (StoryNotFoundError, SceneNotFoundError) as e:
         raise HTTPException(status_code=404, detail=str(e))

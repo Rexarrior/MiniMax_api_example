@@ -11,7 +11,7 @@ const dialogues = ref<DialogueLine[]>([])
 const playingIndex = ref<number | null>(null)
 const audioRefs = ref<Map<number, HTMLAudioElement>>(new Map())
 
-const API_BASE = 'http://localhost:8000/api'
+const API_BASE = window.location.origin + '/api'
 
 onMounted(async () => {
   try {
