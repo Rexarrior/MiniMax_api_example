@@ -10,12 +10,13 @@ class MockGameEngine(GameEngine):
         self.sessions = {}
 
     async def start_session(
-        self, story_id: str, user_id: str | None = None
+        self, story_id: str, user_id: str | None = None, language: str = "en"
     ) -> GameSession:
         session = GameSession(
             session_id="test-session-123",
             user_id=user_id,
             story_id=story_id,
+            language=language,
             current_scene_id="intro",
             dialogue_index=0,
             is_ending=False,
