@@ -14,3 +14,10 @@ non-commit
 
 # Roguelike build artifacts
 app_examples/roguelike/build/
+
+# Playwright test files
+app_examples/novel_v2/playwright*.js
+.playwright-mcp/
+
+# Personal ignore file (re-include playwright files for local use)
+.gitignore.personal
