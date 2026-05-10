@@ -8,8 +8,8 @@ Base = declarative_base()
 
 
 def utc_now():
-    """Return current UTC time (Python 3.12+ compatible)."""
-    return datetime.now(UTC)
+    """Return current UTC time as naive datetime (for DB compatibility)."""
+    return datetime.now(UTC).replace(tzinfo=None)
 
 
 class GameSessionModel(Base):
