@@ -100,7 +100,8 @@ export const useGameStore = defineStore('game', () => {
       const session = await novelApi.advanceDialogue(sessionId.value)
 
       // Check if scene changed (server transitioned to a new scene)
-      if (session.current_scene_id !== currentScene.value?.scene_id) {
+      // Note: getScene() returns SessionResponse which has current_scene_id, not scene_id
+      if (session.current_scene_id !== currentScene.value?.current_scene_id) {
         // Scene changed - fetch new scene data
         await refreshScene()
         return
