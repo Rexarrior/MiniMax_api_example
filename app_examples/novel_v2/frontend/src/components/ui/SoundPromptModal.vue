@@ -6,7 +6,7 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+  <div @click.stop class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
     <div class="novel-card max-w-md text-center">
       <h2 class="text-2xl font-bold mb-4 text-purple-300">🔊 Enable Sound?</h2>
       <p class="text-gray-300 mb-6">

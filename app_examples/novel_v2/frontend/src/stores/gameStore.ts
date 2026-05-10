@@ -31,7 +31,8 @@ export const useGameStore = defineStore('game', () => {
 
   const isDialogueComplete = computed(() => {
     if (!currentScene.value) return true
-    return dialogueIndex.value >= currentScene.value.dialogues.length
+    // At or past the last dialogue we can display (dialogues.length - 1 is the last valid index)
+    return dialogueIndex.value >= currentScene.value.dialogues.length - 1
   })
 
   // Helper to get current language
