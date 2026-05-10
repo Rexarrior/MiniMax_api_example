@@ -99,7 +99,7 @@ export const useGameStore = defineStore('game', () => {
     try {
       const session = await novelApi.advanceDialogue(sessionId.value)
 
-      // Check if scene changed (server transitioned to new scene)
+      // Check if scene changed (server transitioned to a new scene)
       if (session.current_scene_id !== currentScene.value?.scene_id) {
         // Scene changed - fetch new scene data
         await refreshScene()
@@ -109,9 +109,17 @@ export const useGameStore = defineStore('game', () => {
       // Same scene - increment local dialogue index
       if (dialogueIndex.value < (currentScene.value?.dialogues.length ?? 0) - 1) {
         dialogueIndex.value++
-      } else if (!currentScene.value?.choices || currentScene.value.choices.length === 0 || currentScene.value.is_ending) {
-        // No more dialogues - this is an ending (no choices or server-marked ending)
-        status.value = 'ending'
+      } else {
+        // At or past last dialogue - check server's is_ending flag
+        // Also check local scene state as fallback
+        const isEnding = session.is_ending ||
+                          !currentScene.value?.choices ||
+                          currentScene.value.choices.length === 0 ||
+                          currentScene.value.is_ending
+        if (isEnding) {
+          status.value = 'ending'
+        }
+        // If has choices and not ending, stay on last dialogue (user must select choice)
       }
     } catch (e) {
       error.value = e instanceof Error ? e.message : 'Failed to advance dialogue'
