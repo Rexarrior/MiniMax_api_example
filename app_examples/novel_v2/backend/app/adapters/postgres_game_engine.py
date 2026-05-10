@@ -137,7 +137,7 @@ class PostgresGameEngine(GameEngine):
             for d in scene_data.dialogues
         ]
         model.next_scene_id = scene_data.next_scene_id
-        model.updated_at = datetime.now(UTC)
+        model.updated_at = datetime.now(UTC).replace(tzinfo=None)
 
         updated = await self.session_repo.update(model)
         return self._model_to_session(updated)
@@ -149,13 +149,13 @@ class PostgresGameEngine(GameEngine):
 
         logger.info(f"[PG_advance] session_id={session_id}, BEFORE: dialogue_index={model.dialogue_index}, len(dialogues)={len(model.dialogues_json)}, next_scene={model.next_scene_id}")
 
-        model.dialogue_index += 1
+        # Check if we're at or past the last dialogue BEFORE incrementing
+        at_last_dialogue = model.dialogue_index >= len(model.dialogues_json) - 1
 
-        logger.info(f"[PG_advance] session_id={session_id}, AFTER INDEX INC: dialogue_index={model.dialogue_index}")
-
-        if model.dialogue_index >= len(model.dialogues_json):
-            logger.info(f"[PG_advance] session_id={session_id}, REACHED END OF DIALOGUES")
+        if at_last_dialogue:
+            # At or past last dialogue - check what to do next
             if model.next_scene_id:
+                # Transition to next scene
                 logger.info(f"[PG_advance] session_id={session_id}, LOADING NEXT SCENE: {model.next_scene_id}")
                 scene_data = await self.scene_adapter.load_scene(
                     model.story_id, model.next_scene_id, language=model.language
@@ -188,11 +188,17 @@ class PostgresGameEngine(GameEngine):
                 ]
                 model.next_scene_id = scene_data.next_scene_id
             elif not model.choices_json:
-                # Keep dialogue_index at last valid position
+                # No next scene and no choices - this is an ending
                 model.dialogue_index = len(model.dialogues_json) - 1
                 model.is_ending = True
+            # else: has choices but no next_scene_id - stay at last valid index (don't increment further)
+        else:
+            # Normal case - advance to next dialogue
+            model.dialogue_index += 1
 
-        model.updated_at = datetime.now(UTC)
+        logger.info(f"[PG_advance] session_id={session_id}, AFTER: dialogue_index={model.dialogue_index}")
+
+        model.updated_at = datetime.now(UTC).replace(tzinfo=None)
         updated = await self.session_repo.update(model)
         return self._model_to_session(updated)
 
